@@ -1,0 +1,144 @@
+﻿<UserControl x:Class="PDTUtils.Views.GeneralSettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:toolkit="http://schemas.microsoft.com/wpf/2008/toolkit"
+             mc:Ignorable="d"
+             d:DesignHeight="700"
+             d:DesignWidth="1800">
+
+    <UserControl.Resources>
+        <Style x:Key="StdLabel" TargetType="Label">
+            <Setter Property="Control.Width" Value="335"/>
+            <Setter Property="Control.FontSize" Value="36"/>
+            <Setter Property="Control.VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Control.HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Control.Margin" Value="10"/>
+            <Setter Property="Control.Foreground" Value="White"/>
+        </Style>
+        
+        <Style x:Key="StdLabelWide" TargetType="Label">
+            <Setter Property="Control.Width" Value="475"/>
+            <Setter Property="Control.FontSize" Value="36"/>
+            <Setter Property="Control.VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Control.HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Control.Margin" Value="10"/>
+            <Setter Property="Control.Foreground" Value="White"/>
+        </Style>
+            
+        <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="25">
+            <!-- TODO RE-INSTATE THIS. 
+            
+                <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
+                <Button Content="Hopper" Height="75" Width="75" Margin="0,10,0,10" FontSize="20" Command="{Binding SetHandPayState}"
+                        CommandParameter="hopper"/>
+                <Border CornerRadius="8" Background="SlateGray" BorderBrush="SlateBlue" Margin="5" BorderThickness="4">
+                    <Label Style="{StaticResource StdLabel}">Hand Pay State</Label>
+                </Border>
+                <StackPanel>
+                    <Button Height="35" Width="75"  Margin="0,10,100,10" FontSize="16" Command="{Binding SetHandPayState}"
+                            CommandParameter="printer">Printer</Button>
+                    <Button Height="35" Width="75"  Margin="0,0,100,10" FontSize="16" Command="{Binding SetHandPayState}"
+							CommandParameter="combined">Combined</Button>
+                </StackPanel>
+
+                <Border CornerRadius="8" Background="SlateGray" BorderBrush="SlateBlue" Margin="5" BorderThickness="4">
+                    <Label Style="{StaticResource StdLabelWide}" Content="{Binding HandPayStateMsg}"/>
+                </Border>
+            </StackPanel> -->
+            
+            <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
+                <RepeatButton Height="75" Margin="0,10,0,10" Delay="500" 
+                              Command="{Binding ChangeHandPayThreshold}" CommandParameter="increment">
+                    <StackPanel>
+                        <Image Source="D:/1525/bmp/up.png" Height="65" Width="65" />
+                    </StackPanel>
+                </RepeatButton>
+                <Border CornerRadius="8" Background="SlateGray" BorderBrush="SlateBlue" Margin="5" BorderThickness="4">
+                    <Label Style="{StaticResource StdLabel}">Hand Pay Level</Label>
+                </Border>
+                <RepeatButton Height="75" Margin="0,10,100,10" Delay="500" 
+                              Command="{Binding ChangeHandPayThreshold}" CommandParameter="decrement">
+                    <StackPanel>
+                        <Image Source="D:/1525/bmp/down.png" Height="65" Width="65" />
+                    </StackPanel>
+                </RepeatButton>
+
+                <Border CornerRadius="8" Background="SlateGray" BorderBrush="SlateBlue" Margin="5" BorderThickness="4">
+                    <Label Style="{StaticResource StdLabelWide}" Content="{Binding Mode=OneWay, Path=HandPayLevel, 
+                        UpdateSourceTrigger=PropertyChanged}"/>
+                </Border>
+            </StackPanel>
+
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10" IsEnabled="{Binding IsBritish}"
+                        Visibility="{Binding IsBritish, Converter={StaticResource BoolToVisConverter}}">
+                <Button Height="75" Width="70"  Margin="0,10,0,10" FontSize="30"
+						Command="{Binding SetRtp}"
+						CommandParameter="up">+</Button>
+                <Border CornerRadius="10" Background="SlateGray" BorderBrush="SlateBlue" Margin="5" BorderThickness="4">
+                    <Label Style="{StaticResource StdLabel}">GAME RTP</Label>
+                </Border>
+                <Button Height="75" Width="70"  Margin="0,10,100,10" FontSize="30" Command="{Binding SetRtp}"
+						CommandParameter="down">-</Button>
+
+                <Border CornerRadius="10" Background="SlateGray" BorderBrush="SlateBlue" Margin="5" BorderThickness="4">
+                    <Label Style="{StaticResource StdLabelWide}" Content="{Binding RtpMessage}"/>
+                </Border>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                <Button Height="75" Width="70"  Margin="0,10,0,10" FontSize="20" IsEnabled="{Binding TiToEnabled}"
+                    Command="{Binding TitoUpdate}">Update</Button>
+                <Border CornerRadius="10" Background="SlateGray" BorderBrush="SlateBlue" Margin="5" BorderThickness="4">
+                    <Label Style="{StaticResource StdLabel}" Content="Terminal Asset NO:" />
+                </Border>
+                <StackPanel>
+                    <Button Height="35" Width="70"  Margin="0,10,100,10" FontSize="18"
+							Command="{Binding TiToState}" CommandParameter="enabled">Enable</Button>
+                    <Button Height="35" Width="70"  Margin="0,0,100,10" FontSize="18"
+							Command="{Binding TiToState}" CommandParameter="disabled">Disable</Button>
+                </StackPanel>
+
+                <Border CornerRadius="10" Background="SlateGray" BorderThickness="4"  BorderBrush="SlateBlue" Margin="5">
+                    <Label Style="{StaticResource StdLabelWide}" Content="{Binding TerminalAssetMsg}"/>
+                </Border>
+            </StackPanel>
+            
+            
+<!-- 
+            <Border IsEnabled="{Binding RebootRequired}" CornerRadius="10" Width="500" Background="SlateGray" 
+                    BorderBrush="SlateBlue" Margin="5" BorderThickness="4">
+                <Label Style="{StaticResource StdLabel}">REBOOT REQUIRED</Label>
+            </Border> -->
+
+            <!-- <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                <Button Height="75" Width="70"  Margin="0,10,0,10" FontSize="20"
+						IsEnabled="{Binding UseReserveEnabled}"
+                        Command="{Binding UseReserve}"
+						CommandParameter="Enable">Enable</Button>
+                
+                <Border CornerRadius="10" Background="Navy" BorderBrush="Yellow" Margin="5" BorderThickness="4">
+                    <Label Style="{StaticResource StdLabel}" Content="Reserve Stake Fill" />
+                </Border>
+                <Button Height="75" Width="70"  Margin="0,10,100,10" FontSize="20"
+						IsEnabled="{Binding UseReseverEnabled}"
+                        Command="{Binding UseReserve}"
+						CommandParameter="Disable">Disable</Button>
+                
+
+                <Border CornerRadius="10" Background="Navy" BorderBrush="Yellow" Margin="5" BorderThickness="4">
+                    <Label Style="{StaticResource StdLabelWide}" Content="{Binding UseReserveStakeMsg}" />
+                </Border>
+            </StackPanel> -->
+            
+        </StackPanel>
+        
+        <!-- Left Main StackPanel -->
+    </Grid>
+</UserControl>

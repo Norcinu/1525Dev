@@ -1,0 +1,554 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B2A85817-6C79-45B9-98D5-E645D0BE0F50}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PDTUtils</RootNamespace>
+    <AssemblyName>1525L29U020D</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>http://localhost/1427L27U010D/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Y:\1525\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Y:\1525\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>PDTUtils.App</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\Icon1.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GalaSoft.MvvmLight, Version=3.0.0.20008, Culture=neutral, PublicKeyToken=3e875cdb3903c512, processorArchitecture=MSIL" />
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=3.0.0.20002, Culture=neutral, PublicKeyToken=48c5515dce1bf64d, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="PresentationBuildTasks" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Windows.Controls.DataVisualization.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WPF Toolkit\v3.5.50211.1\System.Windows.Controls.DataVisualization.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WPF Toolkit\v3.5.50211.1\WPFToolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Access\GlobalAccess.cs" />
+    <Compile Include="ApplicationWindow.xaml.cs">
+      <DependentUpon>ApplicationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CommandBehaviours\CommandBehavior.cs" />
+    <Compile Include="CommandBehaviours\CommandBehaviorBinding.cs" />
+    <Compile Include="CommandBehaviours\EventHandlerGenerator.cs" />
+    <Compile Include="BirthCertSettingsWindow.xaml.cs">
+      <DependentUpon>BirthCertSettingsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomCharting\StevesPie.cs" />
+    <Compile Include="LoadingWindow.xaml.cs">
+      <DependentUpon>LoadingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logic\AutoClosingMessageBox.cs" />
+    <Compile Include="Logic\DelegateCommand.cs" />
+    <Compile Include="Logic\GlobalConfig.cs" />
+    <Compile Include="Logic\IniFile.cs" />
+    <Compile Include="Logic\IniFileUtility.cs" />
+    <Compile Include="Logic\TouchScreenKeyboard.cs" />
+    <Compile Include="Logic\MachineDescription.cs" />
+    <Compile Include="Logic\TouchScreenNumPad.cs" />
+    <Compile Include="Logic\WarningDialog.cs" />
+    <Compile Include="MVVM\ApplicationViewModel.cs" />
+    <Compile Include="MVVM\BaseViewModel.cs" />
+    <Compile Include="MVVM\CabinetSwitchStates.cs" />
+    <Compile Include="MVVM\IMessageBoxService.cs" />
+    <Compile Include="MVVM\Models\AuditModels.cs" />
+    <Compile Include="MVVM\Models\BirthCertModel.cs" />
+    <Compile Include="MVVM\Models\CashReconiliation.cs" />
+    <Compile Include="MVVM\Models\CreditModel.cs" />
+    <Compile Include="MVVM\Models\DiagnosticModel.cs" />
+    <Compile Include="MVVM\Models\GameSelectionModel.cs" />
+    <Compile Include="MVVM\Models\GameSettingModel.cs" />
+    <Compile Include="MVVM\Models\HopperModel.cs" />
+    <Compile Include="MVVM\Models\RegionalSettingsModel.cs" />
+    <Compile Include="MVVM\Models\ScreenshotModel.cs" />
+    <Compile Include="MVVM\ObservableObject.cs" />
+    <Compile Include="MVVM\ViewModels\AdminViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\AuditViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\BirthCertViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\CashierViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\CashMatchViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\CollectorViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\CpuCaseOpenViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\CreditManagementViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\DefaultViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\DiagnosticViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\EngineerViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\GameChartViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\GeneralSettingsViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\HopperViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\LastCollectLogViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\MachineBettingViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\MainPageViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\GameSettingViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\NetworkSettingsViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\NoteAdminViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\PerformanceViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\RegionalSettingsViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\RouletteBettingViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\ScreenshotViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\SmartCardLogViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\UsbFileUploaderViewModel.cs" />
+    <Compile Include="Views\AdminView.xaml.cs">
+      <DependentUpon>AdminView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AuditView.xaml.cs">
+      <DependentUpon>AuditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CashierView.xaml.cs">
+      <DependentUpon>CashierView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CashMatchView.xaml.cs">
+      <DependentUpon>CashMatchView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CollectorView.xaml.cs">
+      <DependentUpon>CollectorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CpuCaseOpenLog.xaml.cs">
+      <DependentUpon>CpuCaseOpenLog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DefaultView.xaml.cs">
+      <DependentUpon>DefaultView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EngineerView.xaml.cs">
+      <DependentUpon>EngineerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HopperTestView.xaml.cs">
+      <DependentUpon>HopperTestView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LastCollectLogView.xaml.cs">
+      <DependentUpon>LastCollectLogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MachineBettingView.xaml.cs">
+      <DependentUpon>MachineBettingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NoCardView.xaml.cs">
+      <DependentUpon>NoCardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RouletteBettingView.xaml.cs">
+      <DependentUpon>RouletteBettingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\WPFMessageBoxService.cs" />
+    <Compile Include="Properties\Categories.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Categories.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Logic\CommitChanges.cs" />
+    <Compile Include="Logic\Converters.cs" />
+    <Compile Include="Logic\Extension.cs" />
+    <Compile Include="Impls\Impls.cs" />
+    <Compile Include="HopperUtilsWindow.xaml.cs">
+      <DependentUpon>HopperUtilsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logic\GamesList.cs" />
+    <Compile Include="Logic\Logging.cs" />
+    <Compile Include="Logic\RegionalSettings.cs" />
+    <Compile Include="Logic\ServiceEnabler.cs" />
+    <Compile Include="Logic\MachineMeters.cs" />
+    <Compile Include="BoLibNative\NativeWinApi.cs" />
+    <Compile Include="BoLibNative\NativeMD5.cs" />
+    <Compile Include="ScreenshotWindow.xaml.cs">
+      <DependentUpon>ScreenshotWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CommandBehaviours\SimpleCommand.cs" />
+    <Compile Include="TestSuiteWindow.xaml.cs">
+      <DependentUpon>TestSuiteWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BirthCertView.xaml.cs">
+      <DependentUpon>BirthCertView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreditManagementView.xaml.cs">
+      <DependentUpon>CreditManagementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DiagnosticsView.xaml.cs">
+      <DependentUpon>DiagnosticsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GameChartView.xaml.cs">
+      <DependentUpon>GameChartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GeneralSettingsView.xaml.cs">
+      <DependentUpon>GeneralSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HopperAdminView.xaml.cs">
+      <DependentUpon>HopperAdminView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainPageView.xaml.cs">
+      <DependentUpon>MainPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GameSettingsView.xaml.cs">
+      <DependentUpon>GameSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NetworkSettingsView.xaml.cs">
+      <DependentUpon>NetworkSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NoteAdminView.xaml.cs">
+      <DependentUpon>NoteAdminView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PerformanceView.xaml.cs">
+      <DependentUpon>PerformanceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RegionalSettingsView.xaml.cs">
+      <DependentUpon>RegionalSettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ScreenshotView.xaml.cs">
+      <DependentUpon>ScreenshotView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SmartCardLogView.xaml.cs">
+      <DependentUpon>SmartCardLogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestSuiteView.xaml.cs">
+      <DependentUpon>TestSuiteView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UsbFileUploaderView.xaml.cs">
+      <DependentUpon>UsbFileUploaderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UsbSoftwareUpdateView.xaml.cs">
+      <DependentUpon>UsbSoftwareUpdateView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="ApplicationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BirthCertSettingsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="IniSettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HopperUtilsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoadingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BoLibNative\NativeBoLib.cs" />
+    <Compile Include="IniSettingsWindow.xaml.cs">
+      <DependentUpon>IniSettingsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logic\DoorAndKeyStatus.cs" />
+    <Compile Include="Logic\LogfileModels.cs" />
+    <Compile Include="Logic\FileHashing.cs" />
+    <Compile Include="Logic\MachineGameStatistics.cs" />
+    <Compile Include="Logic\MachineInfo.cs" />
+    <Compile Include="Logic\MachineIni.cs" />
+    <Compile Include="Logic\SoftwareUpdate.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="ScreenshotWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TestSuiteWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AdminView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AuditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BirthCertView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CashierView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CashMatchView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CollectorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CpuCaseOpenLog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CreditManagementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DefaultView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DiagnosticsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EngineerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GameChartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GeneralSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HopperAdminView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HopperTestView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LastCollectLogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MachineBettingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GameSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NetworkSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NoCardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NoteAdminView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PerformanceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RegionalSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RouletteBettingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ScreenshotView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SmartCardLogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TestSuiteView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UsbFileUploaderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UsbSoftwareUpdateView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Partial UI Methods\MainWindowMethods.xaml.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Categories.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Categories.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <Compile Include="Logic\SmartCardStringNames.cs" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\volume.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\util.wav" />
+    <None Include="Resources\start.wav" />
+    <None Include="Resources\return.wav" />
+    <None Include="Resources\reset.wav" />
+    <None Include="Resources\paytrans.wav" />
+    <None Include="Resources\exit.wav" />
+    <None Include="Resources\attention.wav" />
+    <None Include="Resources\alarm.wav" />
+    <None Include="Resources\util_exit.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\util_click.WAV" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PDTUtilsControlLib\PDTUtilsControlLib.csproj">
+      <Project>{43D33559-0084-4250-AE6D-E38753097A57}</Project>
+      <Name>PDTUtilsControlLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icon1.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <SplashScreen Include="Splash\splash.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if "$(ConfigurationName)" == "Release" (
+python $(SolutionDir)PythonUtils\RenameRelease.py
+copy Y:\1525\1525L29U020R.exe Y:\1525\1525L29U020R_Copy.exe
+C:\Tool_MD5_Append -s=Y:\1525\1525L29U020R_Copy.exe   -d=Y:\1525\1525L29U020R.exe &gt;CRCLog.txt
+goto :finished
+)
+
+if "Debug" == "$(ConfigurationName)" (
+copy Y:\1525\1525L29U020D.exe Y:\1525\1525L29U020D_Copy.exe
+C:\Tool_MD5_Append -s=Y:\1525\1525L29U020D_Copy.exe -d=Y:\1525\1525L29U020D.exe &gt;CRCLog.txt
+)
+
+:finished
+</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

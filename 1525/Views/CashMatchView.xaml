@@ -1,0 +1,194 @@
+﻿<UserControl x:Class="PDTUtils.Views.CashMatchView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mvvm="clr-namespace:PDTUtils.MVVM.ViewModels"
+             xmlns:logic="clr-namespace:PDTUtils.Logic"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <UserControl.DataContext>
+        <mvvm:CashMatchViewModel />
+    </UserControl.DataContext>
+    
+    <UserControl.Resources>
+        <Style x:Key="LabelHeader" TargetType="Label">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="Width" Value="400" />
+            <Setter Property="Height" Value="110" />
+        </Style>
+
+        <Style x:Key="TxtBoxHeader" TargetType="TextBox">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="32" />
+            <Setter Property="Width" Value="400" />
+            <Setter Property="Height" Value="110" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+        
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Margin" Value="5"/>
+            
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource NuclearButtonFocusVisual}" />
+            <Setter Property="Foreground" Value="#FF042271" />
+            <Setter Property="FontFamily" Value="Trebuchet MS" />
+            <Setter Property="Padding" Value="3" />
+            <Setter Property="Template" Value="{DynamicResource ButtonTemplate}" />
+            <Setter Property="IsEnabled" Value="True"/>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid>
+        <TabControl>
+            <TabItem Header="Cash Match" Width="150">
+                <StackPanel Margin="10" HorizontalAlignment="Stretch"  Background="DarkGray">
+                    <Label Content="Configure Cash Match" Style="{StaticResource LabelHeader}" FontSize="36" Width="480"/>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="Enable Cash Match" FontSize="28" Style="{StaticResource LabelHeader}"/>
+
+                        <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Background="DarkGray">
+                            <CheckBox Margin="8" Command="{Binding ToggleCashMatch}" IsChecked="{Binding CashMatchActive, Mode=TwoWay, 
+                                                                                                 UpdateSourceTrigger=Explicit}">
+                                <CheckBox.LayoutTransform>
+                                    <ScaleTransform ScaleX="2" ScaleY="2" />
+                                </CheckBox.LayoutTransform>
+                            </CheckBox>
+                        </StackPanel>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="{Binding VisualMaximumEvents}" ContentStringFormat="Maximum Events: {0}" FontSize="28"  
+                       Style="{StaticResource LabelHeader}"/>
+
+
+                        <StackPanel Margin="10">
+                            <Button Content="+" Style="{StaticResource ButtonStyle}" Command="{Binding EditMaxEvents}" CommandParameter="increase"/>
+                            <Button Content="-" Style="{StaticResource ButtonStyle}" Command="{Binding EditMaxEvents}" CommandParameter="decrease"/>
+                        </StackPanel>
+                    </StackPanel>
+
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="{Binding VisualMaxSpendPerDay}" ContentStringFormat="Daily Max Event Spend: {0}" FontSize="28"  
+                               Style="{StaticResource LabelHeader}"/>
+
+
+                        <StackPanel Margin="10">
+                            <Button Content="+" Style="{StaticResource ButtonStyle}" Command="{Binding EditDailyMaxSpend}" CommandParameter="increase"/>
+                            <Button Content="-" Style="{StaticResource ButtonStyle}" Command="{Binding EditDailyMaxSpend}" CommandParameter="decrease"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                </StackPanel>
+            </TabItem>
+            
+            <TabItem Header="Demo Games" Width="150">
+                <StackPanel Margin="10" HorizontalAlignment="Stretch"  Background="DarkGray">
+                    <Label Content="Configure Demo Games" Style="{StaticResource LabelHeader}" FontSize="36" Width="480"/>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="Enable Demo Events" FontSize="28" Style="{StaticResource LabelHeader}"/>
+
+                        <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Background="DarkGray">
+                            <CheckBox Margin="8" Command="{Binding ToggleDemoEvents}" IsChecked="{Binding DemoEventsActive, Mode=TwoWay, 
+                                                                                                 UpdateSourceTrigger=Explicit}">
+                                <CheckBox.LayoutTransform>
+                                    <ScaleTransform ScaleX="2" ScaleY="2" />
+                                </CheckBox.LayoutTransform>
+                            </CheckBox>
+                        </StackPanel>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+        
+                        <Label Content="{Binding DemoEventsPerDay}" ContentStringFormat="Max Demos Per Day: {0}" FontSize="28" 
+                               Style="{StaticResource LabelHeader}"/>
+                        
+                        <StackPanel Margin="10">
+                            <Button Content="+" Style="{StaticResource ButtonStyle}" Command="{Binding EditDemoEvents}" CommandParameter="increase"/>
+                            <Button Content="-" Style="{StaticResource ButtonStyle}" Command="{Binding EditDemoEvents}" CommandParameter="decrease"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <!-- <Label Content="Loyalty Payback" FontSize="28" Height="60" Margin="10"/> -->
+                        <Label Content="{Binding DemoEventsNumOfGames}" ContentStringFormat="Plays Per Demo Event: £{0}" FontSize="28" 
+                               Style="{StaticResource LabelHeader}"/>
+                        
+                        <StackPanel Margin="10">
+                            <Button Content="+" Style="{StaticResource ButtonStyle}" Command="{Binding EditDemoPlays}" CommandParameter="increase"/>
+                            <Button Content="-" Style="{StaticResource ButtonStyle}" Command="{Binding EditDemoPlays}" CommandParameter="decrease"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    
+                </StackPanel>
+                
+            </TabItem>
+
+            <TabItem Header="Loyalty" Width="150">
+                
+                <StackPanel Margin="10" HorizontalAlignment="Stretch"  Background="DarkGray">
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="Enable Loyalty" FontSize="28" Style="{StaticResource LabelHeader}"/>
+
+                        <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Background="DarkGray">
+                            <CheckBox Margin="8" Command="{Binding ToggleLoyalty}" IsChecked="{Binding LoyaltyActive, Mode=TwoWay, 
+                                                                                               UpdateSourceTrigger=Explicit}">
+                                <CheckBox.LayoutTransform>
+                                    <ScaleTransform ScaleX="2" ScaleY="2" />
+                                </CheckBox.LayoutTransform>
+                            </CheckBox>
+                        </StackPanel>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <!-- <Label Content="Loyalty Payback" FontSize="28" Height="60" Margin="10"/> -->
+                        <Label Content="{Binding LoyaltyPayback}" ContentStringFormat="Loyalty Payback: {0}%" FontSize="28" 
+                               Style="{StaticResource LabelHeader}"/>
+                        
+                        <StackPanel Margin="10">
+                            <Button Content="+" Style="{StaticResource ButtonStyle}" Command="{Binding EditLoyalty}" CommandParameter="increase"/>
+                            <Button Content="-" Style="{StaticResource ButtonStyle}" Command="{Binding EditLoyalty}" CommandParameter="decrease"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                </StackPanel>
+            </TabItem>
+            
+            <TabItem Header="Misc Settings" Width="150">
+
+                <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Top" Background="DarkGray">
+                    <Border BorderBrush="Black" BorderThickness="2">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Enter 6 Digit Site Code" Style="{StaticResource LabelHeader}" FontSize="32"/>
+                                <TextBox Style="{StaticResource TxtBoxHeader}" Text="{Binding SiteCode, Mode=TwoWay}" TextChanged="TextBox_TextChanged"
+                                         logic:TouchScreenKeyboard.TouchScreenKeyboard="True"/>
+                            </StackPanel>
+
+                            <Button Content="Save" Style="{StaticResource ButtonStyle}" Command="{Binding Save}" Width="125" Height="50" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

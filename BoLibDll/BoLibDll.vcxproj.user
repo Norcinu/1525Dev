@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LocalDebuggerCommand>
+    </LocalDebuggerCommand>
+    <DebuggerFlavor>WindowsRemoteDebugger</DebuggerFlavor>
+    <LocalDebuggerAttach>false</LocalDebuggerAttach>
+    <LocalDebuggerWorkingDirectory>D:\1427</LocalDebuggerWorkingDirectory>
+    <RemoteDebuggerWorkingDirectory>$(ProjectDir)</RemoteDebuggerWorkingDirectory>
+    <RemoteDebuggerServerName>Steven@169.254.1.9:4015</RemoteDebuggerServerName>
+    <RemoteDebuggerAttach>true</RemoteDebuggerAttach>
+  </PropertyGroup>
+</Project>

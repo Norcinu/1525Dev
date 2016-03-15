@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="MD5">
+      <UniqueIdentifier>{70619db5-ff5d-418c-a355-aa4e82c6cf7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BoLibHeaders">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="BoLibSource">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="SoundLib">
+      <UniqueIdentifier>{69835d56-fe28-4671-8b24-219efb773881}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BoLibGetValues.h">
+      <Filter>BoLibHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="BoLibSetValues.h">
+      <Filter>BoLibHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="BoLibGeneral.h">
+      <Filter>BoLibHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="MD5.h">
+      <Filter>MD5</Filter>
+    </ClInclude>
+    <ClInclude Include="BoLibHandPay.h">
+      <Filter>BoLibHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="General.h">
+      <Filter>BoLibHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="BoLibTito.h">
+      <Filter>BoLibHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundEngine\AudioManager.h">
+      <Filter>SoundLib</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundEngine\AudioSample.h">
+      <Filter>SoundLib</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundEngine\Defines.h">
+      <Filter>SoundLib</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundEngine\NonCopyable.h">
+      <Filter>SoundLib</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundEngine\Singleton.h">
+      <Filter>SoundLib</Filter>
+    </ClInclude>
+    <ClInclude Include="BoLibCashMatch.h">
+      <Filter>BoLibHeaders</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BoLibGetValues.cpp">
+      <Filter>BoLibSource</Filter>
+    </ClCompile>
+    <ClCompile Include="BoLibSetValues.cpp">
+      <Filter>BoLibSource</Filter>
+    </ClCompile>
+    <ClCompile Include="BoLibGeneral.cpp">
+      <Filter>BoLibSource</Filter>
+    </ClCompile>
+    <ClCompile Include="MD5.cpp">
+      <Filter>MD5</Filter>
+    </ClCompile>
+    <ClCompile Include="BoLibHandPay.cpp">
+      <Filter>BoLibSource</Filter>
+    </ClCompile>
+    <ClCompile Include="BoLibTito.cpp">
+      <Filter>BoLibSource</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundEngine\AudioManager.cpp">
+      <Filter>SoundLib</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundEngine\AudioSample.cpp">
+      <Filter>SoundLib</Filter>
+    </ClCompile>
+    <ClCompile Include="BoLibCashMatch.cpp">
+      <Filter>BoLibSource</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

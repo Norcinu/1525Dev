@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="PDTUtils.Views.RouletteBettingView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
+             xmlns:logic="clr-namespace:PDTUtils.Logic"
+             d:DesignHeight="1000" d:DesignWidth="768">
+    
+    <!-- <UserControl.DataContext>
+        <mvvm:RouletteBettingViewModel />
+    </UserControl.DataContext> -->
+    
+    <UserControl.Resources>
+        <Style x:Key="StdLabel" TargetType="Label">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <!-- <Setter Property="Margin" Value="10"/> -->
+            <Setter Property="Foreground" Value="Red"/>
+            <Setter Property="Background" Value="DarkBlue"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <!-- <Setter Property="MinWidth" Value="180"/> -->
+            <Setter Property="Width" Value="175"/>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Background="LightGray">
+
+            <Border BorderBrush="Black" BorderThickness="2">
+                <StackPanel>
+                    <Label Content="Select bet to edit." HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                           Height="100" Width="Auto" FontSize="42" Margin="10"/>
+                    <StackPanel Orientation="Horizontal">
+                        <ListView ItemsSource="{Binding BetInfo}" SelectedIndex="{Binding SelectedIndex}" Margin="10" Width="600">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Bet" Width="200">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Background="LightGray" BorderBrush="Black" BorderThickness="2"
+                                           FontSize="20" Content="{Binding Key}" Style="{StaticResource StdLabel}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Min (¢)" Width="200">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label  Background="LightGray" BorderBrush="Black" BorderThickness="2"
+                                            FontSize="20" Content="{Binding Value.First}" Style="{StaticResource StdLabel}"/>
+                                            </DataTemplate>
+                                            <!-- Margin="10,2,10,2" -->
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+
+                                    <GridViewColumn Header="Max (¢)" Width="200">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Label Background="LightGray" BorderBrush="Black" BorderThickness="2"
+                                           FontSize="20" Content="{Binding Value.Second}" Style="{StaticResource StdLabel}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+
+                        <StackPanel Width="200" Margin="10">
+                            <Label ContentStringFormat="Edit Settings: {0}" Content="{Binding SelectedName}" Margin="10"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Min: ¢"  Margin="10" FontSize="18" Width="55" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding SelectedMin, UpdateSourceTrigger=PropertyChanged}" Width="110" 
+                                 HorizontalContentAlignment="Center" FontSize="18" 
+                                 Margin="10" BorderBrush="Black" BorderThickness="2"
+                                 logic:TouchScreenKeyboard.TouchScreenKeyboard="True" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Max: ¢" Margin="10" FontSize="18" Width="55" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding SelectedMax, UpdateSourceTrigger=PropertyChanged}"  Width="110"
+                                 HorizontalContentAlignment="Center" FontSize="18" 
+                                 Margin="10" BorderBrush="Black" BorderThickness="2" VerticalAlignment="Center"
+                                 logic:TouchScreenKeyboard.TouchScreenKeyboard="True" />
+                                <!-- mode=twoway -->
+                            </StackPanel>
+                            <Button Content="Save" Command="{Binding SaveSettings}" Margin="10" Height="35" FontSize="28"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Grid>
+</UserControl>

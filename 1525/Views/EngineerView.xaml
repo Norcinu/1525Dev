@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="PDTUtils.Views.EngineerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:PDTUtils.MVVM.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type vm:EngineerViewModel}" />
+    </UserControl.Resources>
+    <Grid>
+        <TabControl>
+            <TabItem Header="System Log" Width="200"></TabItem>
+            <TabItem Header="Functional Tests" Width="200"></TabItem>
+            <TabItem Header="Diagnostics"></TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

@@ -1,0 +1,77 @@
+﻿<Window x:Class="PDTUtils.Logic.HopperUtilsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="HopperUtilsWindow" Height="600" Width="800" HorizontalAlignment="Center" VerticalAlignment="Center" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" ResizeMode="NoResize">
+    <Grid>
+        <StackPanel Name="StackPanel1"></StackPanel> 
+        <TabControl Height="541" VerticalAlignment="Top" Margin="9,8,9,0" Name="TabHoppers" FontSize="18">
+            <TabItem Header="Set Hopper Float" MinWidth="100" IsEnabled="{Binding Path=DoorStatus}" ToolTipService.ShowOnDisabled="True" ToolTip="Only available in Door Open Mode">
+                <DockPanel Height="Auto" Name="DockPanel2" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsEnabled="{Binding Path=DoorStatus}">
+                    <Grid DockPanel.Dock="Left" Margin="0,25,15,0">
+                        <Grid.RowDefinitions>
+                            <!--<RowDefinition Height="50" />-->
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="61" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label FontSize="32" Foreground="Red" FontWeight="Bold" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Width="Auto" VerticalAlignment="Stretch" Content="£1 Hopper" />
+                        <Label Content="£0.00" FontSize="72" Grid.Row="1" FontWeight="Bold" Grid.Column="0" HorizontalAlignment="Center" Name="LblLeftHopperValue" VerticalAlignment="Center">
+                            <Label.Foreground>
+                                <RadialGradientBrush>
+                                    <GradientStop Color="#FF82CF9D" Offset="0" />
+                                    <GradientStop Color="#FF057A49" Offset="1" />
+                                </RadialGradientBrush>
+                            </Label.Foreground>
+                        </Label>
+                        <Button Content="Set Float" FontSize="22" Grid.Row="2" Grid.Column="0" Width="284" Name="BtnSetLeft" Click="btnSetLeft_Click" Margin="10,6,6,6" Height="49" />
+
+                        <Label Content="10p Hopper" FontSize="32" Foreground="Red" Grid.Column="1" FontWeight="Bold" HorizontalAlignment="Center" Width="Auto" Margin="0" Grid.Row="0" Height="54" Grid.ColumnSpan="1" VerticalAlignment="Center">
+                            <Label.Background>
+                                <SolidColorBrush />
+                            </Label.Background>
+                        </Label>
+                        <Label Content="£0.00" FontSize="72" Grid.Row="1" Background="Black" Grid.Column="1" Foreground="Red" FontWeight="Bold" HorizontalAlignment="Center" Name="LblRightHopperValue" BorderThickness="5" Padding="5" Margin="0" Height="Auto" VerticalAlignment="Center" />
+                        <Button Content="Set Float" FontSize="22" Grid.Row="2" Margin="0" Width="284" Grid.Column="1" Name="BtnSetRight" Click="btnSetRight_Click" Height="47" Grid.RowSpan="2" Grid.ColumnSpan="2" />
+                    </Grid>
+                </DockPanel>
+            </TabItem>
+
+            <TabItem Header="Empty Hoppers" MinWidth="100" IsEnabled="{Binding Path=DoorStatus}" ToolTipService.ShowOnDisabled="True" ToolTip="Only available in Door Open Mode">
+                <StackPanel Height="Auto" Name="StackPanel2" Width="Auto" IsEnabled="{Binding Path=DoorStatus}" >
+                        <Grid Margin="0,25,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="55" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="363" />
+                                <ColumnDefinition Width="387" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.ColumnSpan="2"  Name="LblGeneralMsg" FontSize="22" FontWeight="Bold" Foreground="Black" Width="Auto" Height="Auto" Margin="0" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
+                            <Label Foreground="Red" Content="£1 Hopper" FontSize="32" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0" FontWeight="Bold" Width="Auto" />
+                            <Label Foreground="DarkMagenta" FontSize="72" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Width="Auto" Name="EmptyLeftHopValue" FontStretch="Normal" />
+                            <CheckBox Content="Empty" Foreground="DodgerBlue" FontSize="20" IsEnabled="False" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto" Name="ChkEmptyLeft" />
+
+                            <Label Foreground="Red" Content="10p Hopper" FontSize="32" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" FontWeight="Bold" Margin="0" Width="Auto" />
+                            <Label Foreground="DarkMagenta" FontSize="72" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Name="EmptyRightHopValue" Width="Auto" />
+                            <CheckBox Content="Empty" Foreground="DodgerBlue" FontSize="20" IsEnabled="False" VerticalAlignment="Center" Width="Auto" Padding="2,0,0,0" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" Name="ChkEmptyRight" />
+                    </Grid>
+                    <Button Content="Empty Hoppers" VerticalAlignment="Center" HorizontalAlignment="Center" Width="166" FontSize="20" Name="BtnEmptyHoppers" Click="btnEmptyHoppers_Click" Margin="0,10" />
+                </StackPanel>
+            </TabItem>
+            
+            <!-- Dont draw if not visible. boolean visibility convertor, bind it to the same IsDoorClosed property -->
+            <TabItem Header="Refill Hoppers" MinWidth="100" IsEnabled="{Binding Path=IsDoorClosed}" ToolTipService.ShowOnDisabled="True" ToolTip="Only available in Door Closed Mode">
+                <StackPanel>
+                    <Label>Refill Dem Hoppers</Label>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

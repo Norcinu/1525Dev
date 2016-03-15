@@ -1,0 +1,270 @@
+﻿<UserControl x:Class="PDTUtils.Views.AuditView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mvvm="clr-namespace:PDTUtils.MVVM.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <UserControl.DataContext>
+        <mvvm:AuditViewModel/>
+    </UserControl.DataContext>
+    
+    
+    <UserControl.Resources>
+        <Style x:Key="LabelHeader" TargetType="Label">
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="Foreground" Value="Navy" />
+            <!-- <Setter Property="Width" Value="400" />
+            <Setter Property="Height" Value="110" /> -->
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid>
+        <TabControl>
+            <TabItem Header="Demo Events" Width="150">
+                <StackPanel Width="610" Margin="0,20,0,0">
+                    <Label Content="Demonstration Games" Margin="0" Style="{StaticResource LabelHeader}" BorderThickness="2,2,2,0"/>
+                    <!-- <StackPanel Orientation="Horizontal"> -->
+                    <Label ContentStringFormat="Short Term:     {0}" Content="{Binding DemoCountSt}" Style="{StaticResource LabelHeader}" BorderThickness="2,0,2,0" />
+                    <Label ContentStringFormat="Long Term:      {0}" Content="{Binding DemoCountLt}" Style="{StaticResource LabelHeader}" BorderThickness="2,0,2,2" />
+                    <!-- </StackPanel> -->
+                    
+                    <ListView ItemsSource="{Binding DemoCardLog}" Width="610" Margin="0,20,0,0">
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False">
+                                <GridViewColumn Header="Card Number" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Black" BorderThickness="2">
+                                                <TextBlock Text="{Binding CardNumber}" TextAlignment="Center" Foreground="Navy" Background="LightGray"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Date" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Black" BorderThickness="2">
+                                                <TextBlock Text="{Binding Date}" TextAlignment="Center" Foreground="Navy" Background="LightGray"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Time" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Black" BorderThickness="2">
+                                                <TextBlock Text="{Binding Time}" TextAlignment="Center" Foreground="Navy" Background="LightGray"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </TabItem>
+            
+            <TabItem Header="Cash Match" Width="150">
+                <StackPanel HorizontalAlignment="Center">
+                    <ListView ItemsSource="{Binding CashMatchAudit}" Margin="20" Width="840" 
+                              ScrollViewer.VerticalScrollBarVisibility="Visible"
+                              ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                        <!-- <ListView.Resources>
+                            <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">30</sys:Double>
+                        </ListView.Resources> -->
+
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False">
+                                <GridViewColumn Header="Description" Width="266">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Black" BorderThickness="2">
+                                                <TextBlock Text="{Binding Description}" TextAlignment="Center" Foreground="Navy" Background="LightGray"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                
+                                <GridViewColumn Header="Short Term" Width="266">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Black" BorderThickness="2">
+                                                <TextBlock Text="{Binding ShortTerm}" TextAlignment="Center" Foreground="Navy" Background="LightGray" />
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                
+                                <GridViewColumn Header="Long Term" Width="266">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Black" BorderThickness="2">
+                                                <TextBlock Text="{Binding LongTerm}" TextAlignment="Center" Foreground="Navy" Background="LightGray"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    
+                    <ListView ItemsSource="{Binding CashMatchLog}" Height="562" Margin="20" >
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False">
+                                <GridViewColumn Header="Card Number" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Black" BorderThickness="2">
+                                                <TextBlock Text="{Binding CardNumber}" TextAlignment="Center" Foreground="Navy" Background="LightGray"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                
+                                <GridViewColumn Header="Date" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Black" BorderThickness="2">
+                                                <TextBlock Text="{Binding Date}" TextAlignment="Center" Foreground="Navy" Background="LightGray"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                
+                                <GridViewColumn Header="Time" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Black" BorderThickness="2">
+                                                <TextBlock Text="{Binding Time}" TextAlignment="Center" Foreground="Navy" Background="LightGray"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                    
+                                <GridViewColumn Header="Value" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Black" BorderThickness="2">
+                                                <TextBlock Text="{Binding Value, StringFormat={}£{0}}" TextAlignment="Center" Foreground="Navy" Background="LightGray"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </TabItem>
+            
+            <TabItem Header="Loyalty" Width="150">
+                <StackPanel HorizontalAlignment="Center">
+                    <ListView ItemsSource="{Binding LoyaltyAudit}" Margin="20" Width="840" 
+                              ScrollViewer.VerticalScrollBarVisibility="Visible"
+                              ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False">
+                                <GridViewColumn Header="Description" Width="266">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Black" BorderThickness="2">
+                                                <TextBlock Text="{Binding Description}" TextAlignment="Center" Foreground="Navy" Background="LightGray"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+                                <GridViewColumn Header="Short Term" Width="266">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Black" BorderThickness="2">
+                                                <TextBlock Text="{Binding ShortTerm}" TextAlignment="Center" Foreground="Navy" Background="LightGray"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+                                <GridViewColumn Header="Long Term" Width="266">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Black" BorderThickness="2">
+                                                <TextBlock Text="{Binding LongTerm}" TextAlignment="Center" Foreground="Navy" Background="LightGray"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <!-- <ListView ItemsSource="{Binding LoyaltyLog}" Height="665"  Margin="20" >
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False">
+                                <GridViewColumn Header="Card Number" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Black" BorderThickness="2">
+                                                <TextBlock Text="{Binding CardNumber}" TextAlignment="Center" Background="Moccasin" 
+                                                           Foreground="Red"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+                                <GridViewColumn Header="Date" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Black" BorderThickness="2">
+                                                <TextBlock Text="{Binding Date}" TextAlignment="Center" Background="Moccasin" 
+                                                           Foreground="Red"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+                                <GridViewColumn Header="Time" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Black" BorderThickness="2">
+                                                <TextBlock Text="{Binding Time}" TextAlignment="Center" Background="Moccasin" 
+                                                           Foreground="Red"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                
+                                <GridViewColumn Header="Points Awarded" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Black" BorderThickness="2">
+                                                <TextBlock Text="{Binding PointsAwarded}" TextAlignment="Center" 
+                                                           Background="Moccasin" Foreground="Red"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                
+                                <GridViewColumn Header="Points Redeemed" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderBrush="Black" BorderThickness="2">
+                                                <TextBlock Text="{Binding PointsRedeemed}" TextAlignment="Center" 
+                                                           Background="Moccasin" Foreground="Red"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView> -->
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

@@ -1,0 +1,197 @@
+﻿<UserControl x:Class="PDTUtils.Views.HopperAdminView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:c="clr-namespace:PDTUtils"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="755"
+			 x:Name="UcHopperConfig">
+    
+    <!-- IsEnabled="{Binding Enabled}"> -->
+    <UserControl.Resources>
+        <c:BoolToVisibilityConverter x:Key="BoolToVis" />
+        <c:NegateBoolValue x:Key="NegateToVis" />
+        <c:FalseToHiddenConv x:Key="FalseToHidden" />
+        
+        <Style x:Key="StevesLabel" TargetType="Label">
+            <Setter Property="Background" Value="SlateGray" />
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
+        
+        
+        <Style x:Key="MyRepeatButton" TargetType="RepeatButton">
+            <Setter Property="Delay" Value="500"/>
+            <Setter Property="Width" Value="55" />
+            <Setter Property="Height" Value="35" />
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="Margin" Value="10" />
+        </Style>
+    </UserControl.Resources>
+    
+    
+    <Grid>
+        <TabControl FontSize="18" SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}" SelectionChanged="cmbHoppers_SelectionChanged">
+            <TabItem Header="Configure" MinWidth="250">
+                <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Width="550">
+                    
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20"/>
+                    <!-- bit o' spacing -->
+                    <!-- divert values -->
+                    <StackPanel HorizontalAlignment="Center" Background="AliceBlue">
+                        <Label Margin="10">Set Hopper to Cashbox Divert Level</Label>
+                        <StackPanel Orientation="Horizontal">
+                            <RepeatButton Style="{StaticResource MyRepeatButton}" Command="{Binding ChangeLeftDivert}" 
+                                          CommandParameter="decrease" Content="-"/>
+                            <Label Style="{StaticResource StevesLabel}" Width="350" ContentStringFormat="Left Hopper Divert Level: {0}" 
+                                   Content="{Binding DivertLeftMessage}" VerticalContentAlignment="Center" Margin="10" />
+                            <RepeatButton Style="{StaticResource MyRepeatButton}" Command="{Binding ChangeLeftDivert}" 
+                                          CommandParameter="increase" Content="+"/>
+                        </StackPanel>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Background="AliceBlue" Visibility="{Binding IsRightVisible}">
+                        <RepeatButton Style="{StaticResource MyRepeatButton}" Command="{Binding ChangeRightDivert}" 
+                                      CommandParameter="decrease" Content="-"/>
+                        <Label Style="{StaticResource StevesLabel}" Width="350" ContentStringFormat="Right Hopper Divert Level: {0}" 
+                               Content="{Binding DivertRightMessage}" VerticalContentAlignment="Center" Margin="10" />
+                        <RepeatButton Style="{StaticResource MyRepeatButton}" Command="{Binding ChangeRightDivert}" 
+                                      CommandParameter="increase" Content="+"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20"/>
+
+                    <StackPanel HorizontalAlignment="Center" Background="AliceBlue">
+                        <Label Content="Load Defaults" Width="300" Style="{StaticResource StevesLabel}"/>
+                        <Button Margin="5" FontSize="22" Width="100" Height="35" Command="{Binding LoadDefaults}">Defaults</Button>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+
+            
+            <TabItem Header="Empty" MinWidth="250">
+                
+                <StackPanel Margin="25">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        
+                        <!-- Spain option 1 Width="700"-->
+                        <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Background="AliceBlue" 
+                                    Height="650" Orientation="Horizontal" x:Name="stpSpainOne">
+                                               
+                            <Border BorderBrush="Black" BorderThickness="2" Margin="2">
+                                <StackPanel Width="560">
+                                    <Label Style="{StaticResource StevesLabel}" BorderThickness="2,2,2,2" Margin="5,5,5,0" 
+                                           ContentStringFormat="Left Hopper Current Float Level: {0}" Content="{Binding FloatLevelLeft}" 
+                                           Visibility="{Binding IsLeftVisible}" />
+                                    <Label Style="{StaticResource StevesLabel}" BorderThickness="2,0,2,2" Margin="5,0,5,5" 
+                                           ContentStringFormat="Right Hopper Current Float Level: {0}" Content="{Binding FloatLevelRight}" 
+                                           Visibility="{Binding IsRightVisible}" />
+                                    <Label Style="{StaticResource StevesLabel}" BorderThickness="2,0,2,2" Margin="5,0,5,5" Content="{Binding DumpSwitchMessage}"
+                                           Foreground="Yellow" x:Name="txtDumpWarning" /><!--  Foreground="Red"/> -->
+                                        
+                                    
+                                    <Border BorderBrush="Black" BorderThickness="2" Margin="5,40,5,5">
+                                        <StackPanel>
+                                            <Label Style="{StaticResource StevesLabel}" Content="Select Hopper to Empty" />
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <!-- <Button Margin="5" Command="{Binding DoEmptyHopper}" CommandParameter="left" Height="35" 
+                                                    Width="125" FontSize="20" Content="LEFT" />
+                                                <Button Margin="5" Command="{Binding DoEmptyHopper}" CommandParameter="right" Height="35" 
+                                                    Width="125" FontSize="20" Content="RIGHT" Visibility="{Binding IsRightVisible}" /> -->
+                                                <Button Margin="5" Command="{Binding SpanishEmptyOne}" CommandParameter="left" Height="35" 
+                                                    Width="125" FontSize="20" Content="LEFT">
+                                                    <Button.Triggers>
+                                                        <EventTrigger RoutedEvent="Button.Click">
+                                                            <EventTrigger.Actions>
+                                                                <BeginStoryboard>
+                                                                    <Storyboard BeginTime="00:00:00" 
+                                                                        RepeatBehavior="Forever" 
+                                                                        Storyboard.TargetName="txtDumpWarning" 
+                                                                        Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)">
+                                                                        <ColorAnimation From="Yellow" To="Green" Duration="0:0:1"/>
+                                                                    </Storyboard>
+                                                                </BeginStoryboard>
+                                                            </EventTrigger.Actions>
+                                                        </EventTrigger>
+                                                    </Button.Triggers>
+
+                                                </Button>
+                                                <Button Margin="5" Command="{Binding SpanishEmptyOne}" CommandParameter="right" Height="35" 
+                                                    Width="125" FontSize="20" Content="RIGHT" Visibility="{Binding IsRightVisible}" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                    
+                                    <Border BorderBrush="Black" BorderThickness="2" Margin="5,40,5,5">
+                                        <StackPanel>
+                                            <Label Style="{StaticResource StevesLabel}"  Content="Set New Float Level"/>
+
+                                            <!-- Width="550"> -->
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Visibility="{Binding IsLeftVisible}">
+                                                <RepeatButton Style="{StaticResource MyRepeatButton}" FontSize="24" Width="75" Height="35" 
+                                                      Margin="5" Command="{Binding EspChangeRefillAmount}" CommandParameter="left+decrease" 
+                                                      Content="-" />
+                                                <Label FontSize="24" Margin="5" VerticalContentAlignment="Center" Content="{Binding EspLeftHopper}"
+                                                       ContentStringFormat="£1 Float: {0}" Width="200" HorizontalContentAlignment="Center"
+                                                       Style="{StaticResource StevesLabel}"/>
+                                                <RepeatButton Style="{StaticResource MyRepeatButton}" FontSize="24" Width="75" Height="35" 
+                                                              Margin="5" Command="{Binding EspChangeRefillAmount}" CommandParameter="left+increase" 
+                                                              Content="+" />
+                                                
+                                                <Button FontSize="24" Width="135" Height="35" Margin="5" Content="Set Left"
+                                                        Command="{Binding EspHopperRefill}" CommandParameter="left" />
+                                            </StackPanel>
+
+                                            <!-- need to add some labels directing man what to do. -->
+
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Visibility="{Binding IsRightVisible}">
+                                                <RepeatButton Style="{StaticResource MyRepeatButton}" FontSize="24" Width="75" Height="35" 
+                                                              Margin="5" Command="{Binding EspChangeRefillAmount}" CommandParameter="right+decrease" 
+                                                              Content="-" />
+                                                <Label FontSize="24" Margin="5" VerticalContentAlignment="Center" Content="{Binding EspRightHopper}"
+                                                       ContentStringFormat="20p Float: {0}" Width="200" HorizontalContentAlignment="Center" 
+                                                       Style="{StaticResource StevesLabel}"/>
+                                                <RepeatButton Style="{StaticResource MyRepeatButton}" FontSize="24" Width="75" Height="35" 
+                                                              Margin="5" Command="{Binding EspChangeRefillAmount}" CommandParameter="right+increase" 
+                                                              Content="+" />
+                                                <Button FontSize="24" Width="135" Height="35" Margin="5" Content="Set Right"
+                                                Command="{Binding EspHopperRefill}" CommandParameter="right" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                    
+                                    
+                                </StackPanel>
+                                
+                            </Border>
+                        </StackPanel>
+
+                    </StackPanel>
+                    
+                    
+                    <!-- <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="AliceBlue" Width="550">
+                        <Border BorderBrush="Black" BorderThickness="2">
+                            <StackPanel HorizontalAlignment="Center" >< ! - - Orientation="Horizontal" - - >
+                                <Label Style="{StaticResource StevesLabel}" HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                                       Content="Set Hopper Float to Zero"/>
+                                <StackPanel  HorizontalAlignment="Center" Orientation="Horizontal">
+                                    <Button Width="125" Height="35" Margin="10" FontSize="20" HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center" Command="{Binding ZeroHopperFloat}" CommandParameter="left"
+                                            Visibility="{Binding IsLeftVisible}">Left</Button>
+                                    <Button Width="125" Height="35" Margin="10" FontSize="20" HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center" Command="{Binding ZeroHopperFloat}" CommandParameter="right"
+                                            Visibility="{Binding IsRightVisible}">Right</Button>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel> -->
+
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PublishUrlHistory>http://localhost/1427L27U010D/</PublishUrlHistory>
+    <InstallUrlHistory />
+    <SupportUrlHistory />
+    <UpdateUrlHistory />
+    <BootstrapperUrlHistory />
+    <ErrorReportUrlHistory />
+    <FallbackCulture>en-US</FallbackCulture>
+    <VerifyUploadedFiles>true</VerifyUploadedFiles>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <RemoteDebugEnabled>true</RemoteDebugEnabled>
+    <RemoteDebugMachine>STEVETERMINAL01</RemoteDebugMachine>
+    <StartAction>Program</StartAction>
+    <StartProgram>D:\1525\1525L29U020D.exe</StartProgram>
+    <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
+    <StartWorkingDirectory>
+    </StartWorkingDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <StartAction>Program</StartAction>
+    <StartProgram>D:\1525\1525L29U020R.exe</StartProgram>
+    <RemoteDebugEnabled>true</RemoteDebugEnabled>
+    <RemoteDebugMachine>STEVETERMINAL01</RemoteDebugMachine>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ReferencePath>C:\Documents and Settings\Steve\My Documents\Visual Studio 2010\Projects\1427\</ReferencePath>
+  </PropertyGroup>
+</Project>

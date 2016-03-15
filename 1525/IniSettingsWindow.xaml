@@ -1,0 +1,24 @@
+﻿<Window x:Class="PDTUtils.IniSettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:logic="clr-namespace:PDTUtils.Logic"
+        Title="IniSettingsWindow" Height="136" Width="300" WindowStartupLocation="CenterScreen" FontStyle="Normal" FontWeight="Normal" FontSize="11" WindowStyle="ThreeDBorderWindow" Closing="Window_Closing">
+    
+	<Grid Height="94" FocusManager.FocusedElement="{Binding ElementName=TxtNewValue}">
+        <Label Height="23" FontSize="18"  VerticalAlignment="Top" Margin="10,3,12,0" FontStretch="Normal" Name="LblText" Content="Enter new Item Value:"></Label>
+        <StackPanel Orientation="Horizontal" Height="25" Width="255" VerticalAlignment="Bottom">
+            <Button logic:TouchScreenKeyboard.TouchScreenKeyboard="False" Content="Set Value" Height="23" Name="BtnSave" Margin="0,0,15,0" Width="75" Click="btnSave_Click" IsDefault="False" />
+            <Button logic:TouchScreenKeyboard.TouchScreenKeyboard="False" Content="Remove" Height="23" Name="BtnComment" Margin="0,0,15,0" Width="75" Click="btnComment_Click" />
+			<Button logic:TouchScreenKeyboard.TouchScreenKeyboard="False" Content="Cancel" Height="23" Name="BtnCancel" Margin="0,0,15,0" Width="75" Click="button2_Click" />
+        </StackPanel>
+        <TextBox logic:TouchScreenKeyboard.TouchScreenKeyboard="True" Height="35" FontSize="20"  HorizontalAlignment="Left" Margin="12,30,0,0" Name="TxtNewValue" VerticalAlignment="Top" Width="254"/>
+    </Grid>
+</Window>
+
+<!--
+    xmlns:logic="clr-namespace:PDTUtils.Logic"
+    logic:TouchScreenKeyboard.TouchScreenKeyboard="False"
+    logic:TouchScreenKeyboard.TouchScreenKeyboard="False"
+    logic:TouchScreenKeyboard.TouchScreenKeyboard="False" 
+    logic:TouchScreenKeyboard.TouchScreenKeyboard="True"
+-->

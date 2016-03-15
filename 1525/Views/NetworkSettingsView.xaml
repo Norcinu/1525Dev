@@ -1,0 +1,165 @@
+﻿<UserControl x:Class="PDTUtils.Views.NetworkSettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:logic="clr-namespace:PDTUtils.Logic"
+             mc:Ignorable="d" 
+             d:DesignHeight="900" d:DesignWidth="1200">
+
+    <UserControl.Resources>
+        <Style x:Key="StdLabel" TargetType="Label">
+            <Setter Property="Control.BorderBrush" Value="Black"/>
+            <Setter Property="Control.BorderThickness" Value="2"/>
+            <Setter Property="Control.Background" Value="AliceBlue"/>
+            <Setter Property="Control.FontFamily" Value="Calibri" />
+            <Setter Property="Control.HorizontalAlignment" Value="Center" />
+            <Setter Property="Control.HorizontalContentAlignment" Value="Center" />
+            <Setter Property="Control.VerticalContentAlignment" Value="Center" />
+            <Setter Property="Control.Margin" Value="10"/>
+            <Setter Property="Control.MinWidth" Value="350"/>
+        </Style>
+
+        <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+    </UserControl.Resources>
+
+    <Grid>
+		<StackPanel HorizontalAlignment="Stretch" Background="LightGray" Margin="10">
+			<Label Style="{StaticResource StdLabel}" FontSize="48" HorizontalAlignment="Center" BorderBrush="AliceBlue" 
+				   BorderThickness="2" Margin="0,60,0,0">Network Information</Label> <!-- Background="Red" Foreground="Peru" -->
+
+            <Label Style="{StaticResource StdLabel}" Background="Red" Foreground="Yellow" Name="lblSaveWarning" Content="PLEASE SAVE CHANGES"
+                  IsEnabled="{Binding ChangesMade}" Visibility="{Binding ChangesMade, Converter={StaticResource BoolToVisConverter}}">
+                
+
+
+
+                <!--<Label.Triggers>
+                    <EventTrigger RoutedEvent="Button.Click">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation From="Yellow" To="Red" Duration="0:0:7" 
+                                                Storyboard.TargetName="lblSaveWarning"
+                                                Storyboard.TargetProperty="Foreground"/>
+                                <ColorAnimation From="Red" To="Pink" Duration="0:0:7" 
+                                                Storyboard.TargetProperty="Background"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Label.Triggers> -->
+            </Label>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label FontSize="36" Content="IP Address:" Style="{StaticResource StdLabel}"/>
+                <TextBox logic:TouchScreenKeyboard.TouchScreenKeyboard="True" FontSize="48" Width="460" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Text="{Binding IpAddress}" IsEnabled="{Binding IpAddressActive}" />
+                <Button FontSize="22" Width="250" Margin="30" Command="{Binding ToggleIp}">
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard BeginTime="00:00:00" 
+                                        RepeatBehavior="Forever" 
+                                        Storyboard.TargetName="lblSaveWarning" 
+                                        Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)">
+                                        <ColorAnimation From="Yellow" To="Green" Duration="0:0:1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </Button.Triggers>
+                    CHANGE IP
+                </Button>
+			</StackPanel>
+
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+				<Label FontSize="36" Content="Subnet:" Style="{StaticResource StdLabel}"/>
+				<TextBox logic:TouchScreenKeyboard.TouchScreenKeyboard="True" FontSize="48" Width="460" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Text="{Binding SubnetAddress}" IsEnabled="{Binding SubnetActive}"/>
+				<Button FontSize="22" Width="250" Margin="30" Command="{Binding ToggleSubnet}">
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard BeginTime="00:00:00" 
+                                        RepeatBehavior="Forever" 
+                                        Storyboard.TargetName="lblSaveWarning" 
+                                        Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)">
+                                        <ColorAnimation From="Yellow" To="Green" Duration="0:0:1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </Button.Triggers>
+                    CHANGE SUBNET</Button>
+			</StackPanel>
+            
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+				<Label FontSize="36" Content="Gateway:" Style="{StaticResource StdLabel}"/>
+				<TextBox logic:TouchScreenKeyboard.TouchScreenKeyboard="True" FontSize="48" Width="460" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Text="{Binding DefaultGateway}" IsEnabled="{Binding DefaultActive}"/>
+				<Button FontSize="22" Width="250" Margin="30" Command="{Binding ToggleDefault}">
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard BeginTime="00:00:00" 
+                                        RepeatBehavior="Forever" 
+                                        Storyboard.TargetName="lblSaveWarning" 
+                                        Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)">
+                                        <ColorAnimation From="Yellow" To="Green" Duration="0:0:1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </Button.Triggers>
+                    CHANGE GATEWAY</Button>
+			</StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label FontSize="36" Content="Computer Name:" Style="{StaticResource StdLabel}"/>
+                <TextBox logic:TouchScreenKeyboard.TouchScreenKeyboard="True" FontSize="48" Width="460" Margin="10" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Text="{Binding ComputerName}" IsEnabled="{Binding DefaultComputerName}"/>
+                <Button FontSize="22" Width="250" Margin="30" Command="{Binding ToggleName}">
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard BeginTime="00:00:00" 
+                                        RepeatBehavior="Forever" 
+                                        Storyboard.TargetName="lblSaveWarning" 
+                                        Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)">
+                                        <ColorAnimation From="Yellow" To="Green" Duration="0:0:1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </Button.Triggers>
+                    CHANGE NAME</Button>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label FontSize="36" Content="Mac Address:" Style="{StaticResource StdLabel}"/>
+                <TextBox  Background="White" FontSize="48" Width="460" Margin="10" VerticalContentAlignment="Center" 
+                          HorizontalContentAlignment="Center" Text="{Binding MacAddress}" IsEnabled="True" IsReadOnly="True"/>
+                <Button FontSize="22" Width="250"  Margin="30" Command="{Binding ToggleDefault}"  Visibility="Hidden" 
+                        IsEnabled="False" Content="BUTTON HIDDEN FOR SPACING" />
+                <!-- Do not re-enable --> 
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                <Button x:Name="BtnSaveNetwork" FontSize="24" Width="250" Margin="20" Command="{Binding SaveNetworkInfo}">Save Network Info</Button>
+                <!-- <Button x:Name="BtnClearNetwork" FontSize="24" Width="250" Margin="20">Clear Network Info</Button> -->
+                <Button x:Name="BtnTestNetwork"	FontSize="24" Width="250" Margin="20" Command="{Binding PingSites}" CommandParameter="0">Test Network</Button>
+            </StackPanel>
+            
+            <StackPanel Margin="0,20,0,0"> <!-- 60 -->
+				<Border Width="400" BorderBrush="Black" BorderThickness="2"> <!-- Width="800"-->
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Width="400" Background="AliceBlue" IsEnabled="{Binding PingTestRunning}" 
+								Visibility="{Binding PingTestRunning, Converter={StaticResource BoolToVisConverter}}">
+                            <Label Style="{StaticResource StdLabel}" Width="350"  Content="{Binding PingTwo}" />
+                            <Label Style="{StaticResource StdLabel}" Width="350"  Content="{Binding PingOne}" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+			</StackPanel>
+		</StackPanel>
+	</Grid>
+</UserControl>

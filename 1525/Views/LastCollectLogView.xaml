@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="PDTUtils.Views.LastCollectLogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:cv="clr-namespace:PDTUtils"
+             xmlns:mv="clr-namespace:PDTUtils.MVVM.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <cv:BoolToVisibilityConverter x:Key="BoolToVisConverter"/>
+        
+        <Style x:Key="ErrorMessageBox" TargetType="Label">
+            <Setter Property="Background" Value="Red" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="BorderBrush" Value="Black" />
+        </Style>
+        
+        <!-- <Style x:Key="StdMessageBox" TargetType="Label">
+            <Setter
+           
+        </Style> -->
+
+        <Style x:Key="StdLabel" TargetType="Label">
+            <!-- <Setter Property="Height" Value="38"/>  -->
+            <Setter Property="FontSize" Value="38"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Foreground" Value="Navy"/>
+            <Setter Property="Background" Value="LightBlue"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="MinWidth" Value="200"/>
+        </Style>
+        
+    </UserControl.Resources>
+
+    <UserControl.DataContext>
+        <mv:LastCollectLogViewModel />
+    </UserControl.DataContext>
+
+    
+    <!-- ItemsSource="{Binding EventList}" -->
+    <Grid>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <!-- <ScrollViewer.Resources>
+                <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">30</sys:Double>
+            </ScrollViewer.Resources> -->
+            <StackPanel> 
+                <StackPanel Orientation="Horizontal">
+                    <Label  Style="{StaticResource ErrorMessageBox}" ContentStringFormat="Payout Date: {0}" 
+                            Content="{Binding PayoutDate}" />
+                    <Label  Style="{StaticResource ErrorMessageBox}" IsEnabled="{Binding ErrorMessageActive}" 
+                            Content="{Binding ErrorMessage}" Visibility="{Binding ErrorMessageActive, 
+                                                                          Converter={StaticResource BoolToVisConverter}}"/>
+                </StackPanel>
+                <!--<Button Margin="20" FontSize="36" Content="Load Log" Height="50" Command="{Binding LoadLog}" Width="250" />-->
+                
+                <ListView IsEnabled="{Binding ShowListView}" Visibility="{Binding ShowListView,
+                    Converter={StaticResource BoolToVisConverter}}" ItemsSource="{Binding Entries}" Margin="10">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="400" Header="Log Entry">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Border BorderBrush="Black" BorderThickness="2">
+                                            <TextBlock Text="{Binding Key}" TextAlignment="Center" Background="LightGray" 
+                                                               Foreground="Navy"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="400" Header="Initial">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Border BorderBrush="Black" BorderThickness="2">
+                                            <TextBlock Text="{Binding Value.First}" TextAlignment="Center" Background="LightGray" 
+                                                               Foreground="Navy"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="400" Header="Paid Out">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Border BorderBrush="Black" BorderThickness="2">
+                                            <TextBlock Text="{Binding Value.Second}" TextAlignment="Center" Background="LightGray" 
+                                                               Foreground="Navy"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <Label ContentStringFormat="Payout Status : {0}" Content="{Binding PayoutStatus}" Style="{StaticResource ErrorMessageBox}" />
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

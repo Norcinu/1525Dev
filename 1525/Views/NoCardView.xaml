@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="PDTUtils.Views.NoCardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <Style x:Key="StdHeaderLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="48"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="Navy"/>
+            <Setter Property="Margin" Value="25" />
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="5"/>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid>
+        <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Gray">
+            <Label Name="jeFrog" Style="{StaticResource StdHeaderLabel}" Content="Please Insert Card to continue or press Exit.">
+                <Label.Triggers>
+                    <EventTrigger RoutedEvent="Label.Loaded">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard BeginTime="00:00:00" RepeatBehavior="Forever" Storyboard.TargetName="jeFrog" 
+                                            Storyboard.TargetProperty="(Foreground).(SolidColorBrush.Color)">
+                                    <ColorAnimation From="Yellow" To="Green" Duration="0:0:1.5"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </Label.Triggers>
+            </Label>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="PDTUtilsControlLib.SetTimeControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="270" d:DesignWidth="423"
+			 BorderBrush="Black"
+			 BorderThickness="2"
+			 >
+    
+    <Grid Width="423" Height="270">
+        <StackPanel VerticalAlignment="Center" Background="#FF898989">
+            <TextBlock TextAlignment="Center" FontSize="36" FontWeight="Bold" Foreground="Yellow">Set System Clock</TextBlock>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,0" Width="350" VerticalAlignment="Center">
+                <StackPanel VerticalAlignment="Center" Margin="0,0,30,0" MinWidth="90">
+                    <Label FontSize="26" FontWeight="Bold" HorizontalContentAlignment="Center" Foreground="Yellow">Hour</Label>
+                    <Button Content="+" FontSize="26" Width="65" Click="Button_Click"></Button>
+					<TextBlock Name="txtHour" Text="00" FontSize="26" Margin="10" TextAlignment="Center" Foreground="#FFFFD800" Background="#FF525252"></TextBlock>
+                    <Button Content="-" FontSize="26" Width="65" Click="Button_Click_1"></Button>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Center" Margin="0,0,30,0" MinHeight="90">
+                    <Label FontSize="26" FontWeight="Bold" Foreground="Yellow">Minute</Label>
+                    <Button Name="btnMinuteInc" Content="+" FontSize="26" Width="65" Click="btnMinuteInc_Click"></Button>
+					<TextBlock Name="txtMinute" Text="00" FontSize="26" Margin="10" TextAlignment="Center" Foreground="#FFFFD800" Background="#FF525252"></TextBlock>
+                    <Button Name="btnMinuteDec" Content="-" FontSize="26" Width="65" Click="btnMinuteDec_Click"></Button>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Center" Margin="0,0,30,0" MinWidth="90">
+                    <Label FontSize="26" FontWeight="Bold" Foreground="Yellow">Seconds</Label>
+                    <Button Name="btnSecondsInc" Content="+" FontSize="26" Width="65" IsEnabled="False"></Button>
+					<TextBlock Name="txtSeconds" FontSize="26" Margin="10" TextAlignment="Center" Text="{Binding Path=CurrentDate.Second}" Foreground="#FFFFD800" Background="#FF525252" Width="65"></TextBlock>
+                    <Button Name="btnSecondsDec" Content="-" FontSize="26" Width="65" IsEnabled="False"></Button>
+                </StackPanel>
+            </StackPanel>
+            <Button Height="25" Width="130" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Name="btnSaveTime" Margin="0,10,0,10" Click="btnSaveTime_Click">Save Changes to Time</Button>
+        </StackPanel>
+    </Grid>
+</UserControl>
+
