@@ -213,21 +213,11 @@ namespace PDTUtils.MVVM.ViewModels
             double totalWonLt = 0;
             double totalWonSt = 0;
 
-            totalBetsLt = BoLib.getPerformanceMeter((byte)Native.Performance.WageredLt);
-            totalBetsSt = BoLib.getPerformanceMeter((byte)Native.Performance.WageredSt);
-            totalWonLt = BoLib.getPerformanceMeter((byte)Native.Performance.WonLt);
-            totalWonSt = BoLib.getPerformanceMeter((byte)Native.Performance.WonSt);
+            totalBetsLt = (int)BoLib.getPerformanceMeter((byte)Native.Performance.WageredLt);
+            totalBetsSt = (int)BoLib.getPerformanceMeter((byte)Native.Performance.WageredSt);
+            totalWonLt = (int)BoLib.getPerformanceMeter((byte)Native.Performance.WonLt);
+            totalWonSt = (int)BoLib.getPerformanceMeter((byte)Native.Performance.WonSt);
             
-            /*
-             NOTE: Loop is used for Spain (POINTS). Beaware that some misconfigurations can cause this to return 0.
-             for (uint i = 1; i <= BoLib.getNumberOfGames(); i++)
-            {
-                totalBetsLt += (int)BoLib.getGamePerformanceMeter(i, (uint)GamePerformance.GameWageredLt);
-                totalBetsSt += (int)BoLib.getGamePerformanceMeter(i, (uint)GamePerformance.GameWageredSt);
-                totalWonLt  += (int)BoLib.getGamePerformanceMeter(i, (uint)GamePerformance.GameWonLt);
-                totalWonSt  += (int)BoLib.getGamePerformanceMeter(i, (uint)GamePerformance.GameWonSt);
-            }*/
-
             totalBetsLt /= 100;
             totalBetsSt /= 100;
             totalWonLt  /= 100;
@@ -248,7 +238,7 @@ namespace PDTUtils.MVVM.ViewModels
             var min_st = (int)BoLib.getPerformanceMeter((byte)Native.Performance.MoneyInSt);
             var mout_st = (int)BoLib.getPerformanceMeter((byte)Native.Performance.MoneyOutSt);
             var hpa_st = (int)BoLib.getPerformanceMeter((byte)Native.Performance.HandPaySt);
-
+            
             if (retainedPercSt > 0)
                 retainedPercSt = (((retainedPercSt * 100) - (mout_st + hpa_st)) / min_st);
             

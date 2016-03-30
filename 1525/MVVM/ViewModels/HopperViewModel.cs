@@ -94,7 +94,7 @@ namespace PDTUtils.MVVM.ViewModels
         Timer SpanishEmpty;
 
         NumberFormatInfo Nfi { get; set; }
-        CultureInfo CurrentCulture { get; set; }
+        //CultureInfo CurrentCulture { get; set; }
 
         //MessageBoxAccess _msgAccess = new MessageBoxAccess(false);
         WpfMessageBoxService _msg = new WpfMessageBoxService();
@@ -320,9 +320,7 @@ namespace PDTUtils.MVVM.ViewModels
 
         public HopperViewModel()
         {
-            CurrentCulture = BoLib.getCountryCode() == BoLib.getSpainCountryCode()
-                ? new CultureInfo("es-ES")
-                : new CultureInfo("en-GB");
+            //CurrentCulture = new CultureInfo("en-GB");
 
             // incase no hoppers
             char[] buffer = new char[3];
@@ -333,7 +331,7 @@ namespace PDTUtils.MVVM.ViewModels
             _hasTwoHoppers = (buffer[0] == '1') ? false : true;
             var hopperCount = Convert.ToUInt32(new string(buffer, 0, buffer.Length));
 
-            Nfi = CurrentCulture.NumberFormat;
+           // Nfi = CurrentCulture.NumberFormat;
             
             RefloatLeft = "";
             RefloatRight = "";
@@ -353,16 +351,8 @@ namespace PDTUtils.MVVM.ViewModels
             IsRightVisible = Visibility.Collapsed;
             _rightHopperValue = NativeWinApi.GetPrivateProfileInt("FactoryOnly", "PayoutCoin2", 0, Properties.Resources.birth_cert);
 
-            if (BoLib.getCountryCode() == BoLib.getSpainCountryCode())
-            {
-                IsSpanish = true;
-                IsBritish = false;
-            }
-            else
-            {
-                IsSpanish = false;
-                IsBritish = true;
-            }
+            IsSpanish = false;
+            IsBritish = true;
 
             CheckDirAndIniExist();
 
@@ -913,7 +903,8 @@ namespace PDTUtils.MVVM.ViewModels
                 SpanishEmpty.Enabled = false;
                 var hopperValue = (_currentHopperDumping == (byte)Hoppers.Left) ? "LEFT HOPPER INFO" : "RIGHT HOPPER INFO";
                 var floatLevel = BoLib.getHopperFloatLevel(_currentHopperDumping);
-                _msg.ShowMessage("FINISHED EMPTYING.\n" + _hopperPayingValue + " Coins Paid Out: " + floatLevel, hopperValue);
+                //_msg.ShowMessage("FINISHED EMPTYING.\n" + _hopperPayingValue + " Coins Paid Out: " + floatLevel, hopperValue);
+                var w = new PDTUtils.Logic.WarningDialog("FINISHED EMPTYING.\n" + _hopperPayingValue + " Coins Paid Out: " + floatLevel, "FLOAT");
                 BoLib.setHopperFloatLevel(_currentHopperDumping, floatLevel); //0);
                 unchecked { _currentHopperDumping = (byte)Hoppers.NoHopper; }
                 FloatLevelLeft = BoLib.getHopperFloatLevel((byte)Hoppers.Left).ToString();

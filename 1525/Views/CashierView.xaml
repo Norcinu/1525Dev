@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:PDTUtils.MVVM.ViewModels"
+             xmlns:view="clr-namespace:PDTUtils.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
@@ -18,8 +19,12 @@
         <!-- <Label Content="{Binding Name}" /> -->
 
         <TabControl>
-            <TabItem Header="Main" Width="200"></TabItem>
-            <TabItem Header="History" Width="200"></TabItem>
+            <TabItem Header="Main" Width="200">
+                <view:MainPage />
+            </TabItem>
+            <TabItem Header="History" Width="200">
+                <view:CashierLevelHistoryView />
+            </TabItem>
         </TabControl>
     </Grid>
 </UserControl>

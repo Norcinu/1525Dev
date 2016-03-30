@@ -124,7 +124,7 @@ namespace PDTUtils.MVVM.ViewModels
             {
                 System.Diagnostics.Debug.WriteLine(e.Message);
             }
-
+            
             var code = MachineDescription.CountryCode;
             GeneralList.Add("Country Code: (" + code + ") " + BoLib.getCountryCodeStrLiteral("", code));
             GeneralList.Add("Printer Port: COM2");
@@ -144,6 +144,9 @@ namespace PDTUtils.MVVM.ViewModels
         
         string CheckHashIsAuthed(StringBuilder buffer, ref string hash)
         {
+            //if (buffer.ToString(1, 4).Equals("1525"))
+            //    return "AUTHED OK";
+
             var isAuthed = NativeMD5.CheckHash(@"d:" + buffer);
             
             if (isAuthed)

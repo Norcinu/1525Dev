@@ -46,5 +46,11 @@ namespace PDTUtils.MVVM
             Name = name;
             _states = new CabinetSwitchStates();
         }
+
+        //Shut down threads and stuff.
+        public virtual void Cleanup()
+        {
+            
+        }
     }
 }

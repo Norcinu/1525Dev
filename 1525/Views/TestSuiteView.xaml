@@ -2,10 +2,72 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:PDTUtils.MVVM.ViewModels"
+             xmlns:view="clr-namespace:PDTUtils.Views"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024">
-    <Grid>
-            
+
+    <UserControl.DataContext>
+        <vm:TestSuiteViewModel />
+    </UserControl.DataContext>
+    
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type vm:ButtonTestViewModel}">
+            <view:ButtonTestView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:PrinterTestViewModel}">
+            <view:PrinterTestView />
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:LampTestViewModel}">
+            <view:LampTestView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:DilSwitchViewModel}">
+            <view:DilSwitchView />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:NoteTestViewModel}">
+            <view:NoteTestView />
+        </DataTemplate>
+
+       <DataTemplate DataType="{x:Type vm:CoinTestViewModel}">
+            <view:CoinTestView />
+        </DataTemplate>
+    </UserControl.Resources>
+
+
+    <Grid Background="AliceBlue">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Name="ColumnOne" Width="200" />
+            <ColumnDefinition Name="ColumnTwo" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Name="RowOne" Height="100" />
+            <RowDefinition Name="RowTwo" Height="700" />
+        </Grid.RowDefinitions>
+        
+        <Border Grid.Column="0" Grid.Row="1" BorderBrush="Black" BorderThickness="2" Margin="5">
+            <StackPanel>
+                <Label Content="Select Test" Background="Yellow" Foreground="Navy" FontSize="24" HorizontalContentAlignment="Center" />
+                <ItemsControl ItemsSource="{Binding Pages}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding Name}" Margin="2,5" Height="35" Width="170" FontSize="24"
+                                    Command="{Binding DataContext.ChangePageCommand, 
+                                                      RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                    CommandParameter="{Binding }"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Border>
+
+        <Border Margin="0,5,5,5" Grid.Column="1" Grid.Row="1" BorderBrush="Black" BorderThickness="2">
+            <ContentControl Content="{Binding CurrentPage}" />
+        </Border>
+        
     </Grid>
 </UserControl>

@@ -323,7 +323,7 @@ namespace PDTUtils.MVVM.ViewModels
                             PayoutStatus = "Over Pay";
                             break;
                     }
-                    
+
                     RaisePropertyChangedEvent("PayoutDate");
                     RaisePropertyChangedEvent("Entries");
                 }
@@ -345,44 +345,51 @@ namespace PDTUtils.MVVM.ViewModels
         //!!! TODO COMPLETE THIS
         void TicketCollectPayout(ref List<int> wagwan, ref List<int> ticketNumber, ref int liveChecksum, ref int finalChecksum)
         {
-            BoLib.setFileAction();
-
-            uint RSTicketFaceValue = 0;
-		    uint RSTicketModelNo = 0;
-		    uint RSTicketNumber;
-		    uint RSTicketDuplicateNumber = 0;
-		    uint RSPrintProgress;
-		    uint RSPrinterStatus;
-            var RSTicketBarCode = new char[32];
-            
-            using (var b = new BinaryReader(File.Open(@Properties.Resources.payout_ticket, FileMode.Open, FileAccess.Read, FileShare.None)))
+            try
             {
-                int position = 0;
-                int length = (int)b.BaseStream.Length;
-                while (position < length)
+                BoLib.setFileAction();
+
+                uint RSTicketFaceValue = 0;
+                uint RSTicketModelNo = 0;
+                uint RSTicketNumber;
+                uint RSTicketDuplicateNumber = 0;
+                uint RSPrintProgress;
+                uint RSPrinterStatus;
+                var RSTicketBarCode = new char[32];
+                
+                using (var b = new BinaryReader(File.Open(@Properties.Resources.payout_ticket, FileMode.Open, FileAccess.Read, FileShare.None)))
                 {
-                    if (position != (sizeof(int) * 2)) //3?
+                    int position = 0;
+                    int length = (int)b.BaseStream.Length;
+                    while (position < length)
                     {
-                        var value = b.ReadInt32();
-                        wagwan.Add(value);
-                        if (position != length - sizeof(int))
-                            liveChecksum += value;
-                    }
-                    else
-                    {
-                        for (int i = 0; i < 32; i++)
+                        if (position != (sizeof(int) * 3)) //3?
                         {
                             var value = b.ReadInt32();
-                            ticketNumber.Add(value);
-                            liveChecksum += value;
+                            wagwan.Add(value);
+                            if (position != length - sizeof(int))
+                                liveChecksum += value;
                         }
+                        else
+                        {
+                            for (int i = 0; i < 32; i++)
+                            {
+                                var value = b.ReadInt32();
+                                ticketNumber.Add(value);
+                                liveChecksum += value;
+                            }
+                        }
+                        position += sizeof(int);
                     }
-                    position += sizeof(int);
                 }
+                BoLib.clearFileAction();
             }
-            BoLib.clearFileAction();
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.Message);
+            }
         }
-
+        
         void DoLoadLog()
         {
             var liveChecksum = 0;

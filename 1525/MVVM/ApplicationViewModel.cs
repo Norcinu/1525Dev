@@ -8,6 +8,7 @@ using PDTUtils.MVVM.ViewModels;
 using PDTUtils.Native;
 using Timer = System.Timers.Timer;
 using System.Windows.Controls;
+using System.Threading;
 
 
 
@@ -19,7 +20,9 @@ namespace PDTUtils.MVVM
         bool _libraryInitOk = false;
         bool _hasSmartCard = false;
         bool _doorStateChanged = false;
-        
+
+        int _currentPageIndex = 7; // None
+
         BaseViewModel _currentPage = null;
         ObservableCollection<BaseViewModel> _pages = new ObservableCollection<BaseViewModel>();
         ICommand _changePageCommand;
@@ -34,10 +37,11 @@ namespace PDTUtils.MVVM
 
         Timer _dateTimer;
         Timer _doorStateTimer;
+        Timer _checkYourPrivilege;
 
         Brush _doorMsgBackground = Brushes.HotPink;
         Brush _doorMsgForeground = Brushes.Red;
-        
+
         #endregion
 
         #region Public Properties
@@ -147,7 +151,10 @@ namespace PDTUtils.MVVM
             InitialiseBoLib();
 
             LoadSmartCardSetting();
-            
+
+            if (_hasSmartCard)
+                _currentPageIndex = 0;
+
             //Pages.Add(new DefaultViewModel("Main"));
             Pages.Add(new CashierViewModel("Cashier"));
             Pages.Add(new CollectorViewModel("Collector"));
@@ -158,8 +165,6 @@ namespace PDTUtils.MVVM
                 p.States.HasSmartCard = _hasSmartCard;
 
             _currentPage = Pages[0];
-            //_currentPage.States.Running = true;
-            //start thread.
             
             _dateTimer = new Timer(1000.00);
             _dateTimer.Elapsed += new System.Timers.ElapsedEventHandler(_dateTimer_Elapsed);
@@ -168,8 +173,30 @@ namespace PDTUtils.MVVM
             _doorStateTimer = new Timer(100.00);
             _doorStateTimer.Elapsed += new System.Timers.ElapsedEventHandler(_doorStateTimer_elapsed);
             _doorStateTimer.Start();
+
+            _checkYourPrivilege = new Timer() { Enabled = true, Interval = 100 };
+            _checkYourPrivilege.Elapsed += new System.Timers.ElapsedEventHandler(_checkYourPrivilege_Elapsed);
         }
 
+        void _checkYourPrivilege_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            var group = BoLib.getSmartCardGroup();
+            if (group > 0 && group < 7)
+            {
+                if (_currentPageIndex > group)
+                {
+                    CurrentPage = Pages[0];
+                }
+            }
+            else
+            {
+                if (CurrentPage != null)
+                {
+                    CurrentPage = Pages[0];
+                }
+            }
+        }
+        
         void _dateTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             DateTimeStr = DateTime.Now.ToLongDateString() + " : " + DateTime.Now.ToLongTimeString();
@@ -233,7 +260,7 @@ namespace PDTUtils.MVVM
                     break;
             }
         }
-
+        
         void SetCurrentPage(int status, BaseViewModel newPage)
         {
             var scStatus = BoLib.getSmartCardGroup() & 0xF;
@@ -246,46 +273,13 @@ namespace PDTUtils.MVVM
                 CurrentPage = newPage;
                 CurrentPage.States.Running = true;
             }
-            else if (status != 1 && scStatus == 7)
+            else if (status != 1 && scStatus <= 7)
             {
-                WarningDialog warning = new WarningDialog("INSUFFICIENT PRIVILEGE PLEASE INSERT CORRECT CARD.", "ERROR");
+                string message = "INSUFFICIENT PRIVILEGES. PLEASE INSERT LEVEL " + status + " OR GREATER CARD.";
+                WarningDialog warning = new WarningDialog(message, "ERROR");
                 warning.ShowDialog();
-                /*var stp = new StackPanel();
-                stp.Children.Add(new Label() { Content = "INSUFFICIENT PRIVILEGE PLEASE INSERT CORRECT CARD.", Margin = new Thickness(20, 20, 10, 20) });
-                var btn = new Button() { Content = "CLOSE", FontSize = 26, Width = 100, Height = 50, Margin = new Thickness(0, 10, 0, 20) };
-                btn.Click += new RoutedEventHandler(btn_Click);
-                stp.Children.Add(btn);
-
-                Window window = new Window
-                {
-                    Title = "ERROR",
-                    Content = stp,
-                    SizeToContent = SizeToContent.WidthAndHeight,
-                    ResizeMode = ResizeMode.NoResize,
-                    Margin = new Thickness(20),
-                    Height = 640,  // just added to have a smaller control (Window)
-                    Width = 480,
-                    FontSize = 24,
-                    Background = Brushes.LightGray,
-                    Foreground = Brushes.Red,
-                    WindowStartupLocation = WindowStartupLocation.CenterScreen
-                };
-
-                window.ShowDialog();*/
                 return;
             }
-
-            //TODO:
-
-            //Launch new running thread
-
-            //expand this to use door and refill.
-        }
-
-        void btn_Click(object sender, RoutedEventArgs e)
-        {
-            var windows = Application.Current.Windows;
-            windows[1].Close();
         }
         
         void ChangeViewModel(BaseViewModel newPage)
@@ -295,15 +289,19 @@ namespace PDTUtils.MVVM
             switch (newPage.Name)
             {
                 case "Cashier":
+                    _currentPageIndex = 1;
                     SetCurrentPage(1, newPage);
                     break;
                 case "Collector":
+                    _currentPageIndex = 2;
                     SetCurrentPage(2, newPage);
                     break;
                 case "Engineer":
+                    _currentPageIndex = 3;
                     SetCurrentPage(3, newPage);
                     break;
                 case "Admin":
+                    _currentPageIndex = 4;
                     SetCurrentPage(4, newPage);
                     break;
                 case "Manufacturer": break;
@@ -317,7 +315,11 @@ namespace PDTUtils.MVVM
             //Do cleanup here
             _dateTimer.Stop();
             _doorStateTimer.Stop();
-            
+            _checkYourPrivilege.Stop();
+
+            foreach (var p in Pages)
+                p.Cleanup();
+
             if (BoLib.getUtilRequestBitState((int)UtilBits.Allow))
                 BoLib.disableUtilsCoinBit();
 

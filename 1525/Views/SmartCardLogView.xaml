@@ -21,11 +21,6 @@
             <Setter Property="BorderBrush" Value="Black" />
         </Style>
 
-        <!-- <Style x:Key="StdMessageBox" TargetType="Label">
-            <Setter
-           
-        </Style> -->
-
         <Style x:Key="StdLabel" TargetType="Label">
             <!-- <Setter Property="Height" Value="38"/>  -->
             <Setter Property="FontSize" Value="38"/>
@@ -43,108 +38,92 @@
     
     
     <Grid>
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <!-- <ScrollViewer.Resources>
-                <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">30</sys:Double>
-            </ScrollViewer.Resources> -->
-            <StackPanel>
-                
-                <ListView ItemsSource="{Binding CardLog}" Margin="10" Height="900">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Width="225" Header="Date/Time">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Border BorderBrush="Black" BorderThickness="2">
-                                            <TextBlock Text="{Binding DateAndTime}" TextAlignment="Center" Background="LightGray" 
-                                                               Foreground="Navy"/>
-                                        </Border>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Width="200" Header="Card Ident">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Border BorderBrush="Black" BorderThickness="2">
-                                            <TextBlock Text="{Binding Identifier}" TextAlignment="Center" Background="LightGray" 
-                                                               Foreground="Navy"/>
-                                        </Border>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Width="200" Header="Venue">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Border BorderBrush="Black" BorderThickness="2">
-                                            <TextBlock Text="{Binding Venue}" TextAlignment="Center" Background="LightGray" 
-                                                               Foreground="Navy"/>
-                                        </Border>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
+        <StackPanel>
+            <ListView ItemsSource="{Binding CardLog}" Margin="10" Height="900">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="225" Header="Date/Time">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="Black" BorderThickness="2">
+                                        <TextBlock Text="{Binding DateAndTime}" TextAlignment="Center" Background="LightGray" Foreground="Navy"/>
+                                    </Border>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="200" Header="Card Ident">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="Black" BorderThickness="2">
+                                        <TextBlock Text="{Binding Identifier}" TextAlignment="Center" Background="LightGray" Foreground="Navy"/>
+                                    </Border>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="200" Header="Venue">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="Black" BorderThickness="2">
+                                        <TextBlock Text="{Binding Venue}" TextAlignment="Center" Background="LightGray" Foreground="Navy"/>
+                                    </Border>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
-                            <GridViewColumn Width="175" Header="Group">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Border BorderBrush="Black" BorderThickness="2">
-                                            <TextBlock Text="{Binding Group}" TextAlignment="Center" Background="LightGray" 
-                                                               Foreground="Navy"/>
-                                        </Border>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
+                        <GridViewColumn Width="175" Header="Group">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="Black" BorderThickness="2">
+                                        <TextBlock Text="{Binding Group}" TextAlignment="Center" Background="LightGray" Foreground="Navy"/>
+                                    </Border>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        
+                        <GridViewColumn Width="175" Header="Subgroup">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="Black" BorderThickness="2">
+                                        <TextBlock Text="{Binding Subgroup}" TextAlignment="Center" Background="LightGray" Foreground="Navy"/>
+                                    </Border>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
-                            <GridViewColumn Width="175" Header="Subgroup">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Border BorderBrush="Black" BorderThickness="2">
-                                            <TextBlock Text="{Binding Subgroup}" TextAlignment="Center" Background="LightGray" 
-                                                               Foreground="Navy"/>
-                                        </Border>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
+                        <GridViewColumn Width="175" Header="Points">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="Black" BorderThickness="2">
+                                        <TextBlock Text="{Binding Points}" TextAlignment="Center" Background="LightGray" Foreground="Navy"/>
+                                    </Border>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
-                            <GridViewColumn Width="175" Header="Points">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Border BorderBrush="Black" BorderThickness="2">
-                                            <TextBlock Text="{Binding Points}" TextAlignment="Center" Background="LightGray" 
-                                                               Foreground="Navy"/>
-                                        </Border>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
+                        <GridViewColumn Width="200" Header="Name">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="Black" BorderThickness="2">
+                                        <TextBlock Text="{Binding Name}" TextAlignment="Center" Background="LightGray" Foreground="Navy"/>
+                                    </Border>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
-                            <GridViewColumn Width="200" Header="Name">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Border BorderBrush="Black" BorderThickness="2">
-                                            <TextBlock Text="{Binding Name}" TextAlignment="Center" Background="LightGray" 
-                                                               Foreground="Navy"/>
-                                        </Border>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            
-                            <GridViewColumn Width="175" Header="Contact">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Border BorderBrush="Black" BorderThickness="2">
-                                            <TextBlock Text="{Binding Contact}" TextAlignment="Center" Background="LightGray" 
-                                                               Foreground="Navy"/>
-                                        </Border>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
+                        <GridViewColumn Width="175" Header="Contact">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="Black" BorderThickness="2">
+                                        <TextBlock Text="{Binding Contact}" TextAlignment="Center" Background="LightGray" Foreground="Navy"/>
+                                    </Border>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                    </GridView>
+                </ListView.View>
+            </ListView>
 
-            </StackPanel>
-        </ScrollViewer>
-
-
+        </StackPanel>
     </Grid>
 </UserControl>

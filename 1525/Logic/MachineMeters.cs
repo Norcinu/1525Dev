@@ -64,7 +64,7 @@ namespace PDTUtils
             _meterDesc.Add(new MeterDescription("Bet", bet.ToString()));
             _meterDesc.Add(new MeterDescription("Win", won.ToString()));
 
-            _meterDesc.Add(new MeterDescription("Hand Pay", BoLib.getPerformanceMeter((byte)Performance.HandPaySt).ToString()));
+            _meterDesc.Add(new MeterDescription("Hand Pay", ((int)BoLib.getPerformanceMeter((byte)Performance.HandPaySt)).ToString()));
             _meterDesc.Add(new MeterDescription("Ticket In", BoLib.getReconciliationMeter((byte)EShortTermMeters.TitoIn).ToString()));
             _meterDesc.Add(new MeterDescription("Ticket Out", BoLib.getReconciliationMeter((byte)EShortTermMeters.TicketOut).ToString()));
 
@@ -98,31 +98,19 @@ namespace PDTUtils
             /*for (uint i = 1; i <= BoLib.getNumberOfGames(); i++)
             {*/
             
-                bet += (uint)BoLib.getPerformanceMeter((byte)PDTUtils.Native.Performance.WageredLt);//BoLib.getGamePerformanceMeter(i, (uint)GamePerformance.GameWageredLt);
-                won += (uint)BoLib.getPerformanceMeter((byte)PDTUtils.Native.Performance.WonLt);//BoLib.getGamePerformanceMeter(i, (uint)GamePerformance.GameWonLt);
+                bet += (uint)BoLib.getPerformanceMeter((byte)PDTUtils.Native.Performance.WageredLt);
+                won += (uint)BoLib.getPerformanceMeter((byte)PDTUtils.Native.Performance.WonLt);
             //}
             
             _meterDesc.Add(new MeterDescription("Bet", bet.ToString()));
             _meterDesc.Add(new MeterDescription("Win", won.ToString()));
             
-            //_meterDesc.Add(new MeterDescription("Fischas Bet", BoLib.getVtp(BoLib.useVtpMeter(1)).ToString()));
-            //_meterDesc.Add(new MeterDescription("Fischas Win", BoLib.getWon(BoLib.useWonMeter(1)).ToString()));
-            _meterDesc.Add(new MeterDescription("Hand Pay", BoLib.getPerformanceMeter((byte)Performance.HandPayLt).ToString())); //BoLib.getHandPay(BoLib.useHandPayMeter(1)).ToString()));
+            _meterDesc.Add(new MeterDescription("Hand Pay", ((int)BoLib.getPerformanceMeter((byte)Performance.HandPayLt)).ToString()));
             _meterDesc.Add(new MeterDescription("Ticket In", BoLib.getReconciliationMeter((byte)ELongTermMeters.TitoIn).ToString()));
-            _meterDesc.Add(new MeterDescription("Ticket Out", BoLib.getReconciliationMeter((byte)ELongTermMeters.TicketOut).ToString())); //BoLib.getTicketsPay(BoLib.useTicketsMeter(1)).ToString()));
+            _meterDesc.Add(new MeterDescription("Ticket Out", BoLib.getReconciliationMeter((byte)ELongTermMeters.TicketOut).ToString()));
 
-            //_meterDesc.Add(new MeterDescription("Cash Match IN", BoLib.getReconciliationMeter((byte)ELongTermMeters.CMatchIn).ToString()));
             _meterDesc.Add(new MeterDescription("Reward Points IN", BoLib.getReconciliationMeter((byte)ELongTermMeters.PointsIn).ToString()));
             _meterDesc.Add(new MeterDescription("Cash Match IN", BoLib.getReconciliationMeter((byte)ELongTermMeters.CMatchIn).ToString()));
-
-/*
-            _meterDesc.Add(new MeterDescription("Cash Match £5", BoLib.getCashMatchMeter((byte)CashMatchMeters.CashMatchIn1Lt).ToString()));
-            _meterDesc.Add(new MeterDescription("Cash Match £10", BoLib.getCashMatchMeter((byte)CashMatchMeters.CashMatchIn2Lt).ToString()));*/
-            /*_meterDesc.Add(new MeterDescription("Cash Match £20", BoLib.getCashMatchMeter((byte)CashMatchMeters.CashMatchIn3Lt).ToString()));
-
-            _meterDesc.Add(new MeterDescription("Reward points IN", BoLib.getRewardPointMeter((byte)RewardMeters.RewardCardInLt).ToString()));
-            _meterDesc.Add(new MeterDescription("Reward points OUT", BoLib.getRewardPointMeter((byte)RewardMeters.RewardOutLt).ToString()));
-            _meterDesc.Add(new MeterDescription("Reward CARD IN", BoLib.getRewardPointMeter((byte)RewardMeters.RewardCardInLt).ToString()));*/
 
             this.OnPropertyChanged("LongTerm");
         }
@@ -165,10 +153,6 @@ namespace PDTUtils
                     if (!tt.StartsWith("TicketsOutPtr") && !tt.StartsWith("TicketCount"))
                         TitoOut.Add(new MeterDescription("TicketOut", tt.Split("=".ToCharArray())[1]));
                 }
-                /*_meterDesc.Add(new MeterDescription("TicketIn", ti[1]));
-                _meterDesc.Add(new MeterDescription("TicketOut", to[1]));*/
-                
-                //TitoOut.Add(new MeterDescription("TicketOut", to[1]));
             }
             else
             {

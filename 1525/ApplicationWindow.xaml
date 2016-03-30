@@ -22,7 +22,6 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     
-    
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:DefaultViewModel}">
             <view:DefaultView />
@@ -142,7 +141,7 @@
                 </ItemsControl>
             </StackPanel>
         </Border>
-
+        
         <Border Grid.Column="1" Grid.Row="1" BorderBrush="Azure" BorderThickness="2">
             <ContentControl Content="{Binding CurrentPage}" />
         </Border>

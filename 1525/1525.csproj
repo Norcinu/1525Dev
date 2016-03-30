@@ -62,8 +62,14 @@
     <ApplicationIcon>Resources\Icon1.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GalaSoft.MvvmLight, Version=3.0.0.20008, Culture=neutral, PublicKeyToken=3e875cdb3903c512, processorArchitecture=MSIL" />
-    <Reference Include="GalaSoft.MvvmLight.Extras, Version=3.0.0.20002, Culture=neutral, PublicKeyToken=48c5515dce1bf64d, processorArchitecture=MSIL" />
+    <Reference Include="GalaSoft.MvvmLight, Version=3.0.0.20008, Culture=neutral, PublicKeyToken=3e875cdb3903c512, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Mvvm Light Toolkit\Binaries\WPF35SP1\GalaSoft.MvvmLight.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=3.0.0.20002, Culture=neutral, PublicKeyToken=48c5515dce1bf64d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Mvvm Light Toolkit\Binaries\WPF35SP1\GalaSoft.MvvmLight.Extras.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="PresentationBuildTasks" />
     <Reference Include="System" />
@@ -77,7 +83,10 @@
       <HintPath>..\WPF Toolkit\v3.5.50211.1\System.Windows.Controls.DataVisualization.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Interactivity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Interactivity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Mvvm Light Toolkit\Binaries\WPF35SP1\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -133,28 +142,39 @@
     <Compile Include="MVVM\ViewModels\AdminViewModel.cs" />
     <Compile Include="MVVM\ViewModels\AuditViewModel.cs" />
     <Compile Include="MVVM\ViewModels\BirthCertViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\ButtonTestViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\CashierLevelHistoryViewModel.cs" />
     <Compile Include="MVVM\ViewModels\CashierViewModel.cs" />
     <Compile Include="MVVM\ViewModels\CashMatchViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\CoinTestViewModel.cs" />
     <Compile Include="MVVM\ViewModels\CollectorViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\ConfigureViewModel.cs" />
     <Compile Include="MVVM\ViewModels\CpuCaseOpenViewModel.cs" />
     <Compile Include="MVVM\ViewModels\CreditManagementViewModel.cs" />
     <Compile Include="MVVM\ViewModels\DefaultViewModel.cs" />
     <Compile Include="MVVM\ViewModels\DiagnosticViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\DilSwitchViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\EmptyMachineViewModel.cs" />
     <Compile Include="MVVM\ViewModels\EngineerViewModel.cs" />
     <Compile Include="MVVM\ViewModels\GameChartViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\GameStatisticsViewModel.cs" />
     <Compile Include="MVVM\ViewModels\GeneralSettingsViewModel.cs" />
     <Compile Include="MVVM\ViewModels\HopperViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\LampTestViewModel.cs" />
     <Compile Include="MVVM\ViewModels\LastCollectLogViewModel.cs" />
     <Compile Include="MVVM\ViewModels\MachineBettingViewModel.cs" />
     <Compile Include="MVVM\ViewModels\MainPageViewModel.cs" />
     <Compile Include="MVVM\ViewModels\GameSettingViewModel.cs" />
     <Compile Include="MVVM\ViewModels\NetworkSettingsViewModel.cs" />
     <Compile Include="MVVM\ViewModels\NoteAdminViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\NoteTestViewModel.cs" />
     <Compile Include="MVVM\ViewModels\PerformanceViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\PrinterTestViewModel.cs" />
     <Compile Include="MVVM\ViewModels\RegionalSettingsViewModel.cs" />
     <Compile Include="MVVM\ViewModels\RouletteBettingViewModel.cs" />
     <Compile Include="MVVM\ViewModels\ScreenshotViewModel.cs" />
     <Compile Include="MVVM\ViewModels\SmartCardLogViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\TestSuiteViewModel.cs" />
     <Compile Include="MVVM\ViewModels\UsbFileUploaderViewModel.cs" />
     <Compile Include="Views\AdminView.xaml.cs">
       <DependentUpon>AdminView.xaml</DependentUpon>
@@ -162,14 +182,26 @@
     <Compile Include="Views\AuditView.xaml.cs">
       <DependentUpon>AuditView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ButtonTestView.xaml.cs">
+      <DependentUpon>ButtonTestView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CashierLevelHistoryView.xaml.cs">
+      <DependentUpon>CashierLevelHistoryView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CashierView.xaml.cs">
       <DependentUpon>CashierView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CashMatchView.xaml.cs">
       <DependentUpon>CashMatchView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\CoinTestView.xaml.cs">
+      <DependentUpon>CoinTestView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CollectorView.xaml.cs">
       <DependentUpon>CollectorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConfigureView.xaml.cs">
+      <DependentUpon>ConfigureView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CpuCaseOpenLog.xaml.cs">
       <DependentUpon>CpuCaseOpenLog.xaml</DependentUpon>
@@ -177,11 +209,23 @@
     <Compile Include="Views\DefaultView.xaml.cs">
       <DependentUpon>DefaultView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DilSwitchView.xaml.cs">
+      <DependentUpon>DilSwitchView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EmptyMachineView.xaml.cs">
+      <DependentUpon>EmptyMachineView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EngineerView.xaml.cs">
       <DependentUpon>EngineerView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\GameStatisticsView.xaml.cs">
+      <DependentUpon>GameStatisticsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HopperTestView.xaml.cs">
       <DependentUpon>HopperTestView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LampTestView.xaml.cs">
+      <DependentUpon>LampTestView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LastCollectLogView.xaml.cs">
       <DependentUpon>LastCollectLogView.xaml</DependentUpon>
@@ -191,6 +235,12 @@
     </Compile>
     <Compile Include="Views\NoCardView.xaml.cs">
       <DependentUpon>NoCardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NoteTestView.xaml.cs">
+      <DependentUpon>NoteTestView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PrinterTestView.xaml.cs">
+      <DependentUpon>PrinterTestView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RouletteBettingView.xaml.cs">
       <DependentUpon>RouletteBettingView.xaml</DependentUpon>
@@ -340,6 +390,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ButtonTestView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CashierLevelHistoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CashierView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -348,7 +406,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\CoinTestView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CollectorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ConfigureView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -368,11 +434,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\DilSwitchView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EmptyMachineView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\EngineerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\GameChartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GameStatisticsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -385,6 +463,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\HopperTestView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LampTestView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -416,7 +498,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\NoteTestView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\PerformanceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PrinterTestView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

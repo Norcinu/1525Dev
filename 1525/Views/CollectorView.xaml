@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="clr-namespace:PDTUtils.MVVM.ViewModels"
+             xmlns:view="clr-namespace:PDTUtils.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     
@@ -13,9 +14,16 @@
     
     <Grid>
         <TabControl>
-            <TabItem Header="Cash" Width="200"></TabItem>
-            <TabItem Header="Empty" Width="200"></TabItem>
-            <TabItem Header="Audit" Width="200"></TabItem>
+            <TabItem Header="Cash" Width="200">
+                <view:PerformanceView />
+            </TabItem>
+            <TabItem Header="Empty" Width="200">
+                <view:EmptyMachineView></view:EmptyMachineView>
+            </TabItem>
+            <TabItem Header="Audit" Width="200">
+                <view:AuditView />
+            </TabItem>
         </TabControl>
     </Grid>
+
 </UserControl>

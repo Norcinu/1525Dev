@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Windows.Controls;
 using System.Windows.Input;
 using PDTUtils.Native;
 
 using Timer = System.Timers.Timer;
-using System.Globalization;
 
 namespace PDTUtils.MVVM.ViewModels
 {
@@ -249,12 +247,6 @@ namespace PDTUtils.MVVM.ViewModels
 
         public MainPageViewModel()
         {
-/*
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-GB");
-            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-GB");
-            var ni = new System.Globalization.NumberFormatInfo();
-            var a = ni.CurrencySymbol;
-            var jubjub = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.Clone();*/
             DoorOpen = false;
             IsEnabled = true;
             HandPayActive = false;
@@ -316,7 +308,7 @@ namespace PDTUtils.MVVM.ViewModels
 
         void GetReserveLevel()
         {
-            Reserve = (int)BoLib.getPartialCollectValue();//(int)BoLib.getReserveCredits();
+            Reserve = (int)BoLib.getPartialCollectValue();
             RaisePropertyChangedEvent("Reserve");
         }
        
@@ -393,15 +385,7 @@ namespace PDTUtils.MVVM.ViewModels
         
         void ClearError()
         {
-            /*if (BoLib.getError() == 99) // we dont need the door open for this error.
-            {
-                if (BoLib.clearError() != 0) return;
-                ErrorMessage = "Error Cleared. Please Continue.";
-                RaisePropertyChangedEvent("ErrorMessage");
-            }*/
-            
             if (BoLib.getDoorStatus() > 0 || BoLib.getError() == 99)
-            //if (BoLib.getError()>0)
             {
                 if (BoLib.clearError() != 0) return;
                 ErrorMessage = "Error Cleared. Please Continue.";
@@ -422,12 +406,12 @@ namespace PDTUtils.MVVM.ViewModels
         {
             get { return new DelegateCommand(o => DoHandPay()); }
         }
-        
+
         void DoHandPay()
         {
             var oldCaption = _caption;
             var oldMsg = _message;
-            
+
             var total = Bank + Credits;
             if (!BoLib.isDualBank() && (int)BoLib.getPartialCollectValue() > 0)
                 total += (int)BoLib.getPartialCollectValue();
@@ -464,7 +448,7 @@ namespace PDTUtils.MVVM.ViewModels
                 _message = oldMsg;
             }
         }
-        
+
         void WriteToHandPayLog(int total)
         {
             var filename = Properties.Resources.hand_pay_log;
@@ -492,12 +476,12 @@ namespace PDTUtils.MVVM.ViewModels
                 }
             }
         }
-        
+
         public ICommand AddCreditSpecific
         {
             get { return new DelegateCommand(AddDenomButton); }
         }
-
+        
         void AddDenomButton(object button)
         {
             var path = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);

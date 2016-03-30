@@ -4,20 +4,34 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:PDTUtils.MVVM.ViewModels"
+             xmlns:view="clr-namespace:PDTUtils.Views"
+             xmlns:local="clr-namespace:AttachedCommandBehavior"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    
+
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type vm:AdminViewModel}" />
+
+        <DataTemplate DataType="{x:Type vm:GameSettingViewModel}">
+            <view:GameSettingsView />
+        </DataTemplate>
     </UserControl.Resources>
-    
+
     <Grid>
-        <TabControl>
-            <TabItem Header="Game Settings" Width="200"></TabItem>
+        <TabControl local:CommandBehavior.Event="SelectionChanged" local:CommandBehavior.Command="{Binding TabSelectionChanged}" local:CommandBehavior.CommandParameter="SelectionChanged">
+            <TabItem Header="Game Settings" Width="200">
+                <ContentControl Content="{Binding CurrentPage}" />
+            </TabItem>
             <TabItem Header="Birth Cert" Width="200"></TabItem>
             <TabItem Header="System Settings" Width="200"></TabItem>
-            <TabItem Header="Configure" Width="200"></TabItem> <!-- Hopper & note -->
+            <TabItem Header="Configure" Width="200">
+                <view:ConfigureView />
+            </TabItem>
+            <!-- Hopper & note -->
             <TabItem Header="Smart Card" Width="200"></TabItem>
+            <TabItem Header="Games" Width="200">
+                <view:GameStatisticsView />
+            </TabItem>
         </TabControl>
     </Grid>
 </UserControl>

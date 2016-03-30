@@ -264,6 +264,16 @@ namespace PDTUtils.Native
         NONE                = 3
     }
 
+    enum CabinetTypes
+    {
+        VEGAS = 0,
+        SLANT,
+        TS22,
+        TS22_2015,
+        BS100_2014,
+        ADVTS23
+    }
+
     static class BoLib
     {
 #if DEBUG

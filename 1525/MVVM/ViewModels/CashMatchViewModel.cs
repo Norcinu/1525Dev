@@ -211,7 +211,8 @@ namespace PDTUtils.MVVM.ViewModels
                 if (LoyaltyPayback > MIN_LOYALTY)
                     LoyaltyPayback--;
             }
-            
+
+            NativeWinApi.WritePrivateProfileString("Operator", "RewardRTP", LoyaltyPayback.ToString(), Properties.Resources.birth_cert);
             BoLib.setSmartCardPointsRTP(_loyaltyPayback);
         }
         

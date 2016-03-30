@@ -174,10 +174,10 @@ namespace PDTUtils.MVVM.ViewModels
                     {
                         PopulateDemoLog(tokens);
                     }
-                    else if (tokens[4].Equals("3"))
+                    /*else if (tokens[4].Equals("3"))
                     {
                         //none
-                    }
+                    }*/
                 }
                 
                 //PopulateDemoLog();

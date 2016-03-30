@@ -61,6 +61,8 @@ namespace AttachedCommandBehavior
         /// </summary>
         public void ExecuteCommand()
         {
+            if (Command == null)
+                return;
             if (Command.CanExecute(CommandParameter))
                 Command.Execute(CommandParameter);
         }

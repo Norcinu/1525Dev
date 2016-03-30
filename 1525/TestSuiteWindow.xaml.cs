@@ -166,7 +166,7 @@ namespace PDTUtils
                 BoLib.setLampStatus(1, (byte)i, 1);
                 Thread.Sleep(200);
             }
-
+            
             Label1.Dispatcher.BeginInvoke((DelegateDil)label_updateMessage, new object[] { Label1, 
                 "Testing Button Lamps Finished" });
         }
@@ -268,7 +268,7 @@ namespace PDTUtils
             
             BoLib.clearUtilRequestBitState((int)UtilBits.CoinTest);
             BoLib.setUtilRequestBitState((int)UtilBits.NoteTest);
-            
+
             if (BoLib.refillKeyStatus() == 0)
             {
                 MessageBox.Show("Please turn refill key before continuing.", "Warning", MessageBoxButton.OK, MessageBoxImage.Exclamation);

@@ -32,13 +32,13 @@ namespace PDTUtils
 
         protected BaseGameLog()
         {
-            //CultureInfo ci = new CultureInfo("en-GB");//"es-ES");
+            CultureInfo ci = new CultureInfo("en-GB");//"es-ES");
             _nfi = (NumberFormatInfo) CultureInfo.CurrentCulture.NumberFormat.Clone();
             _nfi.CurrencySymbol = "£";
             _stake = 0;
             _credit = 0;
         }
-
+        
         public string GameDate
         {
             get { return _logDate.ToString("dd/MM/yyyy HH:mm"); }
@@ -51,12 +51,12 @@ namespace PDTUtils
 
         public string Stake
         {
-            get { return (_stake/100m).ToString("c2"); }
+            get { return (_stake / 100m).ToString("f2"); }
         }
 
         public string Credit
         {
-            get { return (_credit/100m).ToString("c2"); }
+            get { return (_credit / 100m).ToString("f2"); }
         }
 
         public uint GameModel { get; set; }
@@ -90,7 +90,7 @@ namespace PDTUtils
         
         public string WinAmount
         {
-            get { return (_winAmount/100m).ToString("c2"); }
+            get { return (_winAmount/100m).ToString("f2"); }
         }
         
         protected override void ParseGame(int gameNo)
@@ -121,7 +121,7 @@ namespace PDTUtils
             OnPropertyChanged("WinningGames");
         }
     }
-    
+
     public class PlayedGame : BaseGameLog
     {
         decimal _winAmount;
@@ -131,7 +131,7 @@ namespace PDTUtils
         {
             _winAmount = 0;
         }
-        
+
         public PlayedGame(int gameNo)
         {
             ParseGame(gameNo);
@@ -139,21 +139,21 @@ namespace PDTUtils
 
         public string WinAmount
         {
-            get { return (_winAmount / 100).ToString("c2"); }
+            get { return (_winAmount / 100).ToString("f2"); }
         }
 
         protected override void ParseGame(int gameNo)
         {
             if (gameNo == 0) return;
-            
-            var ci = Thread.CurrentThread.CurrentCulture;
-            
+
+            var ci = new CultureInfo("en-GB"); //Thread.CurrentThread.CurrentCulture;
+
             var gameDate = BoLib.getGameDate(gameNo);
             var time = BoLib.getGameTime(gameNo);
 
             var hour = time >> 16;
             var minute = time & 0x0000FFFF;
-            
+
             var month = gameDate & 0x0000FFFF;
             var day = gameDate >> 16;
             var year = DateTime.Now.Year;
@@ -162,10 +162,10 @@ namespace PDTUtils
             
             try
             {
-                var ds = day + @"/" + month + @"/" + year + " " + hour + " " + ":" + minute;
+                var ds = day + @"/" + month + @"/" + year + " " + hour + ":" + minute;
                 _credit = BoLib.getGameCreditLevel(gameNo);
                 _stake = (uint)BoLib.getGameWager(gameNo);
-                GameModel = (uint) BoLib.getLastGameModel(gameNo);
+                GameModel = (uint)BoLib.getLastGameModel(gameNo);
 
                 _logDate = DateTime.Parse(ds, ci);
                 _winAmount = BoLib.getWinningGame(gameNo);
@@ -178,7 +178,7 @@ namespace PDTUtils
             }
         }
     }
-
+    
     public class MachineErrorLog : BaseGameLog
     {
         public MachineErrorLog()
@@ -194,6 +194,7 @@ namespace PDTUtils
             OnPropertyChanged("ErrorLog");
         }
 
+        
         public string ErrorCode { get; set; }
         public string Description { get; set; }
         public string ErrorDate { get; set; }
@@ -287,7 +288,7 @@ namespace PDTUtils
 
         public ObservableCollection<PlayedGame> LastTenGames { get; set; }
         public ObservableCollection<WinningGame> LastTenWins { get; set; }
-
+        
         public MachineLogsController()
         {
             IsLoaded = false;
@@ -296,7 +297,7 @@ namespace PDTUtils
             LastTenGames = new ObservableCollection<PlayedGame>();
             LastTenWins = new ObservableCollection<WinningGame>();
         }
-
+        
         public bool AreLogsBeingViewed { get; set; }
         
         public void ClearAllLogs()
@@ -497,7 +498,7 @@ namespace PDTUtils
 
                 if (PlayedGames.Count > 0)
                 {
-                    for (int i = 0; i < 10; i++)
+                    for (int i = 0; i < 50; i++)
                         LastTenGames.Add(PlayedGames[i]);
                 }
             }
@@ -558,7 +559,7 @@ namespace PDTUtils
 
                 if (WinningGames.Count > 0)
                 {
-                    for (int i = 0; i < 10; i++)
+                    for (int i = 0; i < 50; i++)
                         LastTenWins.Add(WinningGames[i]);
                 }
             }

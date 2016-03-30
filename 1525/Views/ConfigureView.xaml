@@ -1,0 +1,101 @@
+﻿<UserControl x:Class="PDTUtils.Views.ConfigureView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <UserControl.Resources>
+        <Style x:Key="StdLabel" TargetType="Label">
+            <Setter Property="Control.Width" Value="335"/>
+            <Setter Property="Control.FontSize" Value="36"/>
+            <Setter Property="Control.VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Control.HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Control.Margin" Value="10"/>
+            <Setter Property="Control.Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+
+        <Style x:Key="StdLabelWide" TargetType="Label">
+            <Setter Property="Control.Width" Value="475"/>
+            <Setter Property="Control.FontSize" Value="36"/>
+            <Setter Property="Control.VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Control.HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Control.Margin" Value="10"/>
+            <Setter Property="Control.Foreground" Value="White"/>
+        </Style>
+        
+        <Style x:Key="StevesLabel" TargetType="Label">
+            <Setter Property="Background" Value="SlateGray" />
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="MyRepeatButton" TargetType="RepeatButton">
+            <Setter Property="Delay" Value="500"/>
+            <Setter Property="Width" Value="55" />
+            <Setter Property="Height" Value="35" />
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="Margin" Value="10" />
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid>
+        <TabControl>
+            <TabItem Header="Hoppers" Width="200">
+                <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Width="550">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20"/>
+                    
+                    <StackPanel HorizontalAlignment="Center" Background="AliceBlue">
+                        <Label Margin="10">Set Hopper to Cashbox Divert Level</Label>
+                        <StackPanel Orientation="Horizontal">
+                            <RepeatButton Style="{StaticResource MyRepeatButton}" Command="{Binding ChangeLeftDivert}" 
+                                          CommandParameter="decrease" Content="-"/>
+                            <Label Style="{StaticResource StevesLabel}" Width="350" ContentStringFormat="Left Hopper Divert Level: {0}" 
+                                   Content="{Binding DivertLeftMessage}" VerticalContentAlignment="Center" Margin="10" />
+                            <RepeatButton Style="{StaticResource MyRepeatButton}" Command="{Binding ChangeLeftDivert}" 
+                                          CommandParameter="increase" Content="+"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Background="AliceBlue" Visibility="{Binding IsRightVisible}">
+                        <RepeatButton Style="{StaticResource MyRepeatButton}" Command="{Binding ChangeRightDivert}" 
+                                      CommandParameter="decrease" Content="-"/>
+                        <Label Style="{StaticResource StevesLabel}" Width="350" ContentStringFormat="Right Hopper Divert Level: {0}" 
+                               Content="{Binding DivertRightMessage}" VerticalContentAlignment="Center" Margin="10" />
+                        <RepeatButton Style="{StaticResource MyRepeatButton}" Command="{Binding ChangeRightDivert}" 
+                                      CommandParameter="increase" Content="+"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20"/>
+                    
+                    <StackPanel HorizontalAlignment="Center" Background="AliceBlue">
+                        <Label Content="Load Defaults" Width="300" Style="{StaticResource StevesLabel}"/>
+                        <Button Margin="5" FontSize="22" Width="100" Height="35" Command="{Binding LoadDefaults}">Defaults</Button>
+                    </StackPanel>
+
+                </StackPanel>
+            </TabItem>
+            
+            <TabItem Header="Note Recycler" Width="200">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10" Height="90">
+                    <Button Height="75" Width="70" Margin="0,10,0,10" FontSize="36" IsEnabled="{Binding HasRecycler}"
+						Command="{Binding SetRecycleNote}" CommandParameter="10" Content="{Binding NoteOne}" />
+                    <Border CornerRadius="10" Background="SlateGray" BorderBrush="SlateBlue" Margin="5" BorderThickness="4">
+                        <Label Style="{StaticResource StdLabel}" BorderBrush="Transparent">Set Note to Recycle</Label>
+                    </Border>
+                    <Button Height="75" Width="70"  Margin="0,10,100,10" FontSize="36" IsEnabled="{Binding HasRecycler}"
+						Command="{Binding SetRecycleNote}" CommandParameter="20" Content="{Binding NoteTwo}" />
+                    <Border CornerRadius="10" Background="SlateGray" BorderBrush="SlateBlue" Margin="5" BorderThickness="4">
+                        <Label Style="{StaticResource StdLabelWide}" Content="{Binding RecyclerMessage}" />
+                    </Border>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

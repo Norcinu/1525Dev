@@ -154,7 +154,7 @@ namespace PDTUtils
         }
         
         public bool FullyLoaded { get; set; }
-
+        
 		#endregion
 	    
 		void btnExit_Click(object sender, RoutedEventArgs e)
@@ -168,7 +168,7 @@ namespace PDTUtils
             }
 			Application.Current.Shutdown();
         }
-        
+        //we dont really need it to say that do we?
 		void btnHoppers_Click(object sender, RoutedEventArgs e)
 		{
 			Enabler.ClearAll();

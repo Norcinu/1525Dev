@@ -50,7 +50,7 @@
             <!-- <ScrollViewer.Resources>
                 <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">30</sys:Double>
             </ScrollViewer.Resources> -->
-            <StackPanel> 
+            <StackPanel Width="1230" HorizontalAlignment="Center"> 
                 <StackPanel Orientation="Horizontal">
                     <Label  Style="{StaticResource ErrorMessageBox}" ContentStringFormat="Payout Date: {0}" 
                             Content="{Binding PayoutDate}" />
@@ -61,15 +61,15 @@
                 <!--<Button Margin="20" FontSize="36" Content="Load Log" Height="50" Command="{Binding LoadLog}" Width="250" />-->
                 
                 <ListView IsEnabled="{Binding ShowListView}" Visibility="{Binding ShowListView,
-                    Converter={StaticResource BoolToVisConverter}}" ItemsSource="{Binding Entries}" Margin="10">
+                          Converter={StaticResource BoolToVisConverter}}" ItemsSource="{Binding Entries}" ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
+                          Margin="10">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Width="400" Header="Log Entry">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Border BorderBrush="Black" BorderThickness="2">
-                                            <TextBlock Text="{Binding Key}" TextAlignment="Center" Background="LightGray" 
-                                                               Foreground="Navy"/>
+                                            <TextBlock Text="{Binding Key}" TextAlignment="Center" Background="LightGray" Foreground="Navy"/>
                                         </Border>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -78,8 +78,7 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Border BorderBrush="Black" BorderThickness="2">
-                                            <TextBlock Text="{Binding Value.First}" TextAlignment="Center" Background="LightGray" 
-                                                               Foreground="Navy"/>
+                                            <TextBlock Text="{Binding Value.First}" TextAlignment="Center" Background="LightGray" Foreground="Navy"/>
                                         </Border>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -88,8 +87,7 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Border BorderBrush="Black" BorderThickness="2">
-                                            <TextBlock Text="{Binding Value.Second}" TextAlignment="Center" Background="LightGray" 
-                                                               Foreground="Navy"/>
+                                            <TextBlock Text="{Binding Value.Second}" TextAlignment="Center" Background="LightGray" Foreground="Navy"/>
                                         </Border>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -98,8 +96,8 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-
-                <Label ContentStringFormat="Payout Status : {0}" Content="{Binding PayoutStatus}" Style="{StaticResource ErrorMessageBox}" />
+                
+                <Label ContentStringFormat="Payout Status : {0}" Content="{Binding PayoutStatus}" Width="1220" Style="{StaticResource ErrorMessageBox}" />
             </StackPanel>
         </ScrollViewer>
     </Grid>

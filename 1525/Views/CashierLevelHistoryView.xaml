@@ -1,0 +1,165 @@
+﻿<UserControl x:Class="PDTUtils.Views.CashierLevelHistoryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:views="clr-namespace:PDTUtils.Views"
+             xmlns:vm="clr-namespace:PDTUtils.MVVM.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <UserControl.DataContext>
+        <vm:CashierLevelHistoryViewModel />
+    </UserControl.DataContext>
+    
+    <UserControl.Resources>
+        <Style x:Key="MESHUGGAH" TargetType="Label">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="FontSize" Value="38"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="Beige"/>
+            <Setter Property="Margin" Value="20"/>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid>
+        <TabControl>
+            <TabItem Header="Games" Width="250" HorizontalContentAlignment="Center">
+
+                <StackPanel>
+                <Label Style="{StaticResource MESHUGGAH}" HorizontalContentAlignment="Center" Width="600"
+                               Content="Last Games" BorderBrush="Black" BorderThickness="2" />
+
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="25">
+                        <StackPanel Margin="25">
+
+                            <!-- Last 10 Games -->
+                            <ListView ItemsSource="{Binding Path=MachineLogs.LastTenGames}" Height="390" FontSize="20">
+                                <ListView.View>
+                                    <GridView AllowsColumnReorder="False">
+                                        <GridViewColumn Header="Game" Width="180">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Border BorderBrush="Black" BorderThickness="2">
+                                                        <TextBlock Text="{Binding GameModel}" TextAlignment="Center" Background="LightGray" 
+                                                               Foreground="Navy"/>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Date" Width="180">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Border BorderBrush="Black" BorderThickness="2">
+                                                        <TextBlock Text="{Binding LogDate}" TextAlignment="Center" Background="LightGray" 
+                                                               Foreground="Navy"/>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Game Stake" Width="180">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Border BorderBrush="Black" BorderThickness="2">
+                                                        <TextBlock Text="{Binding Stake, StringFormat='£{0:C}'}" TextAlignment="Center" Background="LightGray" 
+                                                               Foreground="Navy"/>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Credits After" Width="180">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Border BorderBrush="Black" BorderThickness="2">
+                                                        <TextBlock Text="{Binding Credit, StringFormat='£{0:C}'}" TextAlignment="Center" Background="LightGray" 
+                                                               Foreground="Navy"/>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Win Amount" Width="180">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Border BorderBrush="Black" BorderThickness="2">
+                                                        <TextBlock Text="{Binding WinAmount, StringFormat='£{0:C}'}" TextAlignment="Center" Background="LightGray" 
+                                                               Foreground="Navy"/>
+
+                                                    </Border>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </StackPanel>
+                    </ScrollViewer>
+                </StackPanel>
+            </TabItem>
+
+
+            <TabItem Header="Wins" Width="250" HorizontalContentAlignment="Center">
+                <StackPanel>
+                    <Label Style="{StaticResource MESHUGGAH}" HorizontalContentAlignment="Center" Width="600" 
+                               Content="Last Game Wins" BorderBrush="Black" BorderThickness="2"/>
+                    
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="25">
+                        <StackPanel Margin="25">
+                            <ListView ItemsSource="{Binding Path=MachineLogs.LastTenWins}" Height="390" FontSize="20">
+                                <ListView.View>
+                                    <GridView AllowsColumnReorder="False">
+                                        <GridViewColumn Header="Date" Width="225">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Border BorderBrush="Black" BorderThickness="2">
+                                                        <TextBlock Text="{Binding GameDate}" TextAlignment="Center" Background="LightGray" 
+                                                               Foreground="Navy"/>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Game" Width="225">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Border BorderBrush="Black" BorderThickness="2">
+                                                        <TextBlock Text="{Binding GameModel}" TextAlignment="Center" Background="LightGray" 
+                                                               Foreground="Navy"/>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Stake" Width="225">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Border BorderBrush="Black" BorderThickness="2">
+                                                        <TextBlock Text="{Binding Stake, StringFormat='£{0:C}'}" TextAlignment="Center" Background="LightGray" 
+                                                               Foreground="Navy"/>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Win Amount" Width="225">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Border BorderBrush="Black" BorderThickness="2">
+                                                        <TextBlock Text="{Binding WinAmount, StringFormat='£{0:C}'}" TextAlignment="Center" Background="LightGray" 
+                                                               Foreground="Navy"/>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </StackPanel>
+                    </ScrollViewer>
+                </StackPanel>
+            </TabItem>
+            
+            
+            <TabItem Header="Last Collect" Width="250">
+                <views:LastCollectLogView />
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>
