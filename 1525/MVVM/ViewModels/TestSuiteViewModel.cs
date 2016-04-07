@@ -92,5 +92,14 @@ namespace PDTUtils.MVVM.ViewModels
                 temp.StartThread();
             }
         }
+
+        public override void Cleanup()
+        {
+            base.Cleanup();
+            foreach (var vm in Pages)
+            {
+                vm.Cleanup();
+            }
+        }
     }
 }

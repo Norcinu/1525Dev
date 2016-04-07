@@ -144,7 +144,7 @@ namespace PDTUtils.MVVM
             }
         }
         #endregion
-
+        
         #region Public Methods
         public ApplicationViewModel()
         {
@@ -160,7 +160,7 @@ namespace PDTUtils.MVVM
             Pages.Add(new CollectorViewModel("Collector"));
             Pages.Add(new EngineerViewModel("Engineer"));
             Pages.Add(new AdminViewModel("Admin"));
-
+            
             foreach (var p in Pages)
                 p.States.HasSmartCard = _hasSmartCard;
 
@@ -169,7 +169,7 @@ namespace PDTUtils.MVVM
             _dateTimer = new Timer(1000.00);
             _dateTimer.Elapsed += new System.Timers.ElapsedEventHandler(_dateTimer_Elapsed);
             _dateTimer.Start();
-
+            
             _doorStateTimer = new Timer(100.00);
             _doorStateTimer.Elapsed += new System.Timers.ElapsedEventHandler(_doorStateTimer_elapsed);
             _doorStateTimer.Start();
@@ -260,7 +260,7 @@ namespace PDTUtils.MVVM
                     break;
             }
         }
-        
+
         void SetCurrentPage(int status, BaseViewModel newPage)
         {
             var scStatus = BoLib.getSmartCardGroup() & 0xF;
@@ -281,11 +281,11 @@ namespace PDTUtils.MVVM
                 return;
             }
         }
-        
+
         void ChangeViewModel(BaseViewModel newPage)
         {
             if (newPage == null) return;
-            
+
             switch (newPage.Name)
             {
                 case "Cashier":
@@ -306,8 +306,6 @@ namespace PDTUtils.MVVM
                     break;
                 case "Manufacturer": break;
             }
-
-            //CurrentPage = newPage;
         }
         
         void DoAppExit()
@@ -328,7 +326,9 @@ namespace PDTUtils.MVVM
 
             if (GlobalConfig.RebootRequired)
                 BoLib.setRebootRequired();
-            
+
+            Thread.Sleep(500);
+
             BoLib.clearUtilRequestBitState((int)UtilBits.Allow);
             BoLib.closeSharedMemory();
             

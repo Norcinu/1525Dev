@@ -3,6 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:PDTUtils.MVVM.ViewModels"
+             xmlns:view="clr-namespace:PDTUtils.Views"
+             xmlns:local="clr-namespace:AttachedCommandBehavior"
              mc:Ignorable="d">
     
     <UserControl.Resources>
@@ -32,7 +35,7 @@
             <!-- <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"> -->
             <Border BorderBrush="Black" BorderThickness="2" Margin="3" Width="680">
                 <StackPanel>
-                    <Label FontSize="38" HorizontalAlignment="Center" Style="{StaticResource StatsLabel}" Width="680" Height="75" Content="Read Only"/>
+                    <Label FontSize="38" HorizontalAlignment="Center" Style="{StaticResource StatsLabel}" Width="680" Height="75" Content="Touch Row to Change Value. Changes require reboot."/>
                     <!-- Maybe make this text dependent on what level you are on.  says read only if card < manufacturer -->
                     <!-- Height="75" Content="Proceed With Caution" /> -->
                     <Label FontSize="24" HorizontalAlignment="Center"  Style="{StaticResource StatsLabel}" Width="680" Height="75" />
@@ -42,11 +45,13 @@
                                 Height="75" Content="Touch Row to Change Value. Changes require reboot." /> -->
                 </StackPanel>
             </Border>
-            
+            <!-- SelectionChanged="ListBoxSelectionChanged" -->
             <StackPanel Orientation="Horizontal">
-                <ListView Name="Operator" ItemsSource="{Binding OperatorESP}" HorizontalContentAlignment="Center" FontSize="22" 
-                          SelectionChanged="ListBoxSelectionChanged" AlternationCount="2" Margin="3" Height="750"
-                           ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <ListView Name="Operator" ItemsSource="{Binding OperatorESP, Mode=TwoWay}" HorizontalContentAlignment="Center" FontSize="22" 
+                          AlternationCount="2" Margin="3" Height="750"
+                          ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                          local:CommandBehavior.Event="SelectionChanged" local:CommandBehavior.Command="{Binding ListBoxSelectionChanged}" 
+                          local:CommandBehavior.CommandParameter="{Binding SelectedIndex, RelativeSource={RelativeSource Self}}">
 
                     <!-- <ListView.Resources>
                         <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">30</sys:Double>

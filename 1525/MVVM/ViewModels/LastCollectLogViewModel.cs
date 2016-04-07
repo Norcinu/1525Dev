@@ -389,14 +389,14 @@ namespace PDTUtils.MVVM.ViewModels
                 System.Diagnostics.Debug.WriteLine(e.Message);
             }
         }
-        
+
         void DoLoadLog()
         {
             var liveChecksum = 0;
             var finalChecksum = 0;
             var wagwan = new List<int>();
 
-            if (BoLib.getLastPayoutType() == (int)CollectType.Hopper) // need an enum of these payout types.
+            if (BoLib.getLastPayoutType() == (int)CollectType.Hopper) 
             {
                 _payoutFile = Properties.Resources.payout;
                 HopperCollectPayout(ref wagwan, ref liveChecksum, ref finalChecksum);

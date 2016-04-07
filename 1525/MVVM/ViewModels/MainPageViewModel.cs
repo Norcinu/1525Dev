@@ -5,10 +5,12 @@ using System.Windows.Input;
 using PDTUtils.Native;
 
 using Timer = System.Timers.Timer;
+using PDTUtils.Logic;
+using System.Globalization;
 
 namespace PDTUtils.MVVM.ViewModels
 {
-    class MainPageViewModel : ObservableObject
+    class MainPageViewModel : BaseViewModel
     {
         bool _isSpain = (BoLib.getCountryCode() == BoLib.getSpainCountryCode()) ? true : false;
 
@@ -448,26 +450,29 @@ namespace PDTUtils.MVVM.ViewModels
                 _message = oldMsg;
             }
         }
-
+        
+        //use formatted streamwriter for uk code
         void WriteToHandPayLog(int total)
         {
             var filename = Properties.Resources.hand_pay_log;
+            System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo("en-GB");
 
             if (!File.Exists(filename))
             {
-                using (var sw = File.CreateText(filename))
+
+                using (var sw = new FormattingStreamWriter(filename, new CultureInfo("en-GB"), false))
                 {
                     var now = DateTime.Now;
                     var amount = total;
-                    sw.Write(now.ToShortDateString() + " ");
+                    sw.WriteLine(now.ToShortDateString() + " ");
                     sw.Write(now.ToLongTimeString() + " ");
                     sw.Write((Convert.ToDecimal(amount) / 100).ToString("C") + "\r\n");
                 }
             }
             else
             {
-                using (var sw = File.AppendText(filename))
-                {
+                using (var sw = new FormattingStreamWriter(filename, new CultureInfo("en-GB"), true))
+                {       
                     var now = DateTime.Now;
                     var amount = total;
                     sw.Write(now.ToShortDateString() + " ");
@@ -489,7 +494,7 @@ namespace PDTUtils.MVVM.ViewModels
 
             /* var b = button as Button;
              var text = b.Content as Label;
-
+            
              if (text != null)
              {
                  var str = text.Content as string;
@@ -621,3 +626,4 @@ namespace PDTUtils.MVVM.ViewModels
         }
     }
 }
+ 

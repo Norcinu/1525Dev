@@ -18,7 +18,9 @@ namespace PDTUtils.MVVM.ViewModels
                 RaisePropertyChangedEvent("GameStatistics");
             }
         }
-        public GameStatisticsViewModel() : base("GameStatisticsViewModel")
+        
+        public GameStatisticsViewModel()
+            : base("GameStatisticsViewModel")
         {
             GameStatistics = new MachineGameStatistics();
             GameStatistics.ParsePerfLog();

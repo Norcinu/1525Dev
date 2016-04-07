@@ -809,17 +809,32 @@ namespace PDTUtils.Logic
                 FrameworkElement ct = host;
                 while (true)
                 {
-                    if (ct is Window)
+                    try
                     {
-                        var w = ct as Window;
-                        (/*(Window)*/w).LocationChanged += new EventHandler(TouchScreenKeyboard_LocationChanged);
-                        (/*(Window)*/w).Activated += new EventHandler(TouchScreenKeyboard_Activated);
-                        (/*(Window)*/w).Deactivated += new EventHandler(TouchScreenKeyboard_Deactivated);
-                        break;
+                        if (ct is Window)
+                        {
+                            var w = ct as Window;
+                            w.LocationChanged += new EventHandler(TouchScreenKeyboard_LocationChanged);
+                            w.Activated += new EventHandler(TouchScreenKeyboard_Activated);
+                            w.Deactivated += new EventHandler(TouchScreenKeyboard_Deactivated);
+                            break;
+                        }
+                        else if (ct is UserControl)
+                        {
+                            var uc = ct as UserControl;
+                            ct.Loaded += new RoutedEventHandler(TouchScreenKeyboard_Activated);
+                            ct.Unloaded += new RoutedEventHandler(TouchScreenKeyboard_Deactivated);
+                            break;
+                        }
+                        
+                        ct = (FrameworkElement)ct.Parent;
                     }
-                    ct = (FrameworkElement)ct.Parent;
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine(ex.Message);
+                    }
                 }
-
+                
                 _instanceObject = new TouchScreenKeyboard();
                 _instanceObject.AllowsTransparency = true;
                 _instanceObject.WindowStyle = WindowStyle.None;
@@ -830,7 +845,7 @@ namespace PDTUtils.Logic
                 host.LayoutUpdated += new EventHandler(tb_LayoutUpdated);
             }
         }
-
+        
         static void TouchScreenKeyboard_Deactivated(object sender, EventArgs e)
         {
             if (_instanceObject != null)

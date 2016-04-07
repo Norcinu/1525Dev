@@ -8,30 +8,80 @@
              xmlns:local="clr-namespace:AttachedCommandBehavior"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-
+    
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type vm:AdminViewModel}" />
 
         <DataTemplate DataType="{x:Type vm:GameSettingViewModel}">
             <view:GameSettingsView />
         </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:BirthCertViewModel}">
+            <view:BirthCertView />
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:CashMatchViewModel}">
+            <view:CashMatchView />
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:ConfigureViewModel}">
+            <view:ConfigureView />
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:GeneralSettingsViewModel}">
+            <view:GeneralSettingsView />
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:GameStatisticsViewModel}">
+            <view:GameStatisticsView />
+        </DataTemplate>
+    
+        <DataTemplate DataType="{x:Type vm:DateTimeViewModel}">
+            <view:DateTimeView />
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:VolumeViewModel}">
+            <view:VolumeView />
+        </DataTemplate>
+        
     </UserControl.Resources>
-
+    
     <Grid>
-        <TabControl local:CommandBehavior.Event="SelectionChanged" local:CommandBehavior.Command="{Binding TabSelectionChanged}" local:CommandBehavior.CommandParameter="SelectionChanged">
+        <TabControl local:CommandBehavior.Event="SelectionChanged" local:CommandBehavior.Command="{Binding TabSelectionChanged}" 
+                    local:CommandBehavior.CommandParameter="{Binding SelectedIndex, RelativeSource={RelativeSource Self}}">
+            
             <TabItem Header="Game Settings" Width="200">
                 <ContentControl Content="{Binding CurrentPage}" />
             </TabItem>
-            <TabItem Header="Birth Cert" Width="200"></TabItem>
-            <TabItem Header="System Settings" Width="200"></TabItem>
+
             <TabItem Header="Configure" Width="200">
-                <view:ConfigureView />
+                <ContentControl Content="{Binding CurrentPage}" />
             </TabItem>
-            <!-- Hopper & note -->
-            <TabItem Header="Smart Card" Width="200"></TabItem>
+            
             <TabItem Header="Games" Width="200">
-                <view:GameStatisticsView />
+                <ContentControl Content="{Binding CurrentPage}" />
+            </TabItem>
+
+            <TabItem Header="Smart Card" Width="200">
+                <ContentControl Content="{Binding CurrentPage}" />
+            </TabItem>
+            
+            <TabItem Header="Birth Cert" Width="200">
+                <ContentControl Content="{Binding CurrentPage}" />
+            </TabItem>
+            
+            <TabItem Header="General" Width="200">
+                <ContentControl Content="{Binding CurrentPage}" />
+            </TabItem>
+
+            <TabItem Header="System Time" Width="200">
+                <ContentControl Content="{Binding CurrentPage}" />
+            </TabItem>
+
+            <TabItem Header="Volume" Width="200">
+                <ContentControl Content="{Binding CurrentPage}" />
             </TabItem>
         </TabControl>
+    
     </Grid>
 </UserControl>

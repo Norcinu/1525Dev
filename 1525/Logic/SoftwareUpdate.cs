@@ -34,7 +34,7 @@ namespace PDTUtils
         }
 	}
     
-	/*public*/ class UserSoftwareUpdate : ObservableObject //BaseNotifyPropertyChanged
+	class UserSoftwareUpdate : BaseViewModel
 	{
         bool _updateSuccess = false;
 		string _rollbackIni; 

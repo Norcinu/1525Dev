@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace PDTUtils.MVVM.ViewModels
 {
-    class UsbFileUploaderViewModel : ObservableObject
+    class UsbFileUploaderViewModel : BaseViewModel
     {
         System.Windows.Visibility _isVisible = System.Windows.Visibility.Hidden;
         int _selectedIndex = -1;

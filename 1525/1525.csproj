@@ -117,6 +117,7 @@
     </Compile>
     <Compile Include="Logic\AutoClosingMessageBox.cs" />
     <Compile Include="Logic\DelegateCommand.cs" />
+    <Compile Include="Logic\FormattedStreamWriter.cs" />
     <Compile Include="Logic\GlobalConfig.cs" />
     <Compile Include="Logic\IniFile.cs" />
     <Compile Include="Logic\IniFileUtility.cs" />
@@ -151,10 +152,12 @@
     <Compile Include="MVVM\ViewModels\ConfigureViewModel.cs" />
     <Compile Include="MVVM\ViewModels\CpuCaseOpenViewModel.cs" />
     <Compile Include="MVVM\ViewModels\CreditManagementViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\DateTimeViewModel.cs" />
     <Compile Include="MVVM\ViewModels\DefaultViewModel.cs" />
     <Compile Include="MVVM\ViewModels\DiagnosticViewModel.cs" />
     <Compile Include="MVVM\ViewModels\DilSwitchViewModel.cs" />
     <Compile Include="MVVM\ViewModels\EmptyMachineViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\EngineerHistoryViewModel.cs" />
     <Compile Include="MVVM\ViewModels\EngineerViewModel.cs" />
     <Compile Include="MVVM\ViewModels\GameChartViewModel.cs" />
     <Compile Include="MVVM\ViewModels\GameStatisticsViewModel.cs" />
@@ -176,6 +179,7 @@
     <Compile Include="MVVM\ViewModels\SmartCardLogViewModel.cs" />
     <Compile Include="MVVM\ViewModels\TestSuiteViewModel.cs" />
     <Compile Include="MVVM\ViewModels\UsbFileUploaderViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\VolumeViewModel.cs" />
     <Compile Include="Views\AdminView.xaml.cs">
       <DependentUpon>AdminView.xaml</DependentUpon>
     </Compile>
@@ -206,6 +210,9 @@
     <Compile Include="Views\CpuCaseOpenLog.xaml.cs">
       <DependentUpon>CpuCaseOpenLog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DateTimeView.xaml.cs">
+      <DependentUpon>DateTimeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DefaultView.xaml.cs">
       <DependentUpon>DefaultView.xaml</DependentUpon>
     </Compile>
@@ -214,6 +221,9 @@
     </Compile>
     <Compile Include="Views\EmptyMachineView.xaml.cs">
       <DependentUpon>EmptyMachineView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EngineerHistoryView.xaml.cs">
+      <DependentUpon>EngineerHistoryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EngineerView.xaml.cs">
       <DependentUpon>EngineerView.xaml</DependentUpon>
@@ -323,6 +333,9 @@
     <Compile Include="Views\UsbSoftwareUpdateView.xaml.cs">
       <DependentUpon>UsbSoftwareUpdateView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\VolumeView.xaml.cs">
+      <DependentUpon>VolumeView.xaml</DependentUpon>
+    </Compile>
     <Page Include="ApplicationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -426,6 +439,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\DateTimeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\DefaultView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -439,6 +456,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\EmptyMachineView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EngineerHistoryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -535,6 +556,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UsbSoftwareUpdateView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\VolumeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

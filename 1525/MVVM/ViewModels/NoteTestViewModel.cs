@@ -1,5 +1,7 @@
 ﻿using System.Threading;
 using PDTUtils.Native;
+using System;
+using System.Diagnostics;
 
 namespace PDTUtils.MVVM.ViewModels
 {
@@ -8,7 +10,7 @@ namespace PDTUtils.MVVM.ViewModels
         bool _running;
         string _bannerMessage;
         string _valueMessage;
-        
+
         public string ValueMessage
         {
             get { return _valueMessage; }
@@ -18,7 +20,7 @@ namespace PDTUtils.MVVM.ViewModels
                 RaisePropertyChangedEvent("ValueMessage");
             }
         }
-        
+
         public string BannerMessage
         {
             get { return _bannerMessage; }
@@ -28,7 +30,7 @@ namespace PDTUtils.MVVM.ViewModels
                 RaisePropertyChangedEvent("BannerMessage");
             }
         }
-
+        
         Thread _noteThread;
 
         public NoteTestViewModel(string name)
@@ -36,15 +38,6 @@ namespace PDTUtils.MVVM.ViewModels
         {
             _running = false;
             BannerMessage = "Enter Note";
-            /*if (!BoLib.getUtilDoorAccess()) 
-            {
-                MessageBox.Show("Please turn refill key before continuing.", "Warning", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                if (!BoLib.getUtilDoorAccess())
-                {
-                    _running = false;
-                    return;
-                }
-            */
         }
 
         public void StartThread()
@@ -61,25 +54,36 @@ namespace PDTUtils.MVVM.ViewModels
         {
             while (_running)
             {
-                System.Diagnostics.Debug.WriteLine("NOTE THREAD");
-                var value = BoLib.getBankCreditsReservePtr();//BoLib.getCredit() + BoLib.getBank() + (int)BoLib.getReserveCredits();
-                if (value <= 0)
+                try
                 {
-                    ValueMessage = "";
-                    //return;
+                    var value = BoLib.getBankCreditsReservePtr();
+                    if (value > 0)
+                    {
+                        BoLib.clearBankCreditReserve();
+                        ValueMessage = (value / 100).ToString("f2");
+                    }
+                    Thread.Sleep(100);
                 }
-                else
+                catch(Exception e)
                 {
-                    BoLib.clearBankCreditReserve();
-                    ValueMessage = (value / 100).ToString("f2");
+                    _running = false;
+                    Debug.WriteLine(e.Message);
                 }
-                Thread.Sleep(100);
             }
         }
-        
+
         public void Cleanup()
         {
             _running = false;
+            try
+            {
+                if (_noteThread != null) _noteThread.Abort();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+            Thread.Sleep(100);
             BoLib.clearUtilRequestBitState((int)UtilBits.NoteTest);
         }
     }

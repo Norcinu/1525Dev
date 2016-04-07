@@ -11,13 +11,12 @@ using PDTUtils.Native;
 
 namespace PDTUtils.MVVM.ViewModels
 {
-    class GameSettingViewModel : ObservableObject
+    class GameSettingViewModel : BaseViewModel
     {
         readonly ObservableCollection<GameSettingModel> _gameSettings = new ObservableCollection<GameSettingModel>();
         readonly int[] _ukStakeValues = { 25, 50, 100, 200 };
         readonly string _manifest = @"D:\machine\machine.ini";
         int[] _masterStakes = { 0, 0, 0, 0, 0, 0 };
-        //ObservableCollection<int> _masterStakes = new ObservableCollection<int>();
         
         int _count = 0;
         int _currentFirstSel = -1;
@@ -31,7 +30,7 @@ namespace PDTUtils.MVVM.ViewModels
 
         public NumberFormatInfo Nfi { get; set; }
         
-        #region properties
+        #region Properties
         public int ActiveCount
         {
             get { return _count; }
@@ -121,17 +120,6 @@ namespace PDTUtils.MVVM.ViewModels
                 RaisePropertyChangedEvent("NumberOfPromos");
             }
         }
-
-        bool _isBritish = false;
-        public bool IsBritishMachine
-        {
-            get { return _isBritish; }
-            set
-            {
-                _isBritish = value;
-                RaisePropertyChangedEvent("IsBritishMachine");
-            }
-        }
         
         public bool IsActiveGame
         {
@@ -207,29 +195,9 @@ namespace PDTUtils.MVVM.ViewModels
             }
         }
 
-        public string FirstPromo
-        {
-            get;
-            /*{
-                if (_currentFirstSel != -1)
-                    return _gameSettings[_currentFirstSel].Title;
-                else
-                    return "NOT SELECTED";
-            }*/
-            set;
-        }
+        public string FirstPromo { get; set; }
 
-        public string SecondPromo
-        {
-            get;
-            set;
-            /*{
-                if (_currentSecondSel != -1)
-                    return _gameSettings[_currentSecondSel].Title;
-                else
-                    return "NOT SELECTED 2";
-            }*/
-        }
+        public string SecondPromo { get; set; }
 
         public Brush StakeOneColour
         {
@@ -274,10 +242,11 @@ namespace PDTUtils.MVVM.ViewModels
         };
         
         //game number 1 - 100 for promo, I.E its index number
-        public GameSettingViewModel()
+        public GameSettingViewModel(string name)
+            : base(name)
         {
             SelectionChanged = false;
-            IsBritishMachine = BoLib.getCountryCode() != BoLib.getSpainCountryCode();
+            
             try
             {
                 LoadMasterStakes();
@@ -302,24 +271,13 @@ namespace PDTUtils.MVVM.ViewModels
             if (Stakes == null)
                 Stakes = new ObservableCollection<string>();
 
-            //for (int i = 1; i < 7; i++)
-            for (int i = 1; i < 7; i++ )
+            for (int i = 1; i < 7; i++)
             {
                 char[] temp = new char[5];
                 NativeWinApi.GetPrivateProfileString("FactoryOnly", "MasterStake" + i, "", temp, 5, Properties.Resources.birth_cert);
                 var a = Convert.ToInt32(new string(temp).Trim(" \0".ToCharArray()));
                 if (a > 0)
-                    _masterStakes[i /*- 1*/] = a;
-                
-                // if (a > 0)
-                //     Stakes.Add(new string(temp).Trim(" \0".ToCharArray()));
-                //_masterStakes[i - 1] = a;
-                /*if (_masterStakes[i - 1] >= 100)
-                    Stakes.Add(new string()*/
-                //_masterStakes[i - 1]));
-                /*else if (_masterStakes[i - 1] > 0)
-                    Stakes.Add(new string(_masterStakes[i - 1].ToString() + Convert.ToChar("p")));*/
-
+                    _masterStakes[i] = a;
             }
         }
         
@@ -376,11 +334,10 @@ namespace PDTUtils.MVVM.ViewModels
                             char[] trim = { '=' };
                             var d = _disabled[j].Trim(trimmer).Split(new char[1] { '=' });
 
-                            //if (_disabled[j] == trimmedModel)
                             if (d[0] == trimmedModel)
                             {
                                 found = true;
-                                _disabledModels.Add(d[0]);// _disabled[j]);
+                                _disabledModels.Add(d[0]);
                                 break;
                             }
                         }
@@ -408,7 +365,7 @@ namespace PDTUtils.MVVM.ViewModels
                 }
             }
         }
-
+        
         public void SaveChanges()
         {
             if (_gameSettings.Count <= 0) return;
@@ -420,40 +377,24 @@ namespace PDTUtils.MVVM.ViewModels
                 else if (promoCount >= 2)
                     g.Promo = false;
             }
-
+            
             if (promoCount == 0)
             {
                 var r = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
                 _gameSettings[r.Next(_gameSettings.Count)].Promo = true;
             }
-
+            
             bool isFirstSet = false;
             bool isSecondSet = false;
             uint activeCount = _numberOfGames;
 
             BoLib.loadAndPlayFile(@"d:\1525\wav\SX_MISC1.wav");
-
+            
             NativeWinApi.WritePrivateProfileString("Operator", "Stake1", _myBits[1].Equals(true) ? "25" : "0", Properties.Resources.birth_cert);
             NativeWinApi.WritePrivateProfileString("Operator", "Stake2", _myBits[2].Equals(true) ? "50" : "0", Properties.Resources.birth_cert);
             NativeWinApi.WritePrivateProfileString("Operator", "Stake3", _myBits[3].Equals(true) ? "100" : "0", Properties.Resources.birth_cert);
             NativeWinApi.WritePrivateProfileString("Operator", "Stake4", _myBits[4].Equals(true) ? "200" : "0", Properties.Resources.birth_cert);
-            //NativeWinApi.WritePrivateProfileString("Operator", "Stake5", _myBits[4].Equals(true) ? "200" : "0", Properties.Resources.birth_cert);
 
-            /*try
-            {
-                if (_disabled != null)
-                {
-                    Array.Sort(_disabled);
-                    for (int i = 1; i <= 100; i++)
-                    {
-                        NativeWinApi.WritePrivateProfileString("Disabled", i.ToString(), _disabled[i], Properties.Resources.disabled_games);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine(e.Message);
-            }*/
             IniFile disabledIni = new IniFile(Properties.Resources.disabled_games);
             disabledIni.DeleteSection("Disabled");
 
@@ -479,47 +420,12 @@ namespace PDTUtils.MVVM.ViewModels
                     activeCount--;
                 }
 
-                //NativeWinApi.WritePrivateProfileString(temp, _fields[0], m.ModelNumber.ToString(), _manifest);
-                //NativeWinApi.WritePrivateProfileString(temp, _fields[1], m.Title, _manifest);
-
                 if (FirstPromo == m.Title && m.Active)
                 {
-                    //NativeWinApi.WritePrivateProfileString(temp, _fields[8], "100", _manifest);
                     NativeWinApi.WritePrivateProfileString("Operator", "PromoGame", (i + 1).ToString(), Properties.Resources.birth_cert);
                     isFirstSet = true;
                 }
-                //else
-                //{
-                //NativeWinApi.WritePrivateProfileString(temp, _fields[8], "0", _manifest);
-                //}
             }
-
-            /*if (!isFirstSet)
-            {
-                for (int i = 0; i < _gameSettings.Count; i++)
-                {
-                    if (_gameSettings[i].Active)
-                    {
-                        NativeWinApi.WritePrivateProfileString("Game" + (i + 1), "Promo", "100", _manifest);
-                        break;
-                    }
-                }
-            }*/
-
-            /*if (!isSecondSet)
-            {
-                for (int i = 0; i < _gameSettings.Count; i++)
-                {
-                    if (_gameSettings[i].Active && !_gameSettings[i].Promo)
-                    {
-                        NativeWinApi.WritePrivateProfileString("Game" + (i + 1), "Promo", "200", _manifest);
-                        break;
-                    }
-                }
-            }*/
-
-            /*NativeWinApi.WritePrivateProfileString("General", "Update", "1", _manifest);
-            NativeWinApi.WritePrivateProfileString("General", "NoActive", activeCount.ToString(), _manifest);*/
 
             IniFileUtility.HashFile(_manifest);
 
@@ -532,9 +438,6 @@ namespace PDTUtils.MVVM.ViewModels
         
         void Initialise()
         {
-            /*char[] trimmer = { '\0', ' ' };*/
-            
-            /*var buffer = new char[5];*/
             var number = NativeWinApi.GetPrivateProfileInt("Operator", "Stake1", 0, Properties.Resources.birth_cert);
             Stakes.Add((number > 0) ? number.ToString() + "p" : "25p");
             if (number > 0)
@@ -616,21 +519,11 @@ namespace PDTUtils.MVVM.ViewModels
                 return;
             }
             
-            //if (_gameSettings[a])
-            //SecondPromo = first.Title;
-            
-            FirstPromo = first.Title;
-            /*if (first.Title == SecondPromo) SecondPromo = "";
-            if (second != null && second.Title != "")
-            {
-                SecondPromo = second.Title;
-                if (second.Title == FirstPromo) SecondPromo = "";
-            }*/
-                
+            FirstPromo = first.Title;              
             
             foreach (var gsm in _gameSettings)
             {
-                if (gsm.Title != first.Title)// && gsm.Title != second.Title)
+                if (gsm.Title != first.Title)
                 {
                     gsm.Promo = false;
                 }

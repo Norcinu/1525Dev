@@ -35,13 +35,15 @@ namespace PDTUtils.MVVM
             }
         }
         
-        protected BaseViewModel() : base()
+        protected BaseViewModel()
+            : base()
         {
             Name = "";
             _states = new CabinetSwitchStates();
         }
         
-        protected BaseViewModel(string name) : base()
+        protected BaseViewModel(string name)
+            : base()
         {
             Name = name;
             _states = new CabinetSwitchStates();

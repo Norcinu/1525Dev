@@ -10,7 +10,7 @@ using PDTUtils.Properties;
 
 namespace PDTUtils.MVVM.ViewModels
 {
-    class GeneralSettingsViewModel : ObservableObject
+    class GeneralSettingsViewModel : BaseViewModel
     {
         public bool RebootRequired { get; set; }
         public bool IsCatC { get; set; }
@@ -26,14 +26,12 @@ namespace PDTUtils.MVVM.ViewModels
         public string HandPayStateMsg { get; set; }
         readonly string _titoDisabledMsg = "Warning: TiTo DISABLED";
         readonly string _titoEnabledMsg = "TiTo ENABLED";
-        
-        public GeneralSettingsViewModel()
+
+        public GeneralSettingsViewModel(string name)
+            : base(name)
         {
             try
             {
-                /*Thread.CurrentThread.CurrentUICulture = BoLib.getCountryCode() != BoLib.getSpainCountryCode() 
-                    ? new CultureInfo("en-GB") 
-                    : new CultureInfo("es-ES");*/
 
                 if (BoLib.getCountryCode() != BoLib.getSpainCountryCode())
                 {
@@ -47,18 +45,18 @@ namespace PDTUtils.MVVM.ViewModels
                     RaisePropertyChangedEvent("IsBritish");
                     Thread.CurrentThread.CurrentUICulture = new CultureInfo("es-ES");
                 }
-                
-             /*   if (BoLib.getCountryCode() != BoLib.getUkCountryCodeC())
-                {
-                    RtpMessage = "CAT C NOT ENABLED";
-                    IsCatC = false;
-                }
-                else
-                {*/
-                    RtpMessage = BoLib.getTargetPercentage().ToString() + "%";
-                    //IsCatC = true;
-//                }
-                
+
+                /*   if (BoLib.getCountryCode() != BoLib.getUkCountryCodeC())
+                   {
+                       RtpMessage = "CAT C NOT ENABLED";
+                       IsCatC = false;
+                   }
+                   else
+                   {*/
+                RtpMessage = BoLib.getTargetPercentage().ToString() + "%";
+                //IsCatC = true;
+                //                }
+
                 TiToEnabled = BoLib.getTitoEnabledState();
 
                 var sb = new StringBuilder(20);
@@ -67,10 +65,10 @@ namespace PDTUtils.MVVM.ViewModels
 
                 TerminalAssetMsg = (TiToEnabled) ? /*_titoEnabledMsg*/ sb.ToString() : _titoDisabledMsg;
 
-                HandPayLevel = (BoLib.getHandPayThreshold() / 100).ToString("C", Thread.CurrentThread.CurrentUICulture.NumberFormat);
+                HandPayLevel = (BoLib.getHandPayThreshold() / 100).ToString();
                 DivertLeftMessage = BoLib.getHopperDivertLevel((byte)Hoppers.Left).ToString();
                 DivertRightMessage = BoLib.getHopperDivertLevel((byte)Hoppers.Right).ToString();
-                
+
                 RebootRequired = false;
 
                 char[] buffer = new char[3];
@@ -97,7 +95,7 @@ namespace PDTUtils.MVVM.ViewModels
             {
                 Debug.WriteLine(e.Message);
             }
-            
+
             RaisePropertyChangedEvent("IsCatC");
             RaisePropertyChangedEvent("HandPayLevel");
             RaisePropertyChangedEvent("DivertMessage");
@@ -198,7 +196,7 @@ namespace PDTUtils.MVVM.ViewModels
             
             IniFileUtility.HashFile(Resources.birth_cert);
 
-            HandPayLevel = (newVal / 100).ToString("C", Thread.CurrentThread.CurrentCulture.NumberFormat);
+            HandPayLevel = (newVal / 100).ToString();
             RaisePropertyChangedEvent("HandPayLevel");
         }
         

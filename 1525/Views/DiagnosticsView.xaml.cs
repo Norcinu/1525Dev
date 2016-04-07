@@ -13,17 +13,18 @@ namespace PDTUtils.Views
         public DiagnosticsView()
         {
             InitializeComponent();
-            var d = new DiagnosticViewModel(new MachineInfo());
+            /*var d = new DiagnosticViewModel(new MachineInfo());
             if (!d.AccessLevel)
                 this.Visibility = System.Windows.Visibility.Hidden;
             else
                 this.Visibility = System.Windows.Visibility.Visible;
 
-            DataContext = d;//new DiagnosticViewModel(new MachineInfo());
+            DataContext = d;*/
         }
-        
-        void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
         }
     }
 }

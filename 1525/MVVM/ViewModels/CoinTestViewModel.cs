@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using PDTUtils.Native;
 using System.Threading;
+using System.Diagnostics;
 
 namespace PDTUtils.MVVM.ViewModels
 {
@@ -34,7 +35,7 @@ namespace PDTUtils.MVVM.ViewModels
         }
         
         Thread _coinThread;
-        
+
         public CoinTestViewModel(string name)
             : base(name)
         {
@@ -45,13 +46,21 @@ namespace PDTUtils.MVVM.ViewModels
         {
             while (_running)
             {
-                var value = BoLib.getBankCreditsReservePtr();
-                if (value > 0)
+                try
                 {
-                    BoLib.clearBankCreditReserve();
-                    ValueMessage = (value / 100).ToString("f2");
+                    var value = BoLib.getBankCreditsReservePtr();
+                    if (value > 0)
+                    {
+                        BoLib.clearBankCreditReserve();
+                        ValueMessage = (value / 100).ToString("f2");
+                    }
+                    Thread.Sleep(100);
                 }
-                Thread.Sleep(100);
+                catch (Exception e)
+                {
+                    _running = false;
+                    Debug.WriteLine(e.Message);
+                }
             }
         }
         
@@ -68,6 +77,16 @@ namespace PDTUtils.MVVM.ViewModels
         public override void Cleanup()
         {
             _running = false;
+            try
+            {
+                if (_coinThread != null) _coinThread.Abort();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+
+            Thread.Sleep(100);
             BoLib.clearUtilRequestBitState((int)UtilBits.CoinTest);
         }
     }

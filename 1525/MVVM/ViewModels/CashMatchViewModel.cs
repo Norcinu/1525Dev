@@ -1,9 +1,11 @@
 ﻿using System.Windows.Input;
 using PDTUtils.Native;
+using PDTUtils.Logic;
+using System.Diagnostics;
 
 namespace PDTUtils.MVVM.ViewModels
 {
-    class CashMatchViewModel : ObservableObject
+    class CashMatchViewModel : BaseViewModel
     {
         readonly byte MIN_LOYALTY = 1;
         readonly byte MAX_LOYALTY = 3;
@@ -13,7 +15,7 @@ namespace PDTUtils.MVVM.ViewModels
         readonly string DM_HEADER1 = "DPlayTDC";  //Amount of Demo plays  
         readonly string DM_HEADER2 = "DPlaySize"; //Games in demo session
         readonly string LY_HEADER1 = "RewardRTP";
-        
+
         bool _cashMatchActive = true;
         bool _demoActive = true;
         bool _loyaltyActive = true;
@@ -24,11 +26,11 @@ namespace PDTUtils.MVVM.ViewModels
         uint _demoEventNumOfGames = 0;
 
         int _oldLength = 0;
-        
+
         string _sitePrepend = "FHX_";
         string _siteCode = "";
-        
-#region PROPERTIES
+
+        #region PROPERTIES
         public byte LoyaltyPayback
         {
             get { return _loyaltyPayback; }
@@ -52,17 +54,17 @@ namespace PDTUtils.MVVM.ViewModels
 
         public string VisualMaximumEvents
         {
-            get 
+            get
             {
                 if (_maximumEvents == 0)
                     return "0 (Disabled)";
                 else if (_maximumEvents == (BoLib.getCashMatchEventMax() + 1))
                     return "∞";
                 else
-                    return _maximumEvents.ToString(); 
+                    return _maximumEvents.ToString();
             }
         }
-        
+
         public uint MaxSpendPerDay
         {
             get { return _maxSpendPerDay; }
@@ -73,7 +75,7 @@ namespace PDTUtils.MVVM.ViewModels
                 RaisePropertyChangedEvent("VisualMaxSpendPerDay");
             }
         }
-        
+
         public string VisualMaxSpendPerDay
         {
             get
@@ -86,7 +88,7 @@ namespace PDTUtils.MVVM.ViewModels
                     return "£" + _maxSpendPerDay.ToString();
             }
         }
-        
+
         public string DemoEventsPerDay
         {
             get
@@ -104,7 +106,7 @@ namespace PDTUtils.MVVM.ViewModels
                 RaisePropertyChangedEvent("DemoEventsPerDay");
             }*/
         }
-        
+
         public uint DemoEventsNumOfGames
         {
             get { return _demoEventNumOfGames; }
@@ -114,10 +116,10 @@ namespace PDTUtils.MVVM.ViewModels
                 RaisePropertyChangedEvent("DemoEventsNumOfGames");
             }
         }
-        
+
         public bool CashMatchActive
         {
-        
+
             get { return _cashMatchActive; }
             set
             {
@@ -125,7 +127,7 @@ namespace PDTUtils.MVVM.ViewModels
                 RaisePropertyChangedEvent("CashMatchActive");
             }
         }
-        
+
         public bool DemoEventsActive
         {
             get { return _demoActive; }
@@ -135,7 +137,7 @@ namespace PDTUtils.MVVM.ViewModels
                 RaisePropertyChangedEvent("DemoEventsActive");
             }
         }
-        
+
         public bool LoyaltyActive
         {
             get { return _loyaltyActive; }
@@ -145,7 +147,7 @@ namespace PDTUtils.MVVM.ViewModels
                 RaisePropertyChangedEvent("LoyaltyActive");
             }
         }
-        
+
         public string SiteCode
         {
             get { return _siteCode; }
@@ -157,7 +159,7 @@ namespace PDTUtils.MVVM.ViewModels
                     {
                         new WpfMessageBoxService().ShowMessage("Site Code should be less than 6 numbers", "Error");
                         _oldLength = value.Length;
-                    }                   
+                    }
 
                     return;
                 }
@@ -168,9 +170,10 @@ namespace PDTUtils.MVVM.ViewModels
             }
         }
 
-#endregion
-        
-        CashMatchViewModel()
+        #endregion
+
+        public CashMatchViewModel(string name)
+            : base(name)
         {
             var ini = new PDTUtils.Logic.IniFile(Properties.Resources.birth_cert);
             var cm1 = (uint)ini.GetInt32("Operator", CM_HEADER1, 0);
@@ -178,15 +181,15 @@ namespace PDTUtils.MVVM.ViewModels
             var dm1 = (uint)ini.GetInt32("Operator", DM_HEADER1, 0);
             var dm2 = (uint)ini.GetInt32("Operator", DM_HEADER2, 0);
             var loy = (uint)ini.GetInt32("Operator", LY_HEADER1, 1);
-            
+
             _maximumEvents = cm1;
             _maxSpendPerDay = cm2 / 100;
-            
+
             _demoEventNumOfGames = (dm2 > 0) ? dm2 : 20;
             _demoEventsPerDay = dm1;
-            
+
             LoyaltyPayback = BoLib.getSmartCardPointsRTP();
-            
+
             CashMatchActive = (_maximumEvents > 0) ? true : false;
             DemoEventsActive = (_demoEventsPerDay > 0) ? true : false;
             LoyaltyActive = (LoyaltyPayback > 0) ? true : false;
@@ -215,12 +218,12 @@ namespace PDTUtils.MVVM.ViewModels
             NativeWinApi.WritePrivateProfileString("Operator", "RewardRTP", LoyaltyPayback.ToString(), Properties.Resources.birth_cert);
             BoLib.setSmartCardPointsRTP(_loyaltyPayback);
         }
-        
+
         public ICommand EditMaxEvents
         {
             get { return new DelegateCommand(DoEditMaxEvents); }
         }
-        
+
         void DoEditMaxEvents(object o)
         {
             if (!_cashMatchActive) return;
@@ -264,7 +267,7 @@ namespace PDTUtils.MVVM.ViewModels
                     }
                 }
             }
-            
+
             if (MaximumEvents == 0)
             {
                 BoLib.setCashMatchEventMaxTotalCount(cashMatchEventMax);
@@ -276,16 +279,16 @@ namespace PDTUtils.MVVM.ViewModels
                 NativeWinApi.WritePrivateProfileString("Operator", CM_HEADER1, MaximumEvents.ToString(), Properties.Resources.birth_cert);
             }
         }
-        
+
         public ICommand EditDailyMaxSpend
         {
             get { return new DelegateCommand(DoEditDailyMaxSpend); }
         }
-        
+
         void DoEditDailyMaxSpend(object o)
         {
             if (!_cashMatchActive) return;
-            
+
             var str = o as string;
             var infinite = BoLib.getCashMatchEventMaxValue() + 1;
             if (str.Equals("increase"))
@@ -327,7 +330,7 @@ namespace PDTUtils.MVVM.ViewModels
                     }
                 }
             }
-            
+
             if (MaxSpendPerDay == 0)
             {
                 BoLib.setCashMatchEventMaxTotalValue(infinite);
@@ -389,7 +392,7 @@ namespace PDTUtils.MVVM.ViewModels
                     }
                 }
             }
-            
+
             if (_demoEventsPerDay == 0)
             {
                 BoLib.setDemoPlayEventMaxTotalCount(demoMax);
@@ -432,7 +435,7 @@ namespace PDTUtils.MVVM.ViewModels
                     DemoEventsNumOfGames = 50;
                 }
             }
-            
+
             BoLib.setDemoPlayEventMaxTotalValue(DemoEventsNumOfGames);
             NativeWinApi.WritePrivateProfileString("Operator", DM_HEADER2, DemoEventsNumOfGames.ToString(), Properties.Resources.birth_cert);
         }
@@ -484,7 +487,7 @@ namespace PDTUtils.MVVM.ViewModels
                 NativeWinApi.WritePrivateProfileString("Operator", CM_HEADER2, "0", Properties.Resources.birth_cert);
             }
         }
-        
+
         public ICommand ToggleDemoEvents { get { return new DelegateCommand(o => DoToggleDemoEvents()); } }
         void DoToggleDemoEvents()
         {
@@ -496,29 +499,48 @@ namespace PDTUtils.MVVM.ViewModels
                     _demoEventsPerDay = 5;
                     RaisePropertyChangedEvent("DemoEventsPerDay");
                 }
-                
+
                 BoLib.setDemoPlayEventMaxTotalCount(_demoEventsPerDay);
                 NativeWinApi.WritePrivateProfileString("Operator", DM_HEADER1, DemoEventsPerDay, Properties.Resources.birth_cert);
             }
             else
             {
                 DemoEventsActive = false;
-                
+
                 BoLib.setDemoPlayEventMaxTotalCount(0);
                 NativeWinApi.WritePrivateProfileString("Operator", DM_HEADER1, "0", Properties.Resources.birth_cert);
             }
         }
-        
+
         public ICommand Save { get { return new DelegateCommand(o => DoSave()); } }
         void DoSave()
         {
             BoLib.loadAndPlayFile(@"d:\1525\wav\SX_MISC1.wav");
-            if (_siteCode.Length > 6)
+            var returnCode = false;
+
+            if (_siteCode.Length < 6)
             {
-                _siteCode = _siteCode.Remove(6);
+                try
+                {
+                    WarningDialog warning = new WarningDialog("Please enter the full 6 digit code", "Error");
+                    warning.ShowDialog();
+                    returnCode = true;
+                }
+                finally
+                {
+                    Debug.WriteLine("Warning Dialog 6 Digit Code Error Thrown.");
+                    returnCode = true;
+                }
             }
+
+            if (returnCode)
+                return;
+
+            if (_siteCode.Length > 6)
+                _siteCode = _siteCode.Remove(6);
+
             NativeWinApi.WritePrivateProfileString("Operator", "SCVenue", _sitePrepend + _siteCode, Properties.Resources.birth_cert);
-            PDTUtils.Logic.GlobalConfig.ReparseSettings = true;
+            GlobalConfig.ReparseSettings = true;
         }
     }
 }

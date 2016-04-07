@@ -35,7 +35,7 @@
             <!-- TODO RE-INSTATE THIS. 
             
                 <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
-                <Button Content="Hopper" Height="75" Width="75" Margin="0,10,0,10" FontSize="20" Command="{Binding SetHandPayState}"
+                <Button Content="Hopeper" Height="75" Width="75" Margin="0,10,0,10" FontSize="20" Command="{Binding SetHandPayState}"
                         CommandParameter="hopper"/>
                 <Border CornerRadius="8" Background="SlateGray" BorderBrush="SlateBlue" Margin="5" BorderThickness="4">
                     <Label Style="{StaticResource StdLabel}">Hand Pay State</Label>
@@ -68,16 +68,15 @@
                         <Image Source="D:/1525/bmp/down.png" Height="65" Width="65" />
                     </StackPanel>
                 </RepeatButton>
-
+                
                 <Border CornerRadius="8" Background="SlateGray" BorderBrush="SlateBlue" Margin="5" BorderThickness="4">
-                    <Label Style="{StaticResource StdLabelWide}" Content="{Binding Mode=OneWay, Path=HandPayLevel, 
-                        UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Style="{StaticResource StdLabelWide}" ContentStringFormat="£{0}" 
+                           Content="{Binding Mode=OneWay, Path=HandPayLevel, UpdateSourceTrigger=PropertyChanged}"/>
                 </Border>
             </StackPanel>
 
             
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10" IsEnabled="{Binding IsBritish}"
-                        Visibility="{Binding IsBritish, Converter={StaticResource BoolToVisConverter}}">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
                 <Button Height="75" Width="70"  Margin="0,10,0,10" FontSize="30"
 						Command="{Binding SetRtp}"
 						CommandParameter="up">+</Button>

@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="PDTUtils.Views.VolumeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <StackPanel Name="StpVolume" Background="BlanchedAlmond" 
+                                    VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+
+            <TextBlock FontSize="28" Margin="50" TextAlignment="Center" >Set Machine's Volume Level</TextBlock>
+            <Slider Height="50" 
+								HorizontalAlignment="Center" 
+								IsSnapToTickEnabled="True" 
+								Name="MasterVolumeSlider" 
+								VerticalAlignment="Center" 
+								Width="500" 
+								TickFrequency="5" 
+								TickPlacement="Both" 
+								Maximum="100" 
+								ValueChanged="MasterVolumeSlider_ValueChanged"
+                                SmallChange="5"
+								Margin="25" />
+
+            <ProgressBar Height="10" Width="500" Value="{Binding ElementName=MasterVolumeSlider, Path=Value}" 
+                                         HorizontalAlignment="Center"/>
+
+            <StackPanel Orientation="Horizontal" Margin="25" HorizontalAlignment="Center">
+                <Label Content="Current Volume: " FontSize="28"/>
+                <Label Content="{Binding ElementName=MasterVolumeSlider, Path=Value}" FontSize="28"/>
+                <Label Content="%" FontSize="28"/>
+            </StackPanel>
+
+        </StackPanel>
+    </Grid>
+</UserControl>

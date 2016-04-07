@@ -8,9 +8,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     
-    <UserControl.DataContext>
+    <!-- <UserControl.DataContext>
         <mvvm:CashMatchViewModel />
-    </UserControl.DataContext>
+    </UserControl.DataContext> -->
     
     <UserControl.Resources>
         <Style x:Key="LabelHeader" TargetType="Label">
@@ -182,7 +182,7 @@
                                 <TextBox Style="{StaticResource TxtBoxHeader}" Text="{Binding SiteCode, Mode=TwoWay}" TextChanged="TextBox_TextChanged"
                                          logic:TouchScreenKeyboard.TouchScreenKeyboard="True"/>
                             </StackPanel>
-
+<!-- logic:TouchScreenKeyboard.TouchScreenKeyboard="True" -->
                             <Button Content="Save" Style="{StaticResource ButtonStyle}" Command="{Binding Save}" Width="125" Height="50" />
                         </StackPanel>
                     </Border>

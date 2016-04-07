@@ -8,7 +8,7 @@ using PDTUtils.Native;
 
 namespace PDTUtils.MVVM.ViewModels
 {
-    class DiagnosticViewModel : ObservableObject
+    class DiagnosticViewModel : BaseViewModel
     {
         public ObservableCollection<SoftwareInfo> Software { get; private set; }
         public ObservableCollection<HardwareInfo> Hardware { get; private set; }
@@ -42,8 +42,9 @@ namespace PDTUtils.MVVM.ViewModels
                 return false;
             }
         }
-        
-        public DiagnosticViewModel(MachineInfo machineData)
+
+        public DiagnosticViewModel(string name, MachineInfo machineData)
+            : base(name)
         {
             _accessLevel |= 1 << (int)SmartCardLevels.Manufacturer;
             _accessLevel |= 1 << (int)SmartCardLevels.Distributor;
@@ -75,7 +76,7 @@ namespace PDTUtils.MVVM.ViewModels
             {
                 var exe = new StringBuilder(64);
                 var dir = new StringBuilder(64);
-                
+
                 NativeWinApi.GetPrivateProfileString("Game" + (i + 1), "Exe", "", exe, 64, ini);
                 NativeWinApi.GetPrivateProfileString("Game" + (i + 1), "GameDirectory", "", dir, 64, ini);
 
@@ -86,7 +87,7 @@ namespace PDTUtils.MVVM.ViewModels
 
             char[] licenseBuffer = new char[128];
             NativeWinApi.GetPrivateProfileString("Keys", "License", "", licenseBuffer, 128, Properties.Resources.machine_ini);
-            
+
             string license = new string(licenseBuffer, 0, 128).Trim("\0".ToCharArray());
             for (int i = 0; i < license.Length; i++)
             {
@@ -124,7 +125,7 @@ namespace PDTUtils.MVVM.ViewModels
             {
                 System.Diagnostics.Debug.WriteLine(e.Message);
             }
-            
+
             var code = MachineDescription.CountryCode;
             GeneralList.Add("Country Code: (" + code + ") " + BoLib.getCountryCodeStrLiteral("", code));
             GeneralList.Add("Printer Port: COM2");

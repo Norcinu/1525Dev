@@ -1,19 +1,26 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using AttachedCommandBehavior;
 using PDTUtils.Logic;
 using PDTUtils.MVVM.Models;
+using PDTUtils.Native;
 
 namespace PDTUtils.MVVM.ViewModels
 {
-    class BirthCertViewModel : ObservableObject
+    class BirthCertViewModel : BaseViewModel
     {
         readonly string _filename = Properties.Resources.birth_cert;
 
-        public BirthCertViewModel()
+        public BirthCertViewModel(string name)
+            : base(name)
         {
             try
             {
+                ListBoxSelectionChanged = new SimpleCommand()
+                {
+                    ExecuteDelegate = x => DoListBoxSelectionChanged(x)
+                };
+
                 OperatorESP = new ObservableCollection<BirthCertModel>();
                 ParseIni();
             }
@@ -23,8 +30,8 @@ namespace PDTUtils.MVVM.ViewModels
             }
         }
         
-
-        List<string> _theHelpMessages = new List<string>()
+        //List<string> _theHelpMessages = new List<string>()
+        ObservableCollection<string> _theHelpMessages = new ObservableCollection<string>
         {
             @"RTP: Game Payout 88-94%",
             @"MinPlayerPointsBet: Minimum Player Points Bet Value. 5. 10. 20. 40. 60. 80. 100. 200. 300. 400. 500",
@@ -40,8 +47,8 @@ namespace PDTUtils.MVVM.ViewModels
             @"RefloatRH: Value to set right hopper float in Pence.",
             @"LProgressiveSys: 0 - No Local Progressive. 1 - Local Progressive"
         };
-        
-        public ObservableCollection<BirthCertModel> OperatorESP { get; private set; }
+
+        public ObservableCollection<BirthCertModel> OperatorESP { get; set; }
         public ObservableCollection<string> HelpValues { get; set; }
 
         public ICommand Parse { get { return new DelegateCommand(o => ParseIni()); } }
@@ -57,12 +64,12 @@ namespace PDTUtils.MVVM.ViewModels
             {
                 string[] config;
                 IniFileUtility.GetIniProfileSection(out config, section, _filename);
-
+                
                 foreach (var str in config)
                 {
                     if (str.StartsWith("#"))
                         break;
-                    
+
                     var pair = str.Split("=".ToCharArray());
                     var header = "";
                     if (pair[0] == "RTP")
@@ -73,12 +80,12 @@ namespace PDTUtils.MVVM.ViewModels
                         header = " (£)";
                     else if (pair[0] == "RefloatLH" || pair[0] == "RefloatRH")
                         header = " (Num of coins)";
-                    
+
                     collection.Add(new BirthCertModel(pair[0] + header, pair[1]));
                 }
             }
         }
-       
+        
         public void SetHelpMessage(int index)
         {
             if (index > OperatorESP.Count)
@@ -90,7 +97,7 @@ namespace PDTUtils.MVVM.ViewModels
 
                 if (HelpValues.Count > 0)
                     HelpValues.RemoveAll();
-
+                
                 var temp = _theHelpMessages[index];
                 var arr = temp.Split(":.".ToCharArray());
 
@@ -104,5 +111,35 @@ namespace PDTUtils.MVVM.ViewModels
             }
         }
 
+        public ICommand ListBoxSelectionChanged { get; set; }
+        void DoListBoxSelectionChanged(object o)
+        {
+            if (o == null)
+                return;
+
+            var index = o as int?;
+
+            var key = OperatorESP[(int)index].Field;
+            var val = OperatorESP[(int)index].Value;
+
+            if (key.Contains("(%)") || key.Contains("(p)") || key.Contains("(£)") || key.Contains("(Num of coins)"))
+                key = key.Substring(0, key.IndexOf("("));
+
+            var bcw = new BirthCertSettingsWindow(key.ToString(), val.ToString());
+            if (bcw.ShowDialog() != false) return;
+            if (bcw.TxtNewValue.Text == val)
+                return;
+            else
+            {
+                OperatorESP[(int)index].Value = bcw.TxtNewValue.Text;
+                NativeWinApi.WritePrivateProfileString("Operator", key, OperatorESP[(int)index].Value, Properties.Resources.birth_cert);
+                GlobalConfig.ReparseSettings = true;
+                
+                RaisePropertyChangedEvent("OperatorESP");
+                // Dont want to do this but I cant get the screen to update atm.
+                // OperatorESP.Clear();
+                // ParseIni();
+            }
+        }
     }
 }

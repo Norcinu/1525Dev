@@ -186,7 +186,7 @@ namespace PDTUtils.MVVM.ViewModels
             else if (_cabinetType.Equals("ADVANTAGE"))
                 _buttons = new Advantage();
         }
-        
+
         void _testTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             bool someoneSomewhere = false;

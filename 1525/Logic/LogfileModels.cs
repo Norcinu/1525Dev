@@ -121,7 +121,7 @@ namespace PDTUtils
             OnPropertyChanged("WinningGames");
         }
     }
-
+    
     public class PlayedGame : BaseGameLog
     {
         decimal _winAmount;

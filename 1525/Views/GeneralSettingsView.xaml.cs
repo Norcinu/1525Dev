@@ -12,7 +12,7 @@ namespace PDTUtils.Views
         public GeneralSettingsView()
         {
             InitializeComponent();
-            this.DataContext = new GeneralSettingsViewModel();
+            //this.DataContext = new GeneralSettingsViewModel();
         }
     }
 }

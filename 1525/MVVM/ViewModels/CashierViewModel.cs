@@ -7,7 +7,8 @@ namespace PDTUtils.MVVM.ViewModels
 {
     class CashierViewModel : BaseViewModel
     {
-        public CashierViewModel(string name) : base(name)
+        public CashierViewModel(string name)
+            : base(name)
         {
         }
     }
