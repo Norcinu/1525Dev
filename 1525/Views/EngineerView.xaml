@@ -26,9 +26,9 @@
             <view:DiagnosticsView />
         </DataTemplate>
         
-        <!-- <DataTemplate DataType="{x:Type vm:UserSoftwareUpdate}">
+        <DataTemplate DataType="{x:Type vm:UserSoftwareUpdate}">
             <view:UsbSoftwareUpdateView />
-        </DataTemplate> -->
+        </DataTemplate>
         
         <DataTemplate DataType="{x:Type vm:UsbFileUploaderViewModel}">
             <view:UsbFileUploaderView />
@@ -69,7 +69,7 @@
             </TabItem>
             
             <TabItem Header="USB Update" Width="200">
-
+                <ContentControl Content="{Binding CurrentPage}"/>
             </TabItem>
             
             <TabItem Header="USB Upload" Width="200">

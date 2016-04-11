@@ -398,6 +398,15 @@ namespace PDTUtils.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to D:\1525\hosts\tito_hosts.xml.
+        /// </summary>
+        internal static string tito_host_file {
+            get {
+                return ResourceManager.GetString("tito_host_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to D:\machine\GAME_DATA\TiTo.log.
         /// </summary>
         internal static string tito_log {

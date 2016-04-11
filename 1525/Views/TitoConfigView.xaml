@@ -3,22 +3,60 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:logic="clr-namespace:PDTUtils.Logic"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    
+    <UserControl.Resources>
+        <Style x:Key="CheckBoxText" TargetType="Label">
+            <Setter Property="Foreground" Value="Red" />
+            <Setter Property="Background" Value="Green" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="Width" Value="565" />
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+    </UserControl.Resources>
+    
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch">
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
-                    <CheckBox Tag="ENABLED" Content="ENABLED" Height="50" Width="600" FontSize="24"/>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Height="50" Width="200" Margin="5" Content="ASSET NO." FontSize="24" />
-                        <TextBox Height="50" Width="400" Margin="5" Text="{Binding AssetNumber}" FontSize="24"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                        <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Enabled, Mode=TwoWay}">
+                            <CheckBox.LayoutTransform>
+                                <ScaleTransform ScaleX="2" ScaleY="2" />
+                            </CheckBox.LayoutTransform>
+                        </CheckBox>
+                        <Label Style="{StaticResource CheckBoxText}" Content="ENABLE" HorizontalContentAlignment="Left" Margin="5,5,5,10"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                        <Label Height="50" Width="200" Style="{StaticResource CheckBoxText}" Content="Asset No:" />
+                        <TextBox Height="50" Width="400" Margin="5" Text="{Binding AssetNumber}" FontSize="24" logic:TouchScreenKeyboard.TouchScreenKeyboard="True"/>
                     </StackPanel>
                 </StackPanel>
-                <ListBox Width="400">
-                    <ListBoxItem>Future Logic</ListBoxItem>
-                </ListBox>
+                
+                <StackPanel>
+                    <Label Content="Select TiTo Host" Style="{StaticResource CheckBoxText}" Margin="5,5,5,10"/>
+                    <ListBox Width="565" Height="500" ItemsSource="{Binding Hosts}" Margin="5,15,5,10" SelectedIndex="{Binding SelectedIndex}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding}" FontSize="32" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
             </StackPanel>
+            <Button HorizontalAlignment="Center" Content="Save Settings" Height="50" FontSize="30" Command="{Binding WriteSettings}" />
+            
         </StackPanel>
     </Grid>
 </UserControl>

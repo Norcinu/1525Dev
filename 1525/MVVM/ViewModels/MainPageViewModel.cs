@@ -470,7 +470,6 @@ namespace PDTUtils.MVVM.ViewModels
 
             if (!File.Exists(filename))
             {
-
                 using (var sw = new FormattingStreamWriter(filename, new CultureInfo("en-GB"), false))
                 {
                     var now = DateTime.Now;
@@ -491,49 +490,8 @@ namespace PDTUtils.MVVM.ViewModels
                     sw.Write((Convert.ToDecimal(amount) / 100).ToString("C") + "\r\n");
                 }
             }
-        }
-
-        public ICommand AddCreditSpecific
-        {
-            get { return new DelegateCommand(AddDenomButton); }
-        }
-        
-        void AddDenomButton(object button)
-        {
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
-            Process.Start("explorer", path);
-
-            /* var b = button as Button;
-             var text = b.Content as Label;
-            
-             if (text != null)
-             {
-                 var str = text.Content as string;
-
-                 if (str[0] != '£' && str[0] != '€')
-                     Pennies = Convert.ToInt32(str.Substring(0, str.Length - 1));
-                 else
-                 {
-                     Pennies = Convert.ToInt32(str.Substring(1));
-                     Pennies *= 100;
-                 }
-             }
-          
-             BoLib.setUtilsAdd2CreditValue((uint)Pennies);
-             BoLib.setUtilRequestBitState((int)UtilBits.AddToCredit);
-            
-             System.Threading.Thread.Sleep(250);
-            
-             Credits = BoLib.getCredit();
-             Bank = BoLib.getBank();
-             Reserve = (int)BoLib.getReserveCredits();
-             TotalCredits = (_isSpain) ? Bank + Reserve : Bank + Credits;
-            
-             RaisePropertyChangedEvent("Credits");
-             RaisePropertyChangedEvent("Bank");
-             RaisePropertyChangedEvent("Reserve");*/
-        }
-        
+        }    
+       
         public ICommand CancelHandPay
         {
             get { return new DelegateCommand(o => DoCancelHandPay()); }

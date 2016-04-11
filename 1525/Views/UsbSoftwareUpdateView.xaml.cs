@@ -10,7 +10,7 @@ namespace PDTUtils.Views
         public UsbSoftwareUpdateView()
         {
             InitializeComponent();
-            this.DataContext = new PDTUtils.MVVM.ViewModels.UserSoftwareUpdate(this);
+            //this.DataContext = new PDTUtils.MVVM.ViewModels.UserSoftwareUpdate(this);
         }
     }
 }

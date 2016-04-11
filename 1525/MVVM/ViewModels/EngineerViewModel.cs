@@ -48,6 +48,7 @@ namespace PDTUtils.MVVM.ViewModels
             Pages.Add(new DiagnosticViewModel("Diagnostics", new MachineInfo()));
             Pages.Add(new NetworkSettingsViewModel("Network"));
             Pages.Add(new TitoConfigView("TitoConfig"));
+            Pages.Add(new UserSoftwareUpdate("Update"));
             Pages.Add(new UsbFileUploaderViewModel("Upload"));
             //Pages.Add(new SoftwareUpdate
             //Pages.Add(UsbSoftwareUpload

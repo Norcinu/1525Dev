@@ -279,4 +279,7 @@
   <data name="disabled_games" xml:space="preserve">
     <value>D:\machine\DisabledGames.ini</value>
   </data>
+  <data name="tito_host_file" xml:space="preserve">
+    <value>D:\1525\hosts\tito_hosts.xml</value>
+  </data>
 </root>

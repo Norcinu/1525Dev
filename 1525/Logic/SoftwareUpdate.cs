@@ -65,7 +65,13 @@ namespace PDTUtils.MVVM.ViewModels
         public ICommand Rollback { get; set; }
         public ICommand Cancel { get; set; }
         public ICommand Reboot { get; set; }
-        
+
+        public UserSoftwareUpdate(string name)
+            : base(name)
+        {
+
+        }
+
         public UserSoftwareUpdate(FrameworkElement element)
 		{
             FilesToUpdate = new ObservableCollection<FileImpl>();
