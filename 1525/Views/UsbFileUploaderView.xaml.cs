@@ -10,7 +10,7 @@ namespace PDTUtils.Views
         public UsbFileUploaderView()
         {
             InitializeComponent();
-            DataContext = new PDTUtils.MVVM.ViewModels.UsbFileUploaderViewModel();
+            //DataContext = new PDTUtils.MVVM.ViewModels.UsbFileUploaderViewModel();
         }
     }
 }

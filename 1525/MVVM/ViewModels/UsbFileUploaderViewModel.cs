@@ -33,8 +33,9 @@ namespace PDTUtils.MVVM.ViewModels
                 RaisePropertyChangedEvent("IsVisible");
             }
         }
-        
-        public UsbFileUploaderViewModel()
+
+        public UsbFileUploaderViewModel(string name)
+            : base(name)
         {
             FilePath = new ObservableCollection<string>();
         }
@@ -168,5 +169,3 @@ namespace PDTUtils.MVVM.ViewModels
         }
     }
 }
-//Hi, I am Steven from the article. I wasnt paid a penny. I was offered substantial sums of money, infact more than I've ever had 
-//in my life but I requested that any fees were paid intro

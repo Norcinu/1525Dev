@@ -178,6 +178,7 @@
     <Compile Include="MVVM\ViewModels\ScreenshotViewModel.cs" />
     <Compile Include="MVVM\ViewModels\SmartCardLogViewModel.cs" />
     <Compile Include="MVVM\ViewModels\TestSuiteViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\TitoConfigView.cs" />
     <Compile Include="MVVM\ViewModels\UsbFileUploaderViewModel.cs" />
     <Compile Include="MVVM\ViewModels\VolumeViewModel.cs" />
     <Compile Include="Views\AdminView.xaml.cs">
@@ -326,6 +327,9 @@
     </Compile>
     <Compile Include="Views\TestSuiteView.xaml.cs">
       <DependentUpon>TestSuiteView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TitoConfigView.xaml.cs">
+      <DependentUpon>TitoConfigView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UsbFileUploaderView.xaml.cs">
       <DependentUpon>UsbFileUploaderView.xaml</DependentUpon>
@@ -548,6 +552,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TestSuiteView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TitoConfigView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

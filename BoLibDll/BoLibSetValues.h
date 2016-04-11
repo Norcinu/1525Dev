@@ -34,3 +34,4 @@ DLLEXPORT void  clearBankCreditReserve();
 DLLEXPORT void  setSmartCardPointsRTP(unsigned char value);
 //DLLEXPORT void	ESPHandPay();
 DLLEXPORT void  clearPartialCollectValue();
+DLLEXPORT void  clearDemoPlayCredits();

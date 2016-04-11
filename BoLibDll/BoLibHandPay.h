@@ -8,3 +8,4 @@ DLLEXPORT void sendHandPayToServer(unsigned int paid_out, unsigned int release);
 DLLEXPORT bool performHandPay();
 DLLEXPORT void cancelHandPay();
 DLLEXPORT bool canPerformHandPay();
+DLLEXPORT void clearCashMatchCredits();

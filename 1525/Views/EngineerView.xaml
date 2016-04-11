@@ -26,6 +26,22 @@
             <view:DiagnosticsView />
         </DataTemplate>
         
+        <!-- <DataTemplate DataType="{x:Type vm:UserSoftwareUpdate}">
+            <view:UsbSoftwareUpdateView />
+        </DataTemplate> -->
+        
+        <DataTemplate DataType="{x:Type vm:UsbFileUploaderViewModel}">
+            <view:UsbFileUploaderView />
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:NetworkSettingsViewModel}">
+            <view:NetworkSettingsView />
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:TitoConfigView}">
+            <view:TitoConfigView />
+        </DataTemplate>
+        
     </UserControl.Resources>
     
     <Grid>
@@ -38,12 +54,26 @@
         
             <TabItem Header="Functional Tests" Width="200">
                 <ContentControl Content="{Binding CurrentPage}" />
-                <!-- <view:TestSuiteView x:Name="testSuite" /> -->
             </TabItem>
             
-            <TabItem Header="Diagnostics">
+            <TabItem Header="Diagnostics" Width="200">
                 <ContentControl Content="{Binding CurrentPage}" />
-                <!-- <view:DiagnosticsView /> -->
+            </TabItem>
+
+            <TabItem Header="Network" Width="200">
+                <ContentControl Content="{Binding CurrentPage}" />
+            </TabItem>
+
+            <TabItem Header="TiTo" Width="200">
+                <ContentControl Content="{Binding CurrentPage}" />
+            </TabItem>
+            
+            <TabItem Header="USB Update" Width="200">
+
+            </TabItem>
+            
+            <TabItem Header="USB Upload" Width="200">
+                <ContentControl Content="{Binding CurrentPage}" />
             </TabItem>
         </TabControl>
     </Grid>

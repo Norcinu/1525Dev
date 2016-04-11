@@ -34,34 +34,32 @@ bool canPerformHandPay()
 	return (termType != PRINTER || titoState == TITO_ENABLED_NotREGISTERED);
 }
 
-
 bool performHandPay()
 {
 	auto termType = GetTerminalType();
 	auto titoState = GetTiToEnabledState();
 	auto country = GetCountry();
 	
+	/*if(GetDemoCredits()||GetDemoWinBankDeposit())
+		return false;*/
+
 	if (termType != PRINTER || titoState == TITO_ENABLED_NotREGISTERED)
 	{
 		if (GetHandPayActive() || country == CC_EURO || titoState == TITO_ENABLED_NotREGISTERED)
 		{
-			auto totalCredits = GetBankDeposit() + GetCredits();
+			auto totalCredits = GetCollectableBankDeposit() + GetCollectableCredits(); //GetBankDeposit() + GetCredits();
 			
 			SendHeaderOnly(HANDPAY_CONFIRM, 1);
 			AddToPerformanceMeters(HAND_PAY_LT, totalCredits);
 			SetMeterPulses(2, 1, totalCredits);
 			
 			SendHandPay2Server(totalCredits, MODEL_NUMBER);
-			
-			/*if (GetInTournamentPlay())
-			{
-				AddToTPlayLog(totalCredits, TPLAY_SESSION_HAND_PAID);
-				ClearTPlaySessionActive();
-			}*/
-			
+					
 			zero_cdeposit();
 			ZeroBankDeposit();
 			
+			clearCashMatchCredits();
+
 			return true;
 		}
 	}
@@ -71,4 +69,20 @@ bool performHandPay()
 void cancelHandPay()
 {
 	SendHeaderOnly(HANDPAY_CANCEL, 1);
+}
+
+extern unsigned long ZeroCashMatchCredits();
+void clearCashMatchCredits()
+{
+	if (!GetDoorStatus())
+		OverRideStagePayouts = 0;
+
+	if(GetCashMatchCredits())   //CashMatch Being Aborted? <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	{
+		unsigned int lValue = GetCashMatchCredits();
+		AddToPerformanceMeters(MONEY_OUT_LT,lValue);
+		AddToReconciliationMeters(CMATCH_OUT_LT,lValue);
+		ZeroCashMatchCredits();
+		LockedInCredits = 0;
+	}
 }

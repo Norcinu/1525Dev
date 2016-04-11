@@ -49,6 +49,10 @@
     <Grid>
         <TabControl local:CommandBehavior.Event="SelectionChanged" local:CommandBehavior.Command="{Binding TabSelectionChanged}" 
                     local:CommandBehavior.CommandParameter="{Binding SelectedIndex, RelativeSource={RelativeSource Self}}">
+
+            <TabItem Header="Games" Width="200">
+                <ContentControl Content="{Binding CurrentPage}" />
+            </TabItem>
             
             <TabItem Header="Game Settings" Width="200">
                 <ContentControl Content="{Binding CurrentPage}" />
@@ -57,8 +61,8 @@
             <TabItem Header="Configure" Width="200">
                 <ContentControl Content="{Binding CurrentPage}" />
             </TabItem>
-            
-            <TabItem Header="Games" Width="200">
+
+            <TabItem Header="General" Width="200">
                 <ContentControl Content="{Binding CurrentPage}" />
             </TabItem>
 
@@ -67,10 +71,6 @@
             </TabItem>
             
             <TabItem Header="Birth Cert" Width="200">
-                <ContentControl Content="{Binding CurrentPage}" />
-            </TabItem>
-            
-            <TabItem Header="General" Width="200">
                 <ContentControl Content="{Binding CurrentPage}" />
             </TabItem>
 

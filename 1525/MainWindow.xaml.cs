@@ -10,6 +10,7 @@ using PDTUtils.Access;
 using PDTUtils.Logic;
 using PDTUtils.Native;
 using PDTUtils.Properties;
+using PDTUtils.MVVM.ViewModels;
 
 namespace PDTUtils
 {

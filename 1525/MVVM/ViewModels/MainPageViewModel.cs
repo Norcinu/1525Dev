@@ -288,7 +288,7 @@ namespace PDTUtils.MVVM.ViewModels
         
         void GetCreditLevel()
         {
-            Credits = BoLib.getCredit();
+            Credits = (int)BoLib.getCollectableCredits(); //BoLib.getCredit();
             RaisePropertyChangedEvent("Credits");
         }
         
@@ -299,7 +299,7 @@ namespace PDTUtils.MVVM.ViewModels
 
         void GetBankLevel()
         {
-            Bank = BoLib.getBank();
+            Bank = (int)BoLib.getCollectableBankDeposit();// getBank();
             RaisePropertyChangedEvent("Bank");
         }
 
@@ -322,8 +322,8 @@ namespace PDTUtils.MVVM.ViewModels
         void ClearCreditLevel()
         {
             BoLib.clearBankAndCredit();
-            Credits = BoLib.getCredit();
-            Bank = BoLib.getBank();
+            Credits = (int)BoLib.getCollectableCredits(); //BoLib.getCredit();
+            Bank = (int)BoLib.getCollectableBankDeposit(); //BoLib.getBank();
             RaisePropertyChangedEvent("Credits");
             RaisePropertyChangedEvent("Bank");
         }
@@ -414,17 +414,28 @@ namespace PDTUtils.MVVM.ViewModels
             var oldCaption = _caption;
             var oldMsg = _message;
 
+            if (BoLib.inDemoSession())
+            {
+                _caption = "WARNING";
+                _message = "IN DEMO SESSION. CANNOT HANDPAY";
+                ShowMessageBox.Execute(null);
+                _caption = oldCaption;
+                _message = oldMsg;
+                BoLib.clearDemoPlayCredits();
+                return;
+            }
+            
             var total = Bank + Credits;
             if (!BoLib.isDualBank() && (int)BoLib.getPartialCollectValue() > 0)
                 total += (int)BoLib.getPartialCollectValue();
             
-            if (total > 0)
+            if (total > 0 && BoLib.allowCollect())
             {
                 if (BoLib.performHandPay())
                 {
                     WriteToHandPayLog(total);
-                    Credits = BoLib.getCredit();
-                    Bank = BoLib.getBank();
+                    Credits = (int)BoLib.getCollectableCredits(); //BoLib.getCredit();
+                    Bank = (int)BoLib.getCollectableBankDeposit(); //BoLib.getBank();
                     Reserve = 0;
                     TotalCredits = 0;
                     

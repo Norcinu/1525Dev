@@ -607,6 +607,20 @@ namespace PDTUtils.Native
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern uint getPromoGame(int game);
 
+        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        public static extern bool inDemoSession();
+
+        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern ulong getCollectableCredits();
+
+        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern ulong getCollectableBankDeposit();
+
+        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        public static extern bool allowCollect();
+
         /************************************************************************/
         /*							Set methods                                 */
         /************************************************************************/
@@ -682,6 +696,10 @@ namespace PDTUtils.Native
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void clearPartialCollectValue();
 
+        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void clearCashMatchCredits();
+
+        
         /************************************************************************/
         /* General methods                                                      */
         /************************************************************************/
@@ -728,14 +746,14 @@ namespace PDTUtils.Native
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         [return: MarshalAs(UnmanagedType.LPStr)]
         public static extern string GetUniquePcbID(byte type);
-
+        
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void setFileAction();
 
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void clearFileAction();
 
-        [DllImport(DLL_NAME, CallingConvention=CallingConvention.Cdecl)]
+        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void setTerminalType(byte type);
 
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
@@ -744,6 +762,9 @@ namespace PDTUtils.Native
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void clearUtilRequestBitState(int bit);
 
+        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void clearDemoPlayCredits();
+        
         /************************************************************************/
         /* Hand Pay methods                                                     */
         /************************************************************************/

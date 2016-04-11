@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PDTUTils;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using System.Collections.ObjectModel;
 using AttachedCommandBehavior;
 using PDTUtils.Logic;
 
@@ -51,15 +46,18 @@ namespace PDTUtils.MVVM.ViewModels
             Pages.Add(new EngineerHistoryViewModel("EngineerHistory"));
             Pages.Add(new TestSuiteViewModel());
             Pages.Add(new DiagnosticViewModel("Diagnostics", new MachineInfo()));
+            Pages.Add(new NetworkSettingsViewModel("Network"));
+            Pages.Add(new TitoConfigView("TitoConfig"));
+            Pages.Add(new UsbFileUploaderViewModel("Upload"));
             //Pages.Add(new SoftwareUpdate
             //Pages.Add(UsbSoftwareUpload
-
+            
             CurrentPage = Pages[0];
         }
         
         public override void Cleanup()
         {
-            //base.Cleanup();
+            base.Cleanup();
             foreach (var p in Pages)
                 p.Cleanup();
         }

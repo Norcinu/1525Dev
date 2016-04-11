@@ -108,3 +108,9 @@ DLLEXPORT int			getLastWinningGameNo();
 DLLEXPORT unsigned long getMaxStagePayoutValue();
 
 DLLEXPORT unsigned int	getPromoGame(int game);
+DLLEXPORT bool			inDemoSession();
+DLLEXPORT unsigned long getCollectableCredits();
+DLLEXPORT unsigned long getCollectableBankDeposit();
+DLLEXPORT bool			allowCollect();
+
+

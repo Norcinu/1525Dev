@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -7,8 +8,6 @@ using PDTUtils.Logic;
 using PDTUtils.MVVM.ViewModels;
 using PDTUtils.Native;
 using Timer = System.Timers.Timer;
-using System.Windows.Controls;
-using System.Threading;
 
 
 
@@ -21,7 +20,7 @@ namespace PDTUtils.MVVM
         bool _hasSmartCard = false;
         bool _doorStateChanged = false;
 
-        int _currentPageIndex = 7; // None
+        int _currentPageIndex = 7; 
 
         BaseViewModel _currentPage = null;
         ObservableCollection<BaseViewModel> _pages = new ObservableCollection<BaseViewModel>();
@@ -260,7 +259,7 @@ namespace PDTUtils.MVVM
                     break;
             }
         }
-
+        
         void SetCurrentPage(int status, BaseViewModel newPage)
         {
             var scStatus = BoLib.getSmartCardGroup() & 0xF;
@@ -327,7 +326,7 @@ namespace PDTUtils.MVVM
             if (GlobalConfig.RebootRequired)
                 BoLib.setRebootRequired();
 
-            Thread.Sleep(500);
+            Thread.Sleep(50);
 
             BoLib.clearUtilRequestBitState((int)UtilBits.Allow);
             BoLib.closeSharedMemory();

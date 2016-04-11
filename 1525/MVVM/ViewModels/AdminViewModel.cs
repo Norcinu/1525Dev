@@ -58,13 +58,13 @@ namespace PDTUtils.MVVM.ViewModels
             {
                 ExecuteDelegate = x => DoTabSelectionChanged(x)
             };
-            
+
+            Pages.Add(new GameStatisticsViewModel());
             Pages.Add(new GameSettingViewModel("GameSettings"));
             Pages.Add(new ConfigureViewModel("Configure"));
-            Pages.Add(new GameStatisticsViewModel());
+            Pages.Add(new GeneralSettingsViewModel("General"));
             Pages.Add(new CashMatchViewModel("CashMatch"));
             Pages.Add(new BirthCertViewModel("BirthCert"));
-            Pages.Add(new GeneralSettingsViewModel("General"));
             Pages.Add(new DateTimeViewModel("DateTime"));
             Pages.Add(new VolumeViewModel("Volume"));
             CurrentPage = Pages[0];

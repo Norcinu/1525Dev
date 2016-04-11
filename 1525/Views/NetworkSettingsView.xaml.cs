@@ -10,7 +10,6 @@ namespace PDTUtils.Views
     {
         public NetworkSettingsView()
         {
-            this.DataContext = new NetworkSettingsViewModel();
             InitializeComponent();
         }
     }

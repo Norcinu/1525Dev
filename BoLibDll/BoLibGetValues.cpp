@@ -849,3 +849,22 @@ unsigned int getPromoGame(int game)
 	return GetPromoGame(game);
 }
 
+bool inDemoSession()
+{
+	return GetDemoCredits()||GetDemoWinBankDeposit();
+}
+
+unsigned long getCollectableCredits()
+{
+	return GetCollectableCredits();
+}
+
+unsigned long getCollectableBankDeposit()
+{
+	return GetCollectableBankDeposit();
+}
+
+bool allowCollect()
+{
+	return GetAllowCollect > 0;
+}

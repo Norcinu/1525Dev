@@ -11,7 +11,7 @@ using PDTUtils.MVVM;
 using PDTUtils.Native;
 
 
-namespace PDTUtils
+namespace PDTUtils.MVVM.ViewModels
 {
 	public class FileImpl
 	{

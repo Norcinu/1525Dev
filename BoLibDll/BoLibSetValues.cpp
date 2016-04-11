@@ -4,6 +4,8 @@
 
 extern unsigned long zero_cdeposit(void);
 extern unsigned long add_cdeposit(unsigned long value);
+extern unsigned long ZeroDemoCredits(void);
+extern unsigned long ZeroDemoWinBankDeposit();
 
 CRITICAL_SECTION critical;
 
@@ -163,4 +165,11 @@ void setSmartCardPointsRTP(unsigned char value)
 void clearPartialCollectValue()
 {
 	ClearPartialCollectValue();
+}
+
+void clearDemoPlayCredits()
+{
+	ZeroDemoCredits();
+	ZeroDemoWinBankDeposit();
+	ClearInDemoPlaySession();
 }

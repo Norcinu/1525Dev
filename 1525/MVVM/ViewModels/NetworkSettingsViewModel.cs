@@ -10,9 +10,10 @@ using PDTUtils.Native;
 
 namespace PDTUtils.MVVM.ViewModels
 {
-    internal class NetworkSettingsViewModel : ObservableObject
+    internal class NetworkSettingsViewModel : BaseViewModel
     {
-        public NetworkSettingsViewModel()
+        public NetworkSettingsViewModel(string name)
+            : base(name)
         {
             ChangesMade = false;
 
