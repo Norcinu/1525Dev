@@ -65,7 +65,8 @@ namespace PDTUtils
                 Thread.CurrentThread.CurrentCulture = ci;
                 Thread.CurrentThread.CurrentUICulture = ci;
                 
-                _updateFiles = new UserSoftwareUpdate(this);
+                //_updateFiles = new UserSoftwareUpdate(this);
+                _updateFiles = new UserSoftwareUpdate("Usb Software Update");
                 WindowHeight = Height;
                 
                 if (_keyDoorWorker.HasSmartCard)

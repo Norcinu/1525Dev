@@ -194,7 +194,7 @@ namespace PDTUtils.MVVM.ViewModels
                 NativeWinApi.WritePrivateProfileString("Operator", "Handpay Threshold", (newVal).ToString(), Resources.birth_cert);
             }
             
-            IniFileUtility.HashFile(Resources.birth_cert);
+            //IniFileUtility.HashFile(Resources.birth_cert);
 
             HandPayLevel = (newVal / 100).ToString();
             RaisePropertyChangedEvent("HandPayLevel");
@@ -252,11 +252,11 @@ namespace PDTUtils.MVVM.ViewModels
                 if (newValue < 50)
                     newValue = 50;
             }
-            
+
             BoLib.setHopperDivertLevel(BoLib.getRightHopper(), newValue);
             NativeWinApi.WritePrivateProfileString("Operator", "RH Divert Threshold", newValue.ToString(), Resources.birth_cert);
             //IniFileUtility.HashFile(Resources.birth_cert);
-            
+
             DivertRightMessage = (newValue).ToString();
             RaisePropertyChangedEvent("DivertRightMessage");
         }

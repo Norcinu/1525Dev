@@ -169,7 +169,7 @@ namespace PDTUtils.MVVM.ViewModels
             _bannerMessage = "Press Start to Continue";
             _cabinetType = BoLib.getCabinetType() != 5 ? "FortuneHunterXtra" : "ADVANTAGE"; //TODO !!! Expand this out for future cabs
             _testTimer = new Timer(1000);
-            
+
             CurrentButton = "";
             ButtonResultSuccess = "";
             ButtonResultError = "";
@@ -196,7 +196,6 @@ namespace PDTUtils.MVVM.ViewModels
                 if (_currentButton == 0) // key
                 {
                     status = BoLib.getSwitchStatus(2, _specialMasks[_currentButton]);
-                    //_currentButton = 2;
                     if (!_firstPass)
                     {
                         CurrentButton = "Turn Refill Back";
@@ -213,7 +212,6 @@ namespace PDTUtils.MVVM.ViewModels
                 else if (_currentButton == 1) // door
                 {
                     someoneSomewhere = true;
-                    //if ()
                     _currentButton++;
                     CurrentButton = _buttons.Names[_currentButton];
                 }
@@ -236,7 +234,7 @@ namespace PDTUtils.MVVM.ViewModels
                         someoneSomewhere = true;
                     }
                 }
-
+                
                 if (_timerCounter > 0)
                     _timerCounter--;
                 else

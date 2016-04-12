@@ -5,18 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-
-    
-    <UserControl.Resources>
-        <!-- <HierarchicalDataTemplate DataType="{x:Type Model:DirectoryItem}"
-                                  ItemsSource="{Binding Items}">
-            <TextBlock Text="{Binding Path=Name}" ToolTip="{Binding Path=Path}" />
-        </HierarchicalDataTemplate>
-
-        <DataTemplate DataType="{x:Type Model:FileItem}">
-            <TextBlock Text="{Binding Path=Name}" ToolTip="{Binding Path=Path}" />
-        </DataTemplate> -->
-    </UserControl.Resources>
     
     <Grid>
         <StackPanel>
@@ -32,7 +20,8 @@
 
 
             <ListView ItemsSource="{Binding FilePath}" Margin="20" Width="500" HorizontalAlignment="Center" 
-                      Visibility="{Binding IsVisible}" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}">
+                      Visibility="{Binding IsVisible}" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}"
+                      Height="600">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="File" Width="490">

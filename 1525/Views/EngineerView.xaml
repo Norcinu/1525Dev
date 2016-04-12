@@ -11,11 +11,13 @@
     
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type vm:EngineerViewModel}" />
-
-        
         
         <DataTemplate DataType="{x:Type vm:EngineerHistoryViewModel}">
             <view:EngineerHistoryView />
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:BirthCertViewModel}">
+            <view:BirthCertView />
         </DataTemplate>
         
         <DataTemplate DataType="{x:Type vm:TestSuiteViewModel}">
@@ -41,17 +43,19 @@
         <DataTemplate DataType="{x:Type vm:TitoConfigView}">
             <view:TitoConfigView />
         </DataTemplate>
-        
     </UserControl.Resources>
     
     <Grid>
         <TabControl local:CommandBehavior.Event="SelectionChanged" local:CommandBehavior.Command="{Binding TabSelectionChanged}" 
                     local:CommandBehavior.CommandParameter="{Binding SelectedIndex, RelativeSource={RelativeSource Self}}">
             <TabItem Header="System Log" Width="200">
-                <ContentControl Content="{Binding CurrentPage}" />
-            
+                <ContentControl Content="{Binding CurrentPage}" />        
             </TabItem>
         
+            <TabItem Header="Birth Cert" Width="200">
+                <ContentControl Content="{Binding CurrentPage}" />
+            </TabItem>
+            
             <TabItem Header="Functional Tests" Width="200">
                 <ContentControl Content="{Binding CurrentPage}" />
             </TabItem>

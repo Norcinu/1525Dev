@@ -42,10 +42,10 @@
         <DataTemplate DataType="{x:Type vm:CollectorViewModel}">
             <view:CollectorView />
         </DataTemplate>
-        <!--
-        <DataTemplate DataType="{x:Type vm:FactoryViewModel}">
-            <view:FactoryView />
-        </DataTemplate> -->
+        
+        <DataTemplate DataType="{x:Type vm:ManufacturerBirthCertViewModel}">
+            <view:ManufacturerBirthCertView />
+        </DataTemplate>
     </Window.Resources>
 
     <Grid x:Name="MainGrid" Grid.IsSharedSizeScope="True">

@@ -69,30 +69,19 @@ namespace PDTUtils.MVVM.ViewModels
         public UserSoftwareUpdate(string name)
             : base(name)
         {
-
-        }
-
-        public UserSoftwareUpdate(FrameworkElement element)
-		{
             FilesToUpdate = new ObservableCollection<FileImpl>();
 
             HasUpdateStarted = false;
             HasUpdateFinished = false;
-            
-            UpdatePrep  = new RoutedCommand();
-            Update      = new RoutedCommand();
-            Rollback    = new RoutedCommand();
-            Cancel      = new RoutedCommand();
-            Reboot      = new RoutedCommand();
-        
-            CommandManager.RegisterClassCommandBinding(element.GetType(), new CommandBinding(UpdatePrep, DoSoftwareUpdatePreparation));
-            CommandManager.RegisterClassCommandBinding(element.GetType(), new CommandBinding(Update, DoSoftwareUpdate));
-            CommandManager.RegisterClassCommandBinding(element.GetType(), new CommandBinding(Rollback, DoRollBack));
-            CommandManager.RegisterClassCommandBinding(element.GetType(), new CommandBinding(Cancel, DoCancelUpdate));
-            CommandManager.RegisterClassCommandBinding(element.GetType(), new CommandBinding(Reboot, DoSaveReboot));
-		}
-		
-        public void DoRollBack(object o, RoutedEventArgs e)
+
+            UpdatePrep  = new DelegateCommand(o => DoSoftwareUpdatePreparation()); 
+            Update      = new DelegateCommand(o => DoSoftwareUpdate());
+            Rollback    = new DelegateCommand(o => DoRollBack());
+            Cancel      = new DelegateCommand(o => DoCancelUpdate());
+            Reboot      = new DelegateCommand(o => DoSaveReboot());
+        }
+
+        public void DoRollBack()
 		{
             LogText += "Performing RollBack.\r\n----------------------------\r\n";
             RaisePropertyChangedEvent("LogText");
@@ -105,7 +94,7 @@ namespace PDTUtils.MVVM.ViewModels
             RaisePropertyChangedEvent("HasUpdateStarted");
 		}
         
-        public void DoSoftwareUpdatePreparation(object o, ExecutedRoutedEventArgs e)
+        public void DoSoftwareUpdatePreparation()
 		{
             if (CanChangeToUsbDrive())
             {
@@ -155,6 +144,11 @@ namespace PDTUtils.MVVM.ViewModels
                     RaisePropertyChangedEvent("LogText");
                     RaisePropertyChangedEvent("UpdateFiles");
                 }
+                else
+                {
+                    LogText = "update.ini not found on USB Drive.\r\n";
+                    RaisePropertyChangedEvent("LogText");
+                }
             }
             else
                 SetNoUsbDriveMessage();
@@ -166,7 +160,7 @@ namespace PDTUtils.MVVM.ViewModels
             RaisePropertyChangedEvent("LogText");
         }
         
-        public void DoSoftwareUpdate(object o, RoutedEventArgs e)
+        public void DoSoftwareUpdate()
         {
             if (FilesToUpdate.Count > 0)
             {
@@ -297,24 +291,23 @@ namespace PDTUtils.MVVM.ViewModels
 			Marshal.FreeCoTaskMem(retStringPtr);
 			return true;
 		}
-        
+
         bool CanChangeToUsbDrive()
-		{
-			var allDrives = DriveInfo.GetDrives();
-			foreach (var d in allDrives)
-			{
-				if (d.Name[0] > 'D' && d.DriveType == DriveType.Removable)
-				{
+        {
+            var allDrives = DriveInfo.GetDrives();
+            foreach (var d in allDrives)
+            {
+                if (d.Name[0] > 'D' && d.DriveType == DriveType.Removable)
+                {
                     _rollbackIni = d.Name + @"rollback.ini";
                     _updateIni = d.Name + "update.ini";
                     _updateDrive = new DriveInfo(d.Name);
-					return true;
-				}
-			}
-			return false;
-		}
+                    return true;
+                }
+            }
+            return false;
+        }
         
-                
 		void AddToRollBack(string path, int flag)
 		{
 			BoLib.setFileAction();
@@ -512,7 +505,7 @@ namespace PDTUtils.MVVM.ViewModels
             }
         }
 
-        public void DoCancelUpdate(object o, RoutedEventArgs e)
+        public void DoCancelUpdate()
 		{
             HasUpdateStarted = false;
             HasUpdateFinished = false;
@@ -556,7 +549,7 @@ namespace PDTUtils.MVVM.ViewModels
             }
         }
         
-        public void DoSaveReboot(object o, ExecutedRoutedEventArgs e)
+        public void DoSaveReboot()
         {
             LogText = "Update Completed.\r\n\r\nTo Restart Machine.\r\n\r\nPlease turn the Refill Key and remove USB device.";
             RaisePropertyChangedEvent("LogText");

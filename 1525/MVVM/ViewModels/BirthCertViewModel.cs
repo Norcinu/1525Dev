@@ -110,10 +110,17 @@ namespace PDTUtils.MVVM.ViewModels
                 RaisePropertyChangedEvent("HelpValues");
             }
         }
-
+        
         public ICommand ListBoxSelectionChanged { get; set; }
         void DoListBoxSelectionChanged(object o)
         {
+            if (GlobalConfig.CantBarrageTheFarage)
+            {
+                var group = BoLib.getSmartCardGroup();
+                if (group != 4 && group != 6)
+                    return;
+            }
+
             if (o == null)
                 return;
 
@@ -134,11 +141,8 @@ namespace PDTUtils.MVVM.ViewModels
                 OperatorESP[(int)index].Value = bcw.TxtNewValue.Text;
                 NativeWinApi.WritePrivateProfileString("Operator", key, OperatorESP[(int)index].Value, Properties.Resources.birth_cert);
                 GlobalConfig.ReparseSettings = true;
-                
+
                 RaisePropertyChangedEvent("OperatorESP");
-                // Dont want to do this but I cant get the screen to update atm.
-                // OperatorESP.Clear();
-                // ParseIni();
             }
         }
     }

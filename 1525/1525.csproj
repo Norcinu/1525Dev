@@ -168,6 +168,8 @@
     <Compile Include="MVVM\ViewModels\MachineBettingViewModel.cs" />
     <Compile Include="MVVM\ViewModels\MainPageViewModel.cs" />
     <Compile Include="MVVM\ViewModels\GameSettingViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\ManufacturerBirthCertViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\ManufacturerViewModel.cs" />
     <Compile Include="MVVM\ViewModels\NetworkSettingsViewModel.cs" />
     <Compile Include="MVVM\ViewModels\NoteAdminViewModel.cs" />
     <Compile Include="MVVM\ViewModels\NoteTestViewModel.cs" />
@@ -243,6 +245,12 @@
     </Compile>
     <Compile Include="Views\MachineBettingView.xaml.cs">
       <DependentUpon>MachineBettingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManufacturerBirthCertView.xaml.cs">
+      <DependentUpon>ManufacturerBirthCertView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManufacturerViewModel.xaml.cs">
+      <DependentUpon>ManufacturerViewModel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NoCardView.xaml.cs">
       <DependentUpon>NoCardView.xaml</DependentUpon>
@@ -508,6 +516,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\GameSettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManufacturerBirthCertView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManufacturerViewModel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

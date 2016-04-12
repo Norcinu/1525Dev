@@ -159,6 +159,7 @@ namespace PDTUtils.MVVM
             Pages.Add(new CollectorViewModel("Collector"));
             Pages.Add(new EngineerViewModel("Engineer"));
             Pages.Add(new AdminViewModel("Admin"));
+            Pages.Add(new ManufacturerBirthCertViewModel("Manufacturer"));
             
             foreach (var p in Pages)
                 p.States.HasSmartCard = _hasSmartCard;
@@ -179,20 +180,36 @@ namespace PDTUtils.MVVM
 
         void _checkYourPrivilege_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            var group = BoLib.getSmartCardGroup();
-            if (group > 0 && group < 7)
+            if (_hasSmartCard)
             {
-                if (_currentPageIndex > group)
+                var group = BoLib.getSmartCardGroup();
+                if (group > 0 && group < 7)
                 {
-                    CurrentPage = Pages[0];
+                    if (_currentPageIndex > group)
+                    {
+                        CurrentPage = Pages[0];
+                    }
+                }
+                else
+                {
+                    if (CurrentPage != null)
+                    {
+                        CurrentPage = Pages[0];
+                    }
                 }
             }
             else
             {
-                if (CurrentPage != null)
+                if (!BoLib.getUtilDoorAccess())
                 {
-                    CurrentPage = Pages[0];
+
+                    if (_currentPageIndex > 1)
+                        CurrentPage = Pages[0];
                 }
+               /* else
+                {
+                    System.Diagnostics.Debug.WriteLine("THAT");
+                }*/
             }
         }
         
@@ -266,18 +283,37 @@ namespace PDTUtils.MVVM
             var doorStatus = BoLib.getUtilDoorAccess();
             var refillStatus = BoLib.getUtilRefillAccess();
 
-            if (scStatus >= status && scStatus != 7)
+            if (_hasSmartCard)
             {
-                CurrentPage.States.Running = false;
-                CurrentPage = newPage;
-                CurrentPage.States.Running = true;
+                if (scStatus >= status && scStatus != 7)
+                {
+                    CurrentPage.States.Running = false;
+                    CurrentPage = newPage;
+                    CurrentPage.States.Running = true;
+                }
+                else if (status != 1 && scStatus <= 7)
+                {
+                    string message = "INSUFFICIENT PRIVILEGES. PLEASE INSERT LEVEL " + status + " OR GREATER CARD.";
+                    WarningDialog warning = new WarningDialog(message, "ERROR");
+                    warning.ShowDialog();
+                    return;
+                }
             }
-            else if (status != 1 && scStatus <= 7)
+            else
             {
-                string message = "INSUFFICIENT PRIVILEGES. PLEASE INSERT LEVEL " + status + " OR GREATER CARD.";
-                WarningDialog warning = new WarningDialog(message, "ERROR");
-                warning.ShowDialog();
-                return;
+                if ((!doorStatus && status <= 1) || (doorStatus))
+                {
+                    CurrentPage.States.Running = false;
+                    CurrentPage = newPage;
+                    CurrentPage.States.Running = true;
+                }
+                else
+                {
+                    string message = "INSUFFICIENT PRIVILEGES. PLEASE OPEN TERMINAL DOOR";
+                    WarningDialog warning = new WarningDialog(message, "ERROR");
+                    warning.ShowDialog();
+                    return;
+                }
             }
         }
 
@@ -303,7 +339,10 @@ namespace PDTUtils.MVVM
                     _currentPageIndex = 4;
                     SetCurrentPage(4, newPage);
                     break;
-                case "Manufacturer": break;
+                case "Manufacturer":
+                    _currentPageIndex = 5;
+                    SetCurrentPage(5, newPage);
+                    break;
             }
         }
         
@@ -350,6 +389,7 @@ namespace PDTUtils.MVVM
             char[] val = new char[3];
             NativeWinApi.GetPrivateProfileString("Operator", "EnableCardReader", "", val, 3, Properties.Resources.birth_cert);
             _hasSmartCard = (val[0] == '1') ? true : false;
+            GlobalConfig.CantBarrageTheFarage = _hasSmartCard;
         }
         #endregion
     }

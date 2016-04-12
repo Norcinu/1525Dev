@@ -44,6 +44,7 @@ namespace PDTUtils.MVVM.ViewModels
             };
 
             Pages.Add(new EngineerHistoryViewModel("EngineerHistory"));
+            Pages.Add(new BirthCertViewModel("Birth Cert"));
             Pages.Add(new TestSuiteViewModel());
             Pages.Add(new DiagnosticViewModel("Diagnostics", new MachineInfo()));
             Pages.Add(new NetworkSettingsViewModel("Network"));

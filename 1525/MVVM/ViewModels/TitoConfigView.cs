@@ -85,7 +85,7 @@ namespace PDTUtils.MVVM.ViewModels
                 UpdateTitoSettings();
             }
         }
-
+        
         void ParseHostFile()
         {
             try
@@ -116,7 +116,7 @@ namespace PDTUtils.MVVM.ViewModels
             const string bnvType = "6";
             var printerType = "4";
 
-            if (Enabled) // enable
+            if (Enabled)
             {
                 BoLib.setFileAction();
                 

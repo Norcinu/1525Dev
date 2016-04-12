@@ -7,7 +7,7 @@
              mc:Ignorable="d"
              d:DesignHeight="1000" d:DesignWidth="1200">
 
-
+    
     <UserControl.Resources>
         <conv:BoolToVisibilityConverter x:Key="BoolToVis"/>
         <conv:ConvertStakeVisibility x:Key="StakeVis"/>
@@ -44,8 +44,8 @@
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
     </UserControl.Resources>
-
-
+    
+    
     <Grid>
         <Border HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="2">
             <StackPanel Background="LightGray" Width="1200">
@@ -53,14 +53,12 @@
                     <StackPanel>
                         <Label Content="Available Machine Stakes" HorizontalAlignment="Center" Margin="5" FontSize="28"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-                            <!-- DarkBlue -->
                             <CheckBox Name="chkOne" Command="{Binding ToggleStake}" CommandParameter="25" Margin="20,5,20,5" IsChecked="{Binding MyBits[1]}">
                                 <TextBox Text="25p" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2"
                                          Background="{Binding StakeOneColour}" Foreground="White" FontSize="24" Width="100" Height="35"/>
                             </CheckBox>
-
+                            
                             <CheckBox Name="chkTwo" Command="{Binding ToggleStake}" CommandParameter="50" Margin="20,5,20,5" IsChecked="{Binding MyBits[2]}">
-                                <!-- , Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"> -->
                                 <TextBox Text="50p" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="2"
                                          Background="{Binding StakeTwoColour}" Foreground="White" FontSize="24" Width="100" Height="35"/>
                             </CheckBox>
@@ -72,32 +70,31 @@
                         </StackPanel>
                     </StackPanel>
                 </Border>
-
+                
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <ListView   Width="325" ItemsSource="{Binding Settings}" SelectedIndex="{Binding SelectedIndex}" Margin="2,10,20,10" 
-                                ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Visible"
-                                Height="700">
+                    <ListView Width="325" ItemsSource="{Binding Settings}" SelectedIndex="{Binding SelectedIndex}" Margin="2,10,20,10" 
+                              ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="700">
+                        
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Game Name" Width="295">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Label Content="{Binding Title}" Style="{StaticResource StdHeaderLabel}" Margin="5" 
-                                               Width="260" BorderBrush="Black" BorderThickness="2" />
+                                            <Label Content="{Binding Title}" Style="{StaticResource StdHeaderLabel}" Margin="5"
+                                                   Width="260" BorderBrush="Black" BorderThickness="2" />
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>
-
+                    
                     <Border BorderThickness="2" BorderBrush="Black" Margin="0,10,0,10">
                         <StackPanel Background="Beige">
                             <Label Style="{StaticResource StdHeaderLabel}" FontSize="46" Margin="0,20,0,20" Width="420" 
-                               Content="Current Selection" />
+                                   Content="Current Selection" />
 
                             <Border Background="LightBlue" BorderBrush="Black" BorderThickness="0,2,0,0">
-
                                 <StackPanel Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Center">
                                     <Label Style="{StaticResource StdHeaderLabel}" Content="{Binding SelectedGameName}" 
                                        Margin="35,0,10,0"/>
@@ -105,31 +102,24 @@
                                        Margin="55,0,10,0"/>
                                 </StackPanel>
                             </Border>
-
+                            
                             <Border Background="LightBlue" BorderBrush="Black" BorderThickness="0,2,0,0">
-                                <!-- 2,2,2,2 -->
                                 <StackPanel Orientation="Horizontal" Margin="0,10,0,10"  HorizontalAlignment="Center">
                                     <CheckBox Margin="10,0,10,0" IsChecked="{Binding IsActiveGame, Mode=TwoWay}">
                                         <Label Style="{StaticResource StdHeaderLabel}" Content="Is Active Game" Margin="15,0,10,0"/>
                                     </CheckBox>
                                 </StackPanel>
                             </Border>
-
-                            <Border Background="LightBlue" BorderBrush="Black" BorderThickness="2,0,2,0">
-
-                            </Border>
-
+                            
+                            <Border Background="LightBlue" BorderBrush="Black" BorderThickness="2,0,2,0" />
+                            
                             <StackPanel>
-
                                 <Border BorderBrush="Black" BorderThickness="0,2,0,2">
-
                                     <StackPanel Background="LightGray">
                                         <Label Content="Current Promo Selections" Margin="5"/>
                                         <Label Margin="30,0,0,0" ContentStringFormat="1) {0}" Content="{Binding FirstPromo}"/>
-                                        <!-- <Label Margin="30,0,0,5" ContentStringFormat="2) {0}" Content="{Binding SecondPromo}"/> -->
                                     </StackPanel>
                                 </Border>
-
 
                                 <StackPanel Margin="10">
                                     <Label Content="Select 1 Promo Game" Margin="0,10,0,10" HorizontalAlignment="Center"/>
@@ -146,25 +136,19 @@
                                         </ListBox.ItemTemplate>
                                     </ListBox>
                                 </StackPanel>
-
                             </StackPanel>
-
                         </StackPanel>
                     </Border>
                 </StackPanel>
-
+                
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button Width="200" Height="50" FontSize="24" Command="{Binding SaveGameOptions}" Margin="10">
                         <Label Content="Save Changes"/>
                     </Button>
-
                 </StackPanel>
-
             </StackPanel>
         </Border>
     </Grid>
-
+    
 </UserControl>
-    
-    
 
