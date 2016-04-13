@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace PDTUtils.Views
 {
     /// <summary>
-    /// Interaction logic for ManufacturerView.xaml
+    /// Interaction logic for MachineIniView.xaml
     /// </summary>
-    public partial class ManufacturerView : UserControl
+    public partial class MachineIniView : UserControl
     {
-        public ManufacturerView()
+        public MachineIniView()
         {
             InitializeComponent();
         }

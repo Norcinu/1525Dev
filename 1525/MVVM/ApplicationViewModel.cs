@@ -159,7 +159,7 @@ namespace PDTUtils.MVVM
             Pages.Add(new CollectorViewModel("Collector"));
             Pages.Add(new EngineerViewModel("Engineer"));
             Pages.Add(new AdminViewModel("Admin"));
-            Pages.Add(new ManufacturerBirthCertViewModel("Manufacturer"));
+            Pages.Add(new ManufacturerViewModel("Manufacturer"));
             
             foreach (var p in Pages)
                 p.States.HasSmartCard = _hasSmartCard;
@@ -316,7 +316,7 @@ namespace PDTUtils.MVVM
                 }
             }
         }
-
+        
         void ChangeViewModel(BaseViewModel newPage)
         {
             if (newPage == null) return;

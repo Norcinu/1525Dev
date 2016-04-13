@@ -41,21 +41,15 @@
                     <Label FontSize="24" HorizontalAlignment="Center"  Style="{StaticResource StatsLabel}" Width="680" Height="75" />
                     <!-- Content="Read Only." -->
 
-                    <!-- <Label FontSize="24" HorizontalAlignment="Center"  Style="{StaticResource StatsLabel}" Width="680"
-                                Height="75" Content="Touch Row to Change Value. Changes require reboot." /> -->
                 </StackPanel>
             </Border>
-            <!-- SelectionChanged="ListBoxSelectionChanged" -->
+
             <StackPanel Orientation="Horizontal">
                 <ListView Name="Operator" ItemsSource="{Binding OperatorESP, Mode=TwoWay}" HorizontalContentAlignment="Center" FontSize="22" 
                           AlternationCount="2" Margin="3" Height="750"
                           ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Visible"
                           local:CommandBehavior.Event="SelectionChanged" local:CommandBehavior.Command="{Binding ListBoxSelectionChanged}" 
                           local:CommandBehavior.CommandParameter="{Binding SelectedIndex, RelativeSource={RelativeSource Self}}">
-
-                    <!-- <ListView.Resources>
-                        <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">30</sys:Double>
-                    </ListView.Resources> -->
                     
                     <ListView.View>
                         <GridView>

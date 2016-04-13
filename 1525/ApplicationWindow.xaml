@@ -43,8 +43,8 @@
             <view:CollectorView />
         </DataTemplate>
         
-        <DataTemplate DataType="{x:Type vm:ManufacturerBirthCertViewModel}">
-            <view:ManufacturerBirthCertView />
+        <DataTemplate DataType="{x:Type vm:ManufacturerViewModel}">
+            <view:ManufacturerView />
         </DataTemplate>
     </Window.Resources>
 
@@ -135,7 +135,7 @@
                             <Button Content="{Binding Name}" Margin="2,5" Height="35" Width="170" FontSize="24"
                                     Command="{Binding DataContext.ChangePageCommand, 
                                                       RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                                    CommandParameter="{Binding }"/>
+                                    CommandParameter="{Binding }" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

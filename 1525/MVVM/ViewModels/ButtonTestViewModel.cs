@@ -185,6 +185,8 @@ namespace PDTUtils.MVVM.ViewModels
                 _buttons = new FortuneHunterXtra();
             else if (_cabinetType.Equals("ADVANTAGE"))
                 _buttons = new Advantage();
+
+            PDTUtils.Logic.GlobalConfig.TestSuiteRunning = true;
         }
 
         void _testTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -253,6 +255,7 @@ namespace PDTUtils.MVVM.ViewModels
                 BannerMessage = "Press Start to Continue";
                 CurrentButton = "";
                 StartButtonActive = Visibility.Visible;
+                PDTUtils.Logic.GlobalConfig.TestSuiteRunning = false;
             }
         }
         

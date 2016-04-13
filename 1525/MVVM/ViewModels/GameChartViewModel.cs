@@ -13,6 +13,7 @@ namespace PDTUtils.MVVM.ViewModels
             /*public uint Money { get; set; }*/
             public double Money { get; set; }
             public uint GameCount { get; set; }
+            public string Filename { get; set; }
         }
         
         /*public List<KeyValuePair<string, uint>> IncomingsSimple { get; set; }
@@ -54,8 +55,10 @@ namespace PDTUtils.MVVM.ViewModels
                     var count = (uint)BoLib.getGamePerformanceMeter((uint)i, 2);
                     var title = new string(titleBuffer).Trim("\0".ToCharArray());
 
-                    Incomings.Add(new KeyValuePair<string, KeepOnGiving>(title, new KeepOnGiving() { Money = bet / 100.00, GameCount = count }));
-                    Outgoings.Add(new KeyValuePair<string, KeepOnGiving>(title, new KeepOnGiving() { Money = won / 100.00, GameCount = count }));
+                    var filename = @"D:\" + modelNo.ToString() + @"\BMP\HomeIcon.png";
+
+                    Incomings.Add(new KeyValuePair<string, KeepOnGiving>(title, new KeepOnGiving() { Money = ((double)bet - (double)won) / 100, GameCount = count, Filename = filename }));
+                    Outgoings.Add(new KeyValuePair<string, KeepOnGiving>(title, new KeepOnGiving() { Money = bet - won, GameCount = count, Filename = filename }));
 
                     IncomingsSimple.Add(new KeyValuePair<string, double>(title, bet));
                     OutgoingsSimple.Add(new KeyValuePair<string, double>(title, won));

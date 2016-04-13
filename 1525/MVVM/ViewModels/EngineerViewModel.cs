@@ -51,9 +51,7 @@ namespace PDTUtils.MVVM.ViewModels
             Pages.Add(new TitoConfigView("TitoConfig"));
             Pages.Add(new UserSoftwareUpdate("Update"));
             Pages.Add(new UsbFileUploaderViewModel("Upload"));
-            //Pages.Add(new SoftwareUpdate
-            //Pages.Add(UsbSoftwareUpload
-            
+
             CurrentPage = Pages[0];
         }
         

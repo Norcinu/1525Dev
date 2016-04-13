@@ -166,6 +166,7 @@
     <Compile Include="MVVM\ViewModels\LampTestViewModel.cs" />
     <Compile Include="MVVM\ViewModels\LastCollectLogViewModel.cs" />
     <Compile Include="MVVM\ViewModels\MachineBettingViewModel.cs" />
+    <Compile Include="MVVM\ViewModels\MachineIniViewModel.cs" />
     <Compile Include="MVVM\ViewModels\MainPageViewModel.cs" />
     <Compile Include="MVVM\ViewModels\GameSettingViewModel.cs" />
     <Compile Include="MVVM\ViewModels\ManufacturerBirthCertViewModel.cs" />
@@ -245,6 +246,9 @@
     </Compile>
     <Compile Include="Views\MachineBettingView.xaml.cs">
       <DependentUpon>MachineBettingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MachineIniView.xaml.cs">
+      <DependentUpon>MachineIniView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ManufacturerBirthCertView.xaml.cs">
       <DependentUpon>ManufacturerBirthCertView.xaml</DependentUpon>
@@ -508,6 +512,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MachineBettingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MachineIniView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

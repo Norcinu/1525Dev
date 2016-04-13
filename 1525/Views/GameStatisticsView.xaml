@@ -45,6 +45,11 @@
     <Grid>
         <StackPanel Grid.Row="1" Grid.Column="1" Width="Auto" Name="StpGameStatsView">
             <TabControl Height="1000">
+                <TabItem Header="Game Profit" Width="200">
+                    <view:GameChartView />
+                </TabItem>
+                
+                
                 <TabItem Header="Overall" Width="200">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
                         <Label Style="{StaticResource MESHUGGAH}" BorderBrush="Black" BorderThickness="2" 
@@ -213,9 +218,6 @@
                     </StackPanel>
                 </TabItem>
                 
-                <TabItem Header="Game Selection">
-                    <view:GameChartView />
-                </TabItem>
             </TabControl>
         </StackPanel>
     </Grid>
