@@ -112,5 +112,6 @@ DLLEXPORT bool			inDemoSession();
 DLLEXPORT unsigned long getCollectableCredits();
 DLLEXPORT unsigned long getCollectableBankDeposit();
 DLLEXPORT bool			allowCollect();
+DLLEXPORT bool			getRequestHopperPayout();
 
 

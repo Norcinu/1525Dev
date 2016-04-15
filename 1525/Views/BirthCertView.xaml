@@ -35,10 +35,10 @@
             <!-- <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"> -->
             <Border BorderBrush="Black" BorderThickness="2" Margin="3" Width="680">
                 <StackPanel>
-                    <Label FontSize="38" HorizontalAlignment="Center" Style="{StaticResource StatsLabel}" Width="680" Height="75" Content="Touch Row to Change Value. Changes require reboot."/>
+                    <Label FontSize="38" HorizontalAlignment="Center" Style="{StaticResource StatsLabel}" Width="680" Height="75" Content="Touch Row to Change Value."/>
                     <!-- Maybe make this text dependent on what level you are on.  says read only if card < manufacturer -->
                     <!-- Height="75" Content="Proceed With Caution" /> -->
-                    <Label FontSize="24" HorizontalAlignment="Center"  Style="{StaticResource StatsLabel}" Width="680" Height="75" />
+                    <Label FontSize="24" HorizontalAlignment="Center"  Style="{StaticResource StatsLabel}" Width="680" Height="75" Content="Changes require reboot." />
                     <!-- Content="Read Only." -->
 
                 </StackPanel>

@@ -33,7 +33,7 @@ namespace PDTUtils.MVVM.ViewModels
                 RaisePropertyChangedEvent("BannerMessage");
             }
         }
-        
+
         Thread _coinThread;
 
         public CoinTestViewModel(string name)
@@ -86,7 +86,7 @@ namespace PDTUtils.MVVM.ViewModels
                 Debug.WriteLine(e.Message);
             }
 
-            Thread.Sleep(100);
+            Thread.Sleep(50);
             BoLib.clearUtilRequestBitState((int)UtilBits.CoinTest);
         }
     }

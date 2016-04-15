@@ -868,3 +868,8 @@ bool allowCollect()
 {
 	return GetAllowCollect > 0;
 }
+
+bool getRequestHopperPayout()
+{
+	return GetRequestHopperPayout();
+}

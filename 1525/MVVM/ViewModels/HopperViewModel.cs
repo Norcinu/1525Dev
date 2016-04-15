@@ -815,10 +815,12 @@ namespace PDTUtils.MVVM.ViewModels
                 msg.ShowMessage("Please turn Refill Key before continuing.", "Warning");
                 return;
             }
+            var billybob = BoLib.getIsHopperHopping();
 
             //!!!!WARNING: EXPERIMENTAL LOL DOES THIS WORK GREIGHT MEIGHT?
             new Thread(() =>
             {
+                var billybob2 = BoLib.getIsHopperHopping();
                 while (!_dumpSwitchPressed)
                 {
                     if (BoLib.getHopperDumpSwitchActive() > 0)
@@ -880,31 +882,41 @@ namespace PDTUtils.MVVM.ViewModels
                             _currentHopperDumping = (byte)Hoppers.Right;
                         }
                     }
-                    
-                    //_msgAccess.Show = !_msgAccess.Show;
-                    //TODO : BIRTHCERT CRASHING.
-                    //TODO : HOPPER FLOAT SET TO DUMPED AMOUNT. CHECK DUMPSWITCH TOO.
-                    if (SpanishEmpty == null)
+
+                    var billybob3 = BoLib.getIsHopperHopping();
+                    /*if (SpanishEmpty == null)
                     {
                         SpanishEmpty = new Timer() { Enabled = true, Interval = 100 };
                         SpanishEmpty.Elapsed += new System.Timers.ElapsedEventHandler(TimerSpainEmpty);
                     }
                     else if (!SpanishEmpty.Enabled)
-                        SpanishEmpty.Enabled = true;
+                        SpanishEmpty.Enabled = true;*/
                 }
             }).Start();
+            var billybob4 = BoLib.getIsHopperHopping();
+            Thread.Sleep(500);
+            var billybob5 = BoLib.getIsHopperHopping();
+            if (SpanishEmpty == null)
+            {
+                SpanishEmpty = new Timer() { Enabled = true, Interval = 100 };
+                SpanishEmpty.Elapsed += new System.Timers.ElapsedEventHandler(TimerSpainEmpty);
+            }
+            else if (!SpanishEmpty.Enabled)
+                SpanishEmpty.Enabled = true;
         }
         
         void TimerSpainEmpty(object sender, System.Timers.ElapsedEventArgs e)
         {
             if (!BoLib.getIsHopperHopping())
+            //if (!BoLib.getUtilRequestBitState((int)UtilBits.DumpLeftHopper) && !BoLib.getUtilRequestBitState((int)UtilBits.DumpRightHopper))
+            //if (BoLib.getRequestHopperPayout())
             {
                 SetHopperPayingValue();
                 SpanishEmpty.Enabled = false;
                 var hopperValue = (_currentHopperDumping == (byte)Hoppers.Left) ? "LEFT HOPPER INFO" : "RIGHT HOPPER INFO";
                 var floatLevel = BoLib.getHopperFloatLevel(_currentHopperDumping);
-                //_msg.ShowMessage("FINISHED EMPTYING.\n" + _hopperPayingValue + " Coins Paid Out: " + floatLevel, hopperValue);
-                var w = new PDTUtils.Logic.WarningDialog("FINISHED EMPTYING.\n" + _hopperPayingValue + " Coins Paid Out: " + floatLevel, "FLOAT");
+                _msg.ShowMessage("FINISHED EMPTYING.\n" + _hopperPayingValue + " Coins Paid Out: " + floatLevel, hopperValue);
+                //var w = new PDTUtils.Logic.WarningDialog("FINISHED EMPTYING.\n" + _hopperPayingValue + " Coins Paid Out: " + floatLevel, "FLOAT");
                 BoLib.setHopperFloatLevel(_currentHopperDumping, floatLevel); //0);
                 unchecked { _currentHopperDumping = (byte)Hoppers.NoHopper; }
                 FloatLevelLeft = BoLib.getHopperFloatLevel((byte)Hoppers.Left).ToString();

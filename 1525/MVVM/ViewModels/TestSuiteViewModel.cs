@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using PDTUtils.Native;
 
 namespace PDTUtils.MVVM.ViewModels
 {
@@ -60,7 +61,7 @@ namespace PDTUtils.MVVM.ViewModels
             Pages.Add(new NoteTestViewModel("Note"));
             Pages.Add(new CoinTestViewModel("Coin"));
         }
-        
+
         void ChangeViewModel(BaseViewModel vm)
         {
             if (vm == null) return;
@@ -100,6 +101,7 @@ namespace PDTUtils.MVVM.ViewModels
             {
                 vm.Cleanup();
             }
+            BoLib.clearUtilRequestBitState((int)UtilBits.TestSwitch);
         }
     }
 }

@@ -504,10 +504,47 @@ namespace PDTUtils.MVVM.ViewModels
             else if (str.Equals("200"))
             {
                 index = 4;
-                StakeThreeColour = (_myBits[3]) ? Brushes.Green : Brushes.Red;
+                StakeThreeColour = (_myBits[4]) ? Brushes.Green : Brushes.Red;
                 RaisePropertyChangedEvent("StakeThreeColour");
             }
         }
+
+        public ICommand ToggleStakeTextBox { get { return new DelegateCommand(DoToggleStakeTextBox); } }
+        void DoToggleStakeTextBox(object o)
+        {
+            var str = o as string;
+            var index = -1;
+
+            if (str.Equals("10"))
+                index = 0;
+            else if (str.Equals("25"))
+            {
+                index = 1;
+                _myBits[1] = !_myBits[1];
+                StakeOneColour = (_myBits[1]) ? Brushes.Green : Brushes.Red;
+                RaisePropertyChangedEvent("StakeOneColour");
+            }
+            else if (str.Equals("50"))
+            {
+                index = 2;
+                _myBits[2] = !_myBits[2];
+                StakeTwoColour = (_myBits[2]) ? Brushes.Green : Brushes.Red;
+                RaisePropertyChangedEvent("StakeTwoColour");
+            }
+            else if (str.Equals("100"))
+                index = 3;
+            else if (str.Equals("200"))
+            {
+                index = 4;
+                _myBits[4] = !_myBits[4];
+                StakeThreeColour = (_myBits[4]) ? Brushes.Green : Brushes.Red;
+                RaisePropertyChangedEvent("StakeThreeColour");
+            }
+
+            RaisePropertyChangedEvent("MyBits");
+        }
+
+
 
         public void UpdatePromoSelection(GameSettingModel first, GameSettingModel second)
         {

@@ -29,7 +29,6 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-
                         <GridViewColumn Header="Game" Width="195">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -41,7 +40,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Header="Cashbox" Width="195">
+                        <GridViewColumn Header="Net Profit" Width="195">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Border BorderBrush="Black" BorderThickness="2">

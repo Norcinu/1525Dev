@@ -284,7 +284,7 @@ namespace PDTUtils.MVVM.ViewModels
         {
             get { return new DelegateCommand(DoEditDailyMaxSpend); }
         }
-
+        
         void DoEditDailyMaxSpend(object o)
         {
             if (!_cashMatchActive) return;

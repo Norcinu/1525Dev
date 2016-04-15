@@ -19,11 +19,14 @@ namespace PDTUtils.MVVM
         bool _libraryInitOk = false;
         bool _hasSmartCard = false;
         bool _doorStateChanged = false;
+        bool _manufacturerVisible = false;
+        int _currentPageIndex = 7;
 
-        int _currentPageIndex = 7; 
-
+        
         BaseViewModel _currentPage = null;
         ObservableCollection<BaseViewModel> _pages = new ObservableCollection<BaseViewModel>();
+        ObservableCollection<BaseViewModel> _manufacturer = new ObservableCollection<BaseViewModel>();
+        
         ICommand _changePageCommand;
         WpfMessageBoxService _msg = new WpfMessageBoxService();
         
@@ -142,6 +145,22 @@ namespace PDTUtils.MVVM
                 RaisePropertyChangedEvent("AccessLevel");
             }
         }
+
+        public bool ManufacturerVisible
+        {
+            get { return _manufacturerVisible; }
+            set
+            {
+                _manufacturerVisible = value;
+                RaisePropertyChangedEvent("ManufacturerVisible");
+            }
+        }
+
+        public ObservableCollection<BaseViewModel> Manufacturer
+        {
+            get { return _manufacturer; }
+            set { _manufacturer = value; }
+        }
         #endregion
         
         #region Public Methods
@@ -159,10 +178,14 @@ namespace PDTUtils.MVVM
             Pages.Add(new CollectorViewModel("Collector"));
             Pages.Add(new EngineerViewModel("Engineer"));
             Pages.Add(new AdminViewModel("Admin"));
-            Pages.Add(new ManufacturerViewModel("Manufacturer"));
-            
+            //Pages.Add(new ManufacturerViewModel("Manufacturer"));
+            Manufacturer.Add(new ManufacturerViewModel("Manufacturer"));
+
             foreach (var p in Pages)
                 p.States.HasSmartCard = _hasSmartCard;
+
+            foreach (var m in Manufacturer)
+                m.States.HasSmartCard = _hasSmartCard;
 
             _currentPage = Pages[0];
             
@@ -197,6 +220,11 @@ namespace PDTUtils.MVVM
                         CurrentPage = Pages[0];
                     }
                 }
+
+                if (group == 6)
+                    ManufacturerVisible = true;
+                else
+                    ManufacturerVisible = false;
             }
             else
             {
@@ -206,10 +234,6 @@ namespace PDTUtils.MVVM
                     if (_currentPageIndex > 1)
                         CurrentPage = Pages[0];
                 }
-               /* else
-                {
-                    System.Diagnostics.Debug.WriteLine("THAT");
-                }*/
             }
         }
         
@@ -346,6 +370,9 @@ namespace PDTUtils.MVVM
             }
         }
         
+        /// <summary>
+        /// Cleanup all resources. Set all child view models to cleanup as well.
+        /// </summary>
         void DoAppExit()
         {
             //Do cleanup here
@@ -355,6 +382,9 @@ namespace PDTUtils.MVVM
 
             foreach (var p in Pages)
                 p.Cleanup();
+
+            foreach (var m in Manufacturer)
+                m.Cleanup();
 
             if (BoLib.getUtilRequestBitState((int)UtilBits.Allow))
                 BoLib.disableUtilsCoinBit();

@@ -56,6 +56,9 @@ namespace PDTUtils.MVVM.ViewModels
         readonly byte[] _buttonMasks = new byte[8] { 0x80, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02, 0x01 };
         readonly byte[] _lampMasks = new byte[8] { 128, 64, 32, 16, 8, 4, 2, 1 };
 
+        uint _keyStartState;
+        uint _doorStartState;
+
         string _bannerMessage;
         string _cabinetType;
         string _currentButtonStr;
@@ -181,12 +184,13 @@ namespace PDTUtils.MVVM.ViewModels
             _testTimer = new Timer() { Enabled = false, Interval = 1000 };
             _testTimer.Elapsed += new System.Timers.ElapsedEventHandler(_testTimer_Elapsed);
 
+            _keyStartState = BoLib.getSwitchStatus(2, _specialMasks[0]);
+            _doorStartState = BoLib.getSwitchStatus(0, _specialMasks[1]);
+
             if (_cabinetType.Equals("FortuneHunterXtra"))
                 _buttons = new FortuneHunterXtra();
             else if (_cabinetType.Equals("ADVANTAGE"))
                 _buttons = new Advantage();
-
-            PDTUtils.Logic.GlobalConfig.TestSuiteRunning = true;
         }
 
         void _testTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -255,7 +259,7 @@ namespace PDTUtils.MVVM.ViewModels
                 BannerMessage = "Press Start to Continue";
                 CurrentButton = "";
                 StartButtonActive = Visibility.Visible;
-                PDTUtils.Logic.GlobalConfig.TestSuiteRunning = false;
+                BoLib.clearUtilRequestBitState((int)UtilBits.TestSwitch);
             }
         }
         
@@ -270,6 +274,7 @@ namespace PDTUtils.MVVM.ViewModels
             ButtonResultError = "";
             CurrentButton = "Turn Refill Key";
             StartButtonActive = Visibility.Hidden;
+            BoLib.setUtilRequestBitState((int)UtilBits.TestSwitch);
         }
     }
 }

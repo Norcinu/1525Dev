@@ -243,7 +243,8 @@ namespace PDTUtils.Native
         DumpRightHopper     = 0x00008000,
         TestLeftHopper      = 0x00010000,
         TestRightHopper     = 0x00020000,
-        ReadCpuEventsBit    = 0x00040000
+        ReadCpuEventsBit    = 0x00040000,
+        TestSwitch          = 0x00080000
     }
     
     enum CollectType
@@ -620,6 +621,10 @@ namespace PDTUtils.Native
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool allowCollect();
+
+        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        public static extern bool getRequestHopperPayout();
 
         /************************************************************************/
         /*							Set methods                                 */

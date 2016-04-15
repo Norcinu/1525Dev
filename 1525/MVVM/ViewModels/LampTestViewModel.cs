@@ -59,6 +59,10 @@ namespace PDTUtils.MVVM.ViewModels
         {
             BannerMessage = "Check button lamps are flashing";
             ButtonVisibility = Visibility.Hidden;
+            
+            BannerMessage = "Press Start Button";
+            ButtonVisibility = Visibility.Visible;
+            
             Thread lampThread = new Thread(new ThreadStart(() => LampLoop()));
             lampThread.Start();
         }
