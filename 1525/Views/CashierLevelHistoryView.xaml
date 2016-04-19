@@ -7,11 +7,7 @@
              xmlns:vm="clr-namespace:PDTUtils.MVVM.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    
-    <UserControl.DataContext>
-        <vm:CashierLevelHistoryViewModel />
-    </UserControl.DataContext>
-    
+       
     <UserControl.Resources>
         <Style x:Key="MESHUGGAH" TargetType="Label">
             <Setter Property="HorizontalAlignment" Value="Center"/>

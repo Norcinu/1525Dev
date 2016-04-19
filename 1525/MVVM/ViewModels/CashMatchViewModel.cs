@@ -223,7 +223,6 @@ namespace PDTUtils.MVVM.ViewModels
         {
             get { return new DelegateCommand(DoEditMaxEvents); }
         }
-
         void DoEditMaxEvents(object o)
         {
             if (!_cashMatchActive) return;
@@ -330,7 +329,7 @@ namespace PDTUtils.MVVM.ViewModels
                     }
                 }
             }
-
+            
             if (MaxSpendPerDay == 0)
             {
                 BoLib.setCashMatchEventMaxTotalValue(infinite);
@@ -455,11 +454,13 @@ namespace PDTUtils.MVVM.ViewModels
                 if (LoyaltyPayback == 0)
                     LoyaltyPayback = 1;
                 BoLib.setSmartCardPointsRTP(_loyaltyPayback);
+                NativeWinApi.WritePrivateProfileString("Operator", "RewardRTP", LoyaltyPayback.ToString(), Properties.Resources.birth_cert);
             }
             else
             {
                 LoyaltyActive = false;
                 BoLib.setSmartCardPointsRTP(0);
+                NativeWinApi.WritePrivateProfileString("Operator", "RewardRTP", "0", Properties.Resources.birth_cert);
             }
         }
         

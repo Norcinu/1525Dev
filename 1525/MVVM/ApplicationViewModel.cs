@@ -345,6 +345,13 @@ namespace PDTUtils.MVVM
         {
             if (newPage == null) return;
 
+            if (!newPage.Name.Equals("Cashier") && !BoLib.getUtilDoorAccess())
+            {
+                WarningDialog wd = new WarningDialog("Please ensure door is OPEN.", "ERROR");
+                wd.ShowDialog();
+                return;
+            }
+
             switch (newPage.Name)
             {
                 case "Cashier":

@@ -143,8 +143,7 @@
                         <StackPanel x:Name="StpErrorBox"  VerticalAlignment="Stretch" Background="Gray">
                             <Label Background="NavajoWhite" HorizontalAlignment="Center" Foreground="YellowGreen" Margin="10" 
                                        FontSize="36">Actions</Label>
-                            <Button Width="200" Height="40" FontSize="22" Command="{Binding SetCanRefill}" Margin="5"
-                                        Visibility="{Binding IsSpain, Converter={StaticResource FalseToVis}}">
+                            <Button Width="200" Height="40" FontSize="22" Command="{Binding SetCanRefill}" Margin="5">
                                 <Label>Refill Hoppers</Label>
                             </Button>
                             <Button Width="200" Height="40" FontSize="22" Command="{Binding SetHandPay}" Margin="5">

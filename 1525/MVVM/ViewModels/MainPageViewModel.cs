@@ -247,7 +247,8 @@ namespace PDTUtils.MVVM.ViewModels
         System.Timers.Timer _refillTimer;
         Decimal _totalCredits = 0.00M;
 
-        public MainPageViewModel()
+        public MainPageViewModel(string name)
+            : base(name)
         {
             DoorOpen = false;
             IsEnabled = true;
@@ -511,25 +512,20 @@ namespace PDTUtils.MVVM.ViewModels
         public ICommand SetCanRefill { get { return new DelegateCommand(o => DoCanSetRefill()); } }
         void DoCanSetRefill()
         {
-            if (BoLib.getDoorStatus() == 1)
+            if (BoLib.getUtilDoorAccess())
             {
-                WpfMessageBoxService _msg = new WpfMessageBoxService();
-                _msg.ShowMessage("Please Close the Cabinet door.", "Error");
+                WarningDialog wd = new WarningDialog("Please ensure the door is closed.", "ERROR");
+                wd.ShowDialog();
                 return;
             }
             
             _canRefillHoppers = !_canRefillHoppers;
             RefillCoinsAddedLeft = BoLib.getHopperFloatLevel((byte)Hoppers.Left);
             RefillCoinsAddedRight = BoLib.getHopperFloatLevel((byte)Hoppers.Right);
-            
-           // if (_canRefillHoppers)
-           //     RefillMessage = "Insert Coins. Press Stop to End Refill.";
-           // else
-           //     RefillMessage = "Refill Hoppers. Press Start to Begin.";
-                
+                           
             RaisePropertyChangedEvent("CanRefillHoppers");
         }
-        //
+        
         public ICommand RefillHopper { get { return new DelegateCommand(o => DoRefillHopper()); } }
         void DoRefillHopper()
         {
@@ -547,7 +543,7 @@ namespace PDTUtils.MVVM.ViewModels
                 };
                 BoLib.getUtilRequestBitState((int)UtilBits.RefillCoins);
             }
-            else if (_numberOfHoppers == 1) //if (!_refillTimer.Enabled ||
+            else if (_numberOfHoppers == 1)
             {
                 if (_refillTimer == null)
                 {
@@ -592,6 +588,12 @@ namespace PDTUtils.MVVM.ViewModels
         {
             RefillCoinsAddedLeft = BoLib.getHopperFloatLevel((byte)Hoppers.Left);
             RefillCoinsAddedRight = BoLib.getHopperFloatLevel((byte)Hoppers.Right);
+        }
+
+        public override void Cleanup()
+        {
+            base.Cleanup();
+            DoEndRefill();
         }
     }
 }

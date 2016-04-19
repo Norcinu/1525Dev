@@ -11,10 +11,10 @@
              x:Name="root">
     
     <Grid>
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Background="LightGray">
-
+        <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="LightGray" Margin="20">
+            
             <Label Content="Games by Net Profit" HorizontalContentAlignment="Center" FontSize="32" Margin="20" />
-            <ListView Height="700" ItemsSource="{Binding Incomings}" Margin="20">
+            <ListView Height="675" ItemsSource="{Binding Incomings}" Margin="20" HorizontalAlignment="Center">
                 <!--width 900 -->
                 <ListView.View>
                     <GridView AllowsColumnReorder="False">

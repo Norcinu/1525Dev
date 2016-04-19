@@ -5,22 +5,32 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:PDTUtils.MVVM.ViewModels"
              xmlns:view="clr-namespace:PDTUtils.Views"
+             xmlns:local="clr-namespace:AttachedCommandBehavior"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type vm:CashierViewModel}" />
+        
+        <DataTemplate DataType="{x:Type vm:MainPageViewModel}">
+            <view:MainPage />
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:CashierLevelHistoryViewModel}">
+            <view:CashierLevelHistoryView />            
+        </DataTemplate>
     </UserControl.Resources>
 
     <Grid>
-        <!-- <Label Content="{Binding Name}" /> -->
-        
-        <TabControl>
+        <TabControl local:CommandBehavior.Event="SelectionChanged" local:CommandBehavior.Command="{Binding TabSelectionChanged}" 
+                    local:CommandBehavior.CommandParameter="{Binding SelectedIndex, RelativeSource={RelativeSource Self}}">
             <TabItem Header="Main" Width="200">
-                <view:MainPage />
+                <!-- <view:MainPage /> -->
+                <ContentControl Content="{Binding CurrentPage}" />
             </TabItem>
             <TabItem Header="History" Width="200">
-                <view:CashierLevelHistoryView />
+                <!-- <view:CashierLevelHistoryView /> -->
+                <ContentControl Content="{Binding CurrentPage}" />
             </TabItem>
         </TabControl>
     </Grid>

@@ -23,7 +23,7 @@
             <TabItem Header="Errors" MinWidth="150" HorizontalContentAlignment="Center">
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="25">
                     <StackPanel Margin="25">
-                        <ListView ItemsSource="{Binding MachineLogs.ErrorLog}" MinHeight="600" FontSize="20">
+                        <ListView ItemsSource="{Binding MachineLogs.ErrorLog}" Height="600" FontSize="20">
                             <ListView.View>
                                 <GridView AllowsColumnReorder="False">
                                     <GridViewColumn Header="Date" Width="300">
@@ -63,7 +63,7 @@
             <TabItem Header="Warnings" MinWidth="150" HorizontalContentAlignment="Center" >
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="25">
                     <StackPanel Margin="25">
-                        <ListView ItemsSource="{Binding MachineLogs.WarningLog}" MinHeight="600" FontSize="20" >
+                        <ListView ItemsSource="{Binding MachineLogs.WarningLog}" Height="600" FontSize="20" >
                             <ListView.View>
                                 <GridView AllowsColumnReorder="False">
                                     <GridViewColumn Header="Date" Width="300">
@@ -104,7 +104,7 @@
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="25">
 
                     <StackPanel Margin="25">
-                        <ListView ItemsSource="{Binding MachineLogs.HandPayLogs}" MinHeight="600" FontSize="20">
+                        <ListView ItemsSource="{Binding MachineLogs.HandPayLogs}" Height="600" FontSize="20">
                             <ListView.View>
                                 <GridView AllowsColumnReorder="False">
                                     <GridViewColumn Header="Date" Width="300">
@@ -140,7 +140,7 @@
                                Content="Last Games" BorderBrush="Black" BorderThickness="2" />
 
                         <!-- Last 10 Games -->
-                        <ListView ItemsSource="{Binding Path=MachineLogs.PlayedGames}" MinHeight="380" FontSize="20">
+                        <ListView ItemsSource="{Binding Path=MachineLogs.PlayedGames}" Height="600" FontSize="20">
                             <ListView.View>
                                 <GridView AllowsColumnReorder="False">
                                     <GridViewColumn Header="Game" Width="180">
@@ -209,7 +209,7 @@
                         <Label Style="{StaticResource MESHUGGAH}" HorizontalContentAlignment="Center" Width="600" 
                                Content="Last Game Wins" BorderBrush="Black" BorderThickness="2"/>
 
-                        <ListView ItemsSource="{Binding Path=MachineLogs.WinningGames}" MinHeight="400" MaxHeight="600" FontSize="20">
+                        <ListView ItemsSource="{Binding Path=MachineLogs.WinningGames}" Height="600" FontSize="20">
                             <ListView.View>
                                 <GridView AllowsColumnReorder="False">
                                     <GridViewColumn Header="Date" Width="225">
@@ -258,11 +258,11 @@
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
-
+            
             <TabItem Header="Last Collect" MinWidth="150">
                 <view:LastCollectLogView/>
             </TabItem>
-
+            
             <TabItem Header="Smart Card Log" MinWidth="150" HorizontalContentAlignment="Center">
                 <view:SmartCardLogView />
             </TabItem>

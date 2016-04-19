@@ -136,11 +136,13 @@ namespace PDTUtils.MVVM.ViewModels
             set { _loyaltyLog = value; }
         }
         #endregion
-        
+
         public AuditViewModel()
+            : base("Audit")
         {
             Populate();
         }
+
 
         public AuditViewModel(string name)
         {

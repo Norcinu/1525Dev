@@ -224,9 +224,10 @@ namespace PDTUtils.MVVM.ViewModels
             if (BoLib.getBnvType() != 5) return;
 
             var channel = (noteType == "10") ? "2" : "3";
-            BoLib.setUtilRequestBitState((int)UtilBits.RecyclerValue);
-            BoLib.setUtilRequestBitState((int)UtilBits.RereadBirthCert);
-            DoEmptyRecycler();
+            BoLib.setUtilRequestBitState((int)UtilBits.ChangeRnv);
+            //BoLib.setUtilRequestBitState((int)UtilBits.RereadBirthCert);
+            GlobalConfig.ReparseSettings = true;
+            //DoEmptyRecycler();
             NativeWinApi.WritePrivateProfileString("Operator", "RecyclerChannel", channel, Resources.birth_cert);
             RecyclerMessage = (noteType == "10") ? NoteOne + " NOTE TO BE RECYCLED" : NoteTwo + " NOTE TO BE RECYCLED";
             RaisePropertyChangedEvent("RecyclerMessage");

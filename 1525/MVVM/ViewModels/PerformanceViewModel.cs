@@ -6,7 +6,7 @@ using PDTUtils.Native;
 
 namespace PDTUtils.MVVM.ViewModels
 {
-    class MetersViewModel : ObservableObject
+    class MetersViewModel : BaseViewModel
     {
         readonly NumberFormatInfo _nfi;
         readonly LongTermMeters _longTerm = new LongTermMeters();
@@ -33,6 +33,7 @@ namespace PDTUtils.MVVM.ViewModels
         #endregion
 
         public MetersViewModel()
+            : base("Performance")
         {
             _nfi = new CultureInfo("en-GB").NumberFormat;
 

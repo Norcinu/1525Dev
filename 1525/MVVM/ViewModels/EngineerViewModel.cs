@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using AttachedCommandBehavior;
 using PDTUtils.Logic;
+using PDTUtils.Native;
 
 namespace PDTUtils.MVVM.ViewModels
 {
@@ -70,7 +71,9 @@ namespace PDTUtils.MVVM.ViewModels
             var index = o as int?;
 
             if ((int)index < Pages.Count)
+            {
                 CurrentPage = Pages[(int)index];
+            }
         }
     }
 }

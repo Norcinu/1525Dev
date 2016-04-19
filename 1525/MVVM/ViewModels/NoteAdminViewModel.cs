@@ -11,11 +11,22 @@ namespace PDTUtils.MVVM.ViewModels
     class NoteAdminViewModel : ObservableObject
     {
         bool _isSpanish = false;
+        uint _recyclerFloat;
+        
         public bool HasRecycler { get; set; }
         public string RecyclerMessage { get; set; }
         public string NoteOne { get; set; }
         public string NoteTwo { get; set; }
-        public string RecyclerValue { get; set; }
+        public string RecyclerValue
+        {
+            get
+            { return (_recyclerFloat / 100).ToString("F2"); }
+            /*set
+            {
+                _recyclerFloat = value;
+                RaisePropertyChangedEvent("RecyclerFloat");
+            }*/
+        }
        
         public NoteAdminViewModel()
         {
@@ -42,7 +53,7 @@ namespace PDTUtils.MVVM.ViewModels
                 NoteTwo = "£20";
                 
                 Thread.Sleep(2000);
-                RecyclerValue = BoLib.getRecyclerFloatValue().ToString();
+                /*RecyclerValue*/_recyclerFloat = BoLib.getRecyclerFloatValue();//.ToString();
             }
             catch (Exception ex)
             {
@@ -60,13 +71,12 @@ namespace PDTUtils.MVVM.ViewModels
         void DoSetRecycleNote(object o)
         {
             var noteType = o as string;
-            
+
             if (BoLib.getBnvType() != 5) return;
-            
+
             var channel = (noteType == "10") ? "2" : "3";
-            BoLib.setUtilRequestBitState((int)UtilBits.RecyclerValue);
-            BoLib.setUtilRequestBitState((int)UtilBits.RereadBirthCert);
-            DoEmptyRecycler();
+            BoLib.setUtilRequestBitState((int)UtilBits.ChangeRnv);
+            
             NativeWinApi.WritePrivateProfileString("Operator", "RecyclerChannel", channel, Resources.birth_cert);
             RecyclerMessage = (noteType == "10") ? NoteOne + " NOTE TO BE RECYCLED" : NoteTwo + " NOTE TO BE RECYCLED";
             RaisePropertyChangedEvent("RecyclerMessage");
@@ -79,7 +89,7 @@ namespace PDTUtils.MVVM.ViewModels
             {
                 BoLib.setUtilRequestBitState((int)UtilBits.EmptyRecycler);
                 Thread.Sleep(500);
-                RecyclerValue = "0";
+                _recyclerFloat = 0;
                 RaisePropertyChangedEvent("RecyclerValue");
             }
             else
@@ -91,7 +101,8 @@ namespace PDTUtils.MVVM.ViewModels
         
         public void Refresh()
         {
-            RecyclerValue = BoLib.getRecyclerFloatValue().ToString();
+            /*RecyclerValue*/
+            _recyclerFloat = BoLib.getRecyclerFloatValue()/*.ToString()*/;
             RaisePropertyChangedEvent("RecyclerValue");
         }
     }

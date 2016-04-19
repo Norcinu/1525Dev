@@ -5,23 +5,40 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="clr-namespace:PDTUtils.MVVM.ViewModels"
              xmlns:view="clr-namespace:PDTUtils.Views"
+             xmlns:local="clr-namespace:AttachedCommandBehavior"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type vm:CollectorViewModel}" />
+        
+        <DataTemplate DataType="{x:Type vm:MetersViewModel}">
+            <view:PerformanceView />
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:EmptyMachineViewModel}">
+            <view:EmptyMachineView />
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:AuditViewModel}">
+            <view:AuditView />
+        </DataTemplate>
     </UserControl.Resources>
     
     <Grid>
-        <TabControl>
+        <TabControl local:CommandBehavior.Event="SelectionChanged" local:CommandBehavior.Command="{Binding TabSelectionChanged}" 
+                    local:CommandBehavior.CommandParameter="{Binding SelectedIndex, RelativeSource={RelativeSource Self}}">
             <TabItem Header="Cash" Width="200">
-                <view:PerformanceView />
+                <ContentControl Content="{Binding CurrentPage}" />
+                <!-- <view:PerformanceView /> -->
             </TabItem>
             <TabItem Header="Empty" Width="200">
-                <view:EmptyMachineView></view:EmptyMachineView>
+                <ContentControl Content="{Binding CurrentPage}" />
+                <!-- <view:EmptyMachineView></view:EmptyMachineView> -->
             </TabItem>
             <TabItem Header="Audit" Width="200">
-                <view:AuditView />
+                <ContentControl Content="{Binding CurrentPage}" />
+                <!-- <view:AuditView /> -->
             </TabItem>
         </TabControl>
     </Grid>

@@ -11,7 +11,7 @@ namespace PDTUtils.Views
         public PerformanceView()
         {
             InitializeComponent();
-            this.DataContext = new MetersViewModel();
+            /*this.DataContext = new MetersViewModel();*/
         }
 
         public void RefreshMang()

@@ -588,7 +588,7 @@ namespace PDTUtils
                         var tokens = line.Split("-\t ".ToCharArray());
                         if (string.IsNullOrEmpty(tokens[2]))
                             tokens[2] = tokens[3];
-                        /*HandPayLogs*/tempLog.Add(new HandPayLog(tokens[0] + " " + tokens[1], tokens[2]));
+                        tempLog.Add(new HandPayLog(tokens[0] + " " + tokens[1], tokens[2]));
                     }
                 }
 

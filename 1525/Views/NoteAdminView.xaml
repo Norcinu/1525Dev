@@ -48,7 +48,7 @@
             <TabItem Header="Empty Recycler" MinWidth="250">
                 
                 <StackPanel Width="800" Background="AliceBlue">
-                    <Label MinWidth="500" Content="{Binding RecyclerValue}" ContentStringFormat="Current Recycler Float: {0}" 
+                    <Label MinWidth="500" Content="{Binding RecyclerValue}" ContentStringFormat="Current Recycler Float: £{0:F}"
                            Style="{StaticResource StdLabel}" Background="SlateGray" BorderBrush="Black" BorderThickness="2"/>
                     <Button Width="200" Height="65" FontSize="26" Content="Empty Recycler" Command="{Binding EmptyRecycler}"/>
                 </StackPanel>

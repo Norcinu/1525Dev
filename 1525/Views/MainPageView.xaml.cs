@@ -11,7 +11,6 @@ namespace PDTUtils.Views
         public MainPage()
         {
             InitializeComponent();
-            this.DataContext = new MainPageViewModel();
         }
     }
 }

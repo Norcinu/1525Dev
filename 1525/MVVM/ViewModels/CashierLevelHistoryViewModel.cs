@@ -10,8 +10,9 @@ namespace PDTUtils.MVVM.ViewModels
         MachineLogsController _machineLogs;
 
         public MachineLogsController MachineLogs { get { return _machineLogs; } }
-        
-        public CashierLevelHistoryViewModel() : base()
+
+        public CashierLevelHistoryViewModel(string name)
+            : base(name)
         {
             _machineLogs = new MachineLogsController();
             _machineLogs.SetPlayedLog();

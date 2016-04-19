@@ -39,9 +39,9 @@ namespace PDTUtils.Logic
 
         void btn_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
-            //var windows = Application.Current.Windows;
-            //windows[1].Close();
+            //this.Close();
+            var windows = Application.Current.Windows;
+            windows[1].Close();
         }
 
         public void ShowWindow(string message, string caption)

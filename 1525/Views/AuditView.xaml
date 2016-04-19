@@ -7,9 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     
-    <UserControl.DataContext>
+    <!-- <UserControl.DataContext>
         <mvvm:AuditViewModel/>
-    </UserControl.DataContext>
+    </UserControl.DataContext> -->
     
     
     <UserControl.Resources>
@@ -35,7 +35,9 @@
                     <Label ContentStringFormat="Long Term:      {0}" Content="{Binding DemoCountLt}" Style="{StaticResource LabelHeader}" BorderThickness="2,0,2,2" />
                     <!-- </StackPanel> -->
                     
-                    <ListView ItemsSource="{Binding DemoCardLog}" Width="610" Margin="0,20,0,0">
+                    <ListView ItemsSource="{Binding DemoCardLog}" Width="610" Margin="0,20,0,0"
+                              ScrollViewer.VerticalScrollBarVisibility="Visible"
+                              ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                         <ListView.View>
                             <GridView AllowsColumnReorder="False">
                                 <GridViewColumn Header="Card Number" Width="200">

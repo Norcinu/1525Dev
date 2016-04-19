@@ -48,6 +48,12 @@
     <Grid>
         <TabControl local:CommandBehavior.Event="SelectionChanged" local:CommandBehavior.Command="{Binding TabSelectionChanged}" 
                     local:CommandBehavior.CommandParameter="{Binding SelectedIndex, RelativeSource={RelativeSource Self}}">
+            <!-- <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <EventSetter Event="Selector.Selected" Handler="OnNewTabSelected"/>
+                </Style>
+            </TabControl.Resources> -->
+            
             <TabItem Header="System Log" Width="200">
                 <ContentControl Content="{Binding CurrentPage}" />        
             </TabItem>
@@ -55,7 +61,7 @@
             <TabItem Header="Birth Cert" Width="200">
                 <ContentControl Content="{Binding CurrentPage}" />
             </TabItem>
-            
+                        
             <TabItem Header="Functional Tests" Width="200">
                 <ContentControl Content="{Binding CurrentPage}" />
             </TabItem>

@@ -73,7 +73,7 @@
                                          local:CommandBehavior.Event="MouseDoubleClick" local:CommandBehavior.Command="{Binding ToggleStakeTextBox}"
                                          local:CommandBehavior.CommandParameter="50"/>
                             </CheckBox>
-
+                            
                             <CheckBox Name="chkFour" Command="{Binding ToggleStake}" CommandParameter="200" Margin="20,5,20,5" IsChecked="{Binding MyBits[4]}">
                                 <CheckBox.LayoutTransform>
                                     <ScaleTransform ScaleX="2" ScaleY="2" />

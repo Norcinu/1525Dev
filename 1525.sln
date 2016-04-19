@@ -10,8 +10,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BoLibDll", "BoLibDll\BoLibD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDTUtilsControlLib", "PDTUtilsControlLib\PDTUtilsControlLib.csproj", "{43D33559-0084-4250-AE6D-E38753097A57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialExtractionTool", "SerialExtractionTool\SerialExtractionTool.csproj", "{4D32B9EE-38FA-4199-8D95-E4C0128C928F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -154,42 +152,6 @@ Global
 		{43D33559-0084-4250-AE6D-E38753097A57}.SMfcRelease|Mixed Platforms.Build.0 = Release|Any CPU
 		{43D33559-0084-4250-AE6D-E38753097A57}.SMfcRelease|Win32.ActiveCfg = Release|Any CPU
 		{43D33559-0084-4250-AE6D-E38753097A57}.SMfcRelease|x86.ActiveCfg = Release|Any CPU
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.Debug|Win32.ActiveCfg = Debug|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.Debug|x86.ActiveCfg = Debug|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.Debug|x86.Build.0 = Debug|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.Debug1224|Any CPU.ActiveCfg = Debug|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.Debug1224|Mixed Platforms.ActiveCfg = Debug|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.Debug1224|Mixed Platforms.Build.0 = Debug|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.Debug1224|Win32.ActiveCfg = Debug|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.Debug1224|x86.ActiveCfg = Debug|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.Debug1224|x86.Build.0 = Debug|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.NoMfcDebug|Any CPU.ActiveCfg = Debug|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.NoMfcDebug|Mixed Platforms.ActiveCfg = Debug|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.NoMfcDebug|Mixed Platforms.Build.0 = Debug|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.NoMfcDebug|Win32.ActiveCfg = Debug|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.NoMfcDebug|x86.ActiveCfg = Debug|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.NoMfcDebug|x86.Build.0 = Debug|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.Release|Any CPU.ActiveCfg = Release|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.Release|Mixed Platforms.Build.0 = Release|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.Release|Win32.ActiveCfg = Release|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.Release|x86.ActiveCfg = Release|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.Release|x86.Build.0 = Release|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.Release1224|Any CPU.ActiveCfg = Release|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.Release1224|Mixed Platforms.ActiveCfg = Release|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.Release1224|Mixed Platforms.Build.0 = Release|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.Release1224|Win32.ActiveCfg = Release|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.Release1224|x86.ActiveCfg = Release|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.Release1224|x86.Build.0 = Release|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.SMfcRelease|Any CPU.ActiveCfg = Release|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.SMfcRelease|Mixed Platforms.ActiveCfg = Release|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.SMfcRelease|Mixed Platforms.Build.0 = Release|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.SMfcRelease|Win32.ActiveCfg = Release|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.SMfcRelease|x86.ActiveCfg = Release|x86
-		{4D32B9EE-38FA-4199-8D95-E4C0128C928F}.SMfcRelease|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

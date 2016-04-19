@@ -73,7 +73,8 @@ namespace PDTUtils.MVVM.ViewModels
                 Properties.Resources.birth_cert);
             
             // birth cert needs to be re-parsed to affect changes.
-            BoLib.setUtilRequestBitState((int)UtilBits.RereadBirthCert);
+            PDTUtils.Logic.GlobalConfig.ReparseSettings = true;
+            //BoLib.setUtilRequestBitState((int)UtilBits.RereadBirthCert);
         }
     }
 }

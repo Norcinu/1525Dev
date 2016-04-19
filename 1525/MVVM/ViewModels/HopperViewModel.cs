@@ -797,8 +797,7 @@ namespace PDTUtils.MVVM.ViewModels
         /// </summary>
         public void RefreshLevels()
         {
-            CurrentSelHopper = CurrentSelHopper;//BoLib.getHopperFloatLevel(Convert.ToUInt32((string.IsNullOrEmpty(CurrentSelHopper) ? "0" 
-            //: CurrentSelHopper))).ToString(); //CurrentSelHopper;
+            CurrentSelHopper = CurrentSelHopper;
         }
         
         /*
@@ -815,87 +814,89 @@ namespace PDTUtils.MVVM.ViewModels
                 msg.ShowMessage("Please turn Refill Key before continuing.", "Warning");
                 return;
             }
-            var billybob = BoLib.getIsHopperHopping();
 
             //!!!!WARNING: EXPERIMENTAL LOL DOES THIS WORK GREIGHT MEIGHT?
             new Thread(() =>
+           {
+               while (!_dumpSwitchPressed)
+               {
+                   if (BoLib.getHopperDumpSwitchActive() > 0)
+                   {
+                       if (BoLib.getSwitchStatus(2, 0x20) == 0)
+                       {
+                           //System.Diagnostics.Debug.WriteLine(DumpSwitchMessage);
+                           //RaisePropertyChangedEvent("DumpSwitchMessage");
+                           Thread.Sleep(2);
+                       }
+                       else
+                       {
+                           _dumpSwitchPressed = true;
+                       }
+                   }
+                   else
+                       _dumpSwitchPressed = true; //Dump switch not installed.
+               }
+
+               if (_dumpSwitchPressed)
+               {
+                   Thread.Sleep(500);
+                   var which = o as string;
+                   var currentCredits = BoLib.getBank() + BoLib.getCredit() + (int)BoLib.getReserveCredits();
+
+                   bool isLeftHopper = which.Equals("left") ? true : false;
+
+                   if (which.Equals("left"))
+                   {
+                       if (BoLib.getHopperFloatLevel(0) == 0)
+                       {
+                           _leftHopperTryCount++;
+                           //    new WpfMessageBoxService().ShowMessage("The hopper selected is already empty.", "Payout Info");
+                           //    return;
+                       }
+
+                       if (_leftHopperTryCount <= TRY_COUNT)
+                       {
+                           BoLib.setUtilRequestBitState((int)UtilBits.DumpLeftHopper);
+                           _currentHopperDumping = (byte)Hoppers.Left;
+                       }
+                   }
+                   else
+                   {
+                       if (!_hasTwoHoppers)
+                       {
+                           _msg.ShowMessage("Right Hand Hopper not installed", "ERROR");
+                           return;
+                       }
+
+                       if (BoLib.getHopperFloatLevel(2) == 0)
+                       {
+                           _rightHopperTryCount++;
+                       }
+
+                       if (_rightHopperTryCount <= TRY_COUNT)
+                       {
+                           BoLib.setUtilRequestBitState((int)UtilBits.DumpRightHopper);
+                           _currentHopperDumping = (byte)Hoppers.Right;
+                       }
+                   }
+               }
+               /*if (SpanishEmpty == null)
+               {
+                   SpanishEmpty = new Timer() { Enabled = true, Interval = 100 };
+                   SpanishEmpty.Elapsed += new System.Timers.ElapsedEventHandler(TimerSpainEmpty);
+               }
+               else if (!SpanishEmpty.Enabled)
+                   SpanishEmpty.Enabled = true;*/
+
+           }).Start();
+            //}
+
+            while (!BoLib.getIsHopperHopping())
             {
-                var billybob2 = BoLib.getIsHopperHopping();
-                while (!_dumpSwitchPressed)
-                {
-                    if (BoLib.getHopperDumpSwitchActive() > 0)
-                    {
-                        if (BoLib.getSwitchStatus(2, 0x20) == 0)
-                        {
-                            //System.Diagnostics.Debug.WriteLine(DumpSwitchMessage);
-                            //RaisePropertyChangedEvent("DumpSwitchMessage");
-                            Thread.Sleep(2);
-                        }
-                        else
-                        {
-                            _dumpSwitchPressed = true;
-                        }
-                    }
-                    else
-                        _dumpSwitchPressed = true; //Dump switch not installed.
-                }
+                Thread.Sleep(2);
+            }
+            //Thread.Sleep(2000);
 
-                if (_dumpSwitchPressed)
-                {
-                    Thread.Sleep(500);
-                    var which = o as string;
-                    var currentCredits = BoLib.getBank() + BoLib.getCredit() + (int)BoLib.getReserveCredits();
-
-                    bool isLeftHopper = which.Equals("left") ? true : false;
-
-                    if (which.Equals("left"))
-                    {
-                        if (BoLib.getHopperFloatLevel(0) == 0)
-                        {
-                            _leftHopperTryCount++;
-                            //    new WpfMessageBoxService().ShowMessage("The hopper selected is already empty.", "Payout Info");
-                            //    return;
-                        }
-
-                        if (_leftHopperTryCount <= TRY_COUNT)
-                        {
-                            BoLib.setUtilRequestBitState((int)UtilBits.DumpLeftHopper);
-                            _currentHopperDumping = (byte)Hoppers.Left;
-                        }
-                    }
-                    else
-                    {
-                        if (!_hasTwoHoppers)
-                        {
-                            _msg.ShowMessage("Right Hand Hopper not installed", "ERROR");
-                            return;
-                        }
-
-                        if (BoLib.getHopperFloatLevel(2) == 0)
-                        {
-                            _rightHopperTryCount++;
-                        }
-
-                        if (_rightHopperTryCount <= TRY_COUNT)
-                        {
-                            BoLib.setUtilRequestBitState((int)UtilBits.DumpRightHopper);
-                            _currentHopperDumping = (byte)Hoppers.Right;
-                        }
-                    }
-
-                    var billybob3 = BoLib.getIsHopperHopping();
-                    /*if (SpanishEmpty == null)
-                    {
-                        SpanishEmpty = new Timer() { Enabled = true, Interval = 100 };
-                        SpanishEmpty.Elapsed += new System.Timers.ElapsedEventHandler(TimerSpainEmpty);
-                    }
-                    else if (!SpanishEmpty.Enabled)
-                        SpanishEmpty.Enabled = true;*/
-                }
-            }).Start();
-            var billybob4 = BoLib.getIsHopperHopping();
-            Thread.Sleep(500);
-            var billybob5 = BoLib.getIsHopperHopping();
             if (SpanishEmpty == null)
             {
                 SpanishEmpty = new Timer() { Enabled = true, Interval = 100 };
@@ -903,25 +904,28 @@ namespace PDTUtils.MVVM.ViewModels
             }
             else if (!SpanishEmpty.Enabled)
                 SpanishEmpty.Enabled = true;
-        }
+          }
         
         void TimerSpainEmpty(object sender, System.Timers.ElapsedEventArgs e)
         {
-            if (!BoLib.getIsHopperHopping())
-            //if (!BoLib.getUtilRequestBitState((int)UtilBits.DumpLeftHopper) && !BoLib.getUtilRequestBitState((int)UtilBits.DumpRightHopper))
-            //if (BoLib.getRequestHopperPayout())
+            //lock (this)
             {
-                SetHopperPayingValue();
-                SpanishEmpty.Enabled = false;
-                var hopperValue = (_currentHopperDumping == (byte)Hoppers.Left) ? "LEFT HOPPER INFO" : "RIGHT HOPPER INFO";
-                var floatLevel = BoLib.getHopperFloatLevel(_currentHopperDumping);
-                _msg.ShowMessage("FINISHED EMPTYING.\n" + _hopperPayingValue + " Coins Paid Out: " + floatLevel, hopperValue);
-                //var w = new PDTUtils.Logic.WarningDialog("FINISHED EMPTYING.\n" + _hopperPayingValue + " Coins Paid Out: " + floatLevel, "FLOAT");
-                BoLib.setHopperFloatLevel(_currentHopperDumping, floatLevel); //0);
-                unchecked { _currentHopperDumping = (byte)Hoppers.NoHopper; }
-                FloatLevelLeft = BoLib.getHopperFloatLevel((byte)Hoppers.Left).ToString();
-                FloatLevelRight = BoLib.getHopperFloatLevel((byte)Hoppers.Right).ToString();
-                _dumpSwitchPressed = false;
+                if (!BoLib.getIsHopperHopping())
+                //if (!BoLib.getUtilRequestBitState((int)UtilBits.DumpLeftHopper) && !BoLib.getUtilRequestBitState((int)UtilBits.DumpRightHopper))
+                //if (!BoLib.getRequestHopperPayout())
+                {
+                    SetHopperPayingValue();
+                    SpanishEmpty.Enabled = false;
+                    var hopperValue = (_currentHopperDumping == (byte)Hoppers.Left) ? "LEFT HOPPER INFO" : "RIGHT HOPPER INFO";
+                    var floatLevel = BoLib.getHopperFloatLevel(_currentHopperDumping);
+                    _msg.ShowMessage("FINISHED EMPTYING.\n" + _hopperPayingValue + " Coins Paid Out: " + floatLevel, hopperValue);
+                    //var w = new PDTUtils.Logic.WarningDialog("FINISHED EMPTYING.\n" + _hopperPayingValue + " Coins Paid Out: " + floatLevel, "FLOAT");
+                    BoLib.setHopperFloatLevel(_currentHopperDumping, floatLevel); //0);
+                    unchecked { _currentHopperDumping = (byte)Hoppers.NoHopper; }
+                    FloatLevelLeft = BoLib.getHopperFloatLevel((byte)Hoppers.Left).ToString();
+                    FloatLevelRight = BoLib.getHopperFloatLevel((byte)Hoppers.Right).ToString();
+                    _dumpSwitchPressed = false;
+                }
             }
         }
         
