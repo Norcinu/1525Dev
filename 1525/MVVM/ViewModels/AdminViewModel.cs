@@ -46,6 +46,7 @@ namespace PDTUtils.MVVM.ViewModels
                 return;
             
             var index = o as int?;
+            System.Diagnostics.Debug.WriteLine(" : index", index.ToString());
 
             if ((int)index < Pages.Count)
                 CurrentPage = Pages[(int)index];

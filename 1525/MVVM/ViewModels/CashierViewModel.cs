@@ -19,7 +19,7 @@ namespace PDTUtils.MVVM.ViewModels
                 RaisePropertyChangedEvent("Pages");
             }
         }
-
+        
         public BaseViewModel CurrentPage
         {
             get { return _currentPage; }

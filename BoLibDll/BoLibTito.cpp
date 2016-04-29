@@ -2,7 +2,7 @@
 #include <bo.h>
 #include <NVR.H>
 #include "BoLibTito.h"
-
+#include "..\1524LibSource\TicketData.h"
 
 unsigned int getTitoStateValue()
 {
@@ -32,4 +32,10 @@ unsigned int getTitoTicketPresented()
 void setTitoState(int state)
 {
 	SetTiToEnabledState(state);
+}
+
+void clearPrinterStatus(void)
+{
+	ClearPrinterStatus();
+	SetUpdatePrinterStatus();
 }

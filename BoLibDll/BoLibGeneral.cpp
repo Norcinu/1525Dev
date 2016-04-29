@@ -10,6 +10,12 @@
 #include "dpci_core_api.h"
 #include "dpci_sram_api.h"
 
+#include <sys/stat.h>
+#include <time.h>
+#include <io.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+
 extern unsigned long zero_cdeposit(void);
 extern unsigned long add_cdeposit(unsigned long value);
 
@@ -191,5 +197,110 @@ void setFileAction()
 void clearFileAction()
 {
 	ClearFileAction();
+}
+
+void doReadTicketFile()
+{
+	char buf[256];
+	struct tm *clock;				// create a time structure
+	struct stat attrib;				// create a file attribute structure
+	int ypos=145;
+	int xpos=100;
+	int cnt=0;
+	int file;
+	int StoredCsum,LiveCsum,value;
+	unsigned int RSTicketFaceValue = 0;
+	unsigned int RSTicketModelNo = 0;
+	unsigned int RSTicketNumber;
+	unsigned int RSTicketDuplicateNumber = 0;
+	unsigned int RSPrintProgress;
+	unsigned int RSPrinterStatus;	
+	char RSTicketBarCode[32];
+
+	unsigned int StartPrintBankValue = 0;
+	unsigned int StartPrintPartCollectValue = 0;
+	unsigned int StartPrintCreditValue = 0;
+
+	//====================================
+	//	Read data from file
+
+	SetFileAction();
+
+	file = _open("d:\\machine\\game_data\\ticket.dat",FILE_WRITE, _S_IREAD | _S_IWRITE);
+
+	if(file == NULL)
+	{
+		ClearFileAction();
+		return;
+	}
+
+	if(_read(file, &value, 4) > 0) 
+		RSTicketFaceValue = value;
+	LiveCsum = value;
+
+	if(_read(file, &value, 4) > 0) 
+		RSTicketModelNo = value; //how many times ram reset
+	LiveCsum += value;
+
+	if(_read(file, &value, 4) > 0) 
+		RSTicketNumber = value; 
+	LiveCsum += value;
+
+	for(char Loop = 0; Loop<32; Loop++)
+	{	
+		if(_read(file, &value, 4) > 0) 
+		{
+			RSTicketBarCode[Loop] = value;
+			LiveCsum += value;
+		}
+	}
+
+	if(_read(file, &value, 4) > 0) 
+		RSTicketDuplicateNumber = value; 
+	LiveCsum += value;
+
+	if(_read(file, &value, 4) > 0) 
+		RSPrintProgress = value; 
+	LiveCsum += value;
+
+	if(_read(file, &value, 4) > 0) 
+		RSPrinterStatus = value; 
+	LiveCsum += value;
+
+	if(_read(file, &value, 4) > 0) 
+		StartPrintBankValue = value; 
+	LiveCsum += value;
+
+	if(_read(file, &value, 4) > 0) 
+		StartPrintPartCollectValue = value; 
+	LiveCsum += value;
+
+	if(_read(file, &value, 4) > 0) 
+		StartPrintCreditValue = value; 
+	LiveCsum += value;
+
+	if(_read(file, &value, 4) > 0) 
+		StoredCsum = value; //check sum
+
+	if(LiveCsum != StoredCsum)
+	{
+		_close(file);
+		ClearFileAction();
+		return;
+	}
+	_close(file);
+	ClearFileAction();
+
+	stat("d:\\machine\\game_data\\ticket.dat", &attrib);		// get the attributes of afile.txt
+	clock = gmtime(&(attrib.st_mtime));							// Get the last modified time and put it into the time structure
+
+	buf[0]=0;
+
+	if(RSPrinterStatus)
+	{
+		//ClearPrinterStatus();
+		//SetUpdatePrinterStatus();
+	}
+	
 }
 

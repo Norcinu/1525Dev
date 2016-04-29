@@ -47,9 +47,10 @@
     </UserControl.Resources>
     
     <Grid>
+        <!-- SelectedIndex, RelativeSource={RelativeSource Self}} -->
         <TabControl local:CommandBehavior.Event="SelectionChanged" local:CommandBehavior.Command="{Binding TabSelectionChanged}" 
                     local:CommandBehavior.CommandParameter="{Binding SelectedIndex, RelativeSource={RelativeSource Self}}">
-
+            
             <TabItem Header="Games" Width="200">
                 <ContentControl Content="{Binding CurrentPage}" />
             </TabItem>

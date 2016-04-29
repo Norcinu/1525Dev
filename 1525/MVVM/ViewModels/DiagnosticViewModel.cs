@@ -87,7 +87,7 @@ namespace PDTUtils.MVVM.ViewModels
 
             char[] licenseBuffer = new char[128];
             NativeWinApi.GetPrivateProfileString("Keys", "License", "", licenseBuffer, 128, Properties.Resources.machine_ini);
-
+            
             string license = new string(licenseBuffer, 0, 128).Trim("\0".ToCharArray());
             for (int i = 0; i < license.Length; i++)
             {

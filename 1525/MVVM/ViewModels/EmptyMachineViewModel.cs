@@ -69,7 +69,7 @@ namespace PDTUtils.MVVM.ViewModels
             {
                 Debug.WriteLine(ex.Message);
             }
-
+            
             RaisePropertyChangedEvent("HasRecycler");
             RaisePropertyChangedEvent("RecyclerMessage");
             RaisePropertyChangedEvent("NoteOne");
@@ -87,20 +87,20 @@ namespace PDTUtils.MVVM.ViewModels
         public ICommand EmptyRecycler { get { return new DelegateCommand(o => DoEmptyRecycler()); } }
         void DoEmptyRecycler()
         {
-            if (RecyclerValue != "0")
-            {
+            //if (RecyclerValue != "0")
+            //{
                 BoLib.setUtilRequestBitState((int)UtilBits.EmptyRecycler);
                 PDTUtils.Logic.GlobalConfig.ReparseSettings = true;
                 _recyclerFloatTimer.Start();
                 /*Thread.Sleep(500);
                 _recyclerFloat = 0;*/
                 RaisePropertyChangedEvent("RecyclerValue");
-            }
-            else
+            //}
+            /*else
             {
                 var msg = new WpfMessageBoxService();
                 msg.ShowMessage("Note Recycler is Empty", "Information");
-            }
+            }*/
         }
         
         public void Refresh()

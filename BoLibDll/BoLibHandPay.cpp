@@ -59,7 +59,7 @@ bool performHandPay()
 			ZeroBankDeposit();
 			
 			clearCashMatchCredits();
-
+			
 			return true;
 		}
 	}

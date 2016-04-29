@@ -65,8 +65,10 @@ namespace PDTUtils.MVVM.ViewModels
             }
         }
         
-        public void Refresh()
+        public override void Refresh()
         {
+            base.Refresh();
+
             _cashRecon.RemoveAll();
             _gameStats.RemoveAll();
             _performance.RemoveAll();
@@ -201,11 +203,8 @@ namespace PDTUtils.MVVM.ViewModels
             var incomeSt = shortTermTotal - handPaySt;
             Performance.Add(new HelloImJohnnyCashMeters("Net Income:", incomeLt.ToString("C", _nfi), incomeSt.ToString("C", _nfi)));
 
-            decimal refillSt = BoLib.getReconciliationMeter((byte)EShortTermMeters.RefillL) + 
-                               BoLib.getReconciliationMeter((byte)EShortTermMeters.RefillR);
-            
-            decimal refillLt = BoLib.getReconciliationMeter((byte)ELongTermMeters.RefillL) + 
-                               BoLib.getReconciliationMeter((byte)ELongTermMeters.RefillR);
+            decimal refillSt = BoLib.getReconciliationMeter((byte)EShortTermMeters.RefillL) + BoLib.getReconciliationMeter((byte)EShortTermMeters.RefillR);
+            decimal refillLt = BoLib.getReconciliationMeter((byte)ELongTermMeters.RefillL) + BoLib.getReconciliationMeter((byte)ELongTermMeters.RefillR);
             
             Performance.Add(new HelloImJohnnyCashMeters("Refill:", refillLt.ToString("C", _nfi), refillSt.ToString("C", _nfi)));
             

@@ -22,17 +22,18 @@ namespace PDTUtils.MVVM.ViewModels
 
     enum TicketPayoutNames
     {
-        RSTicketModelNo             = 0,
-        RSTicketNumber              = 1,
-        RSTicketBarcode             = 2, //an array of 32 ints
-        RSticketDuplicateNumber     = 3,
-        RSPrintProgress             = 4,
-        RSPrinterStatus             = 5,
-        StartPrinterBankValue       = 6,
-        StartPrintPartCollectValue  = 7,
-        StartPrintCreditValue       = 8
+        RSTicketFaceValue           = 0,
+        RSTicketModelNo             = 1,
+        RSTicketNumber              = 2,
+        RSTicketBarcode             = 3, //an array of 32 ints
+        RSticketDuplicateNumber     = 4,
+        RSPrintProgress             = 5,
+        RSPrinterStatus             = 6,
+        StartPrinterBankValue       = 7,
+        StartPrintPartCollectValue  = 8,
+        StartPrintCreditValue       = 9
     }
-
+    
     public class LastCollectLogViewModel : ObservableObject
     {
         bool _hopperPayout = false;
@@ -50,6 +51,9 @@ namespace PDTUtils.MVVM.ViewModels
         string _payoutFile = ""; //Properties.Resources.payout;
         string _payoutStatus = "";
 
+        //Decide to show ticket or payout info
+        DateTime payout;
+        DateTime ticket;
         DateTime _payoutDate = DateTime.Now;
 
         Dictionary<string, Pair<int, int>> _entries = new Dictionary<string, Pair<int, int>>();
@@ -175,17 +179,15 @@ namespace PDTUtils.MVVM.ViewModels
 
         public LastCollectLogViewModel()
         {
-            /*
-            Decide to show ticket or payout info
-            DateTime payout;
-            DateTime ticket;
+            
+
             
             if (File.Exists(Properties.Resources.payout))
                 payout = File.GetLastWriteTime(Properties.Resources.payout);
                             
             if (File.Exists(Properties.Resources.payout_ticket))
                 ticket = File.GetLastWriteTime(Properties.Resources.payout_ticket);
-             */
+             
 
 
             LastCollect = new ObservableCollection<string>();
@@ -343,22 +345,25 @@ namespace PDTUtils.MVVM.ViewModels
         }
         
         //!!! TODO COMPLETE THIS
+        uint RSTicketFaceValue = 0;
+        uint RSTicketModelNo = 0;
+        uint RSTicketNumber;
+        uint RSTicketDuplicateNumber = 0;
+        uint RSPrintProgress;
+        uint RSPrinterStatus;
+        char[] RSTicketBarCode = new char[32];
+        
         void TicketCollectPayout(ref List<int> wagwan, ref List<int> ticketNumber, ref int liveChecksum, ref int finalChecksum)
         {
             try
             {
                 BoLib.setFileAction();
+                string barcode = "";
 
-                uint RSTicketFaceValue = 0;
-                uint RSTicketModelNo = 0;
-                uint RSTicketNumber;
-                uint RSTicketDuplicateNumber = 0;
-                uint RSPrintProgress;
-                uint RSPrinterStatus;
-                var RSTicketBarCode = new char[32];
-                
                 using (var b = new BinaryReader(File.Open(@Properties.Resources.payout_ticket, FileMode.Open, FileAccess.Read, FileShare.None)))
                 {
+                    bool readBarcode = false;    
+
                     int position = 0;
                     int length = (int)b.BaseStream.Length;
                     while (position < length)
@@ -372,40 +377,89 @@ namespace PDTUtils.MVVM.ViewModels
                         }
                         else
                         {
-                            for (int i = 0; i < 32; i++)
+                            readBarcode = true;
+                            wagwan.Add(0);
+                            for (int i = 0; i < 32; i++) //32
                             {
-                                var value = b.ReadInt32();
+                                var value = b.ReadInt32();                                
                                 ticketNumber.Add(value);
                                 liveChecksum += value;
+                                position += sizeof(int);
                             }
+                            
+                            
+                            foreach (var i in ticketNumber)
+                            {
+                                barcode += i.ToString(/*"x"*/);
+                            }
+
+                            //PayoutStatus = barcode + "\r\n";
+                            //System.Diagnostics.Debug.WriteLine(s);
                         }
-                        position += sizeof(int);
+
+                        if (!readBarcode)
+                            position += sizeof(int);
+                        else
+                            readBarcode = false;
                     }
                 }
                 BoLib.clearFileAction();
+                
+                RSTicketFaceValue = (uint)wagwan[(int)TicketPayoutNames.RSTicketFaceValue];
+                RSTicketModelNo = (uint)wagwan[(int)TicketPayoutNames.RSTicketModelNo];
+                RSTicketNumber = (uint)wagwan[(int)TicketPayoutNames.RSTicketNumber];
+                RSTicketDuplicateNumber = (uint)wagwan[(int)TicketPayoutNames.RSticketDuplicateNumber];
+                RSPrintProgress = (uint)wagwan[(int)TicketPayoutNames.RSPrintProgress];
+                RSPrinterStatus = (uint)wagwan[(int)TicketPayoutNames.RSPrinterStatus];
+               
+                int StartPrintBankValue = wagwan[(int)TicketPayoutNames.StartPrinterBankValue];
+                int StartPrintPartCollectValue = wagwan[(int)TicketPayoutNames.StartPrintPartCollectValue];
+                int StartPrintCreditValue = wagwan[(int)TicketPayoutNames.StartPrintCreditValue];
+                
+                if (RSPrinterStatus > 0)
+                {
+                    BoLib.clearPrinterStatus();
+                    PayoutStatus = "Payout FAILED.\n";
+
+                    if (RSTicketBarCode[0] == 0)
+                        PayoutStatus += "(Note Value And Redeem Manually Via Site Manager)\n";
+                    else
+                        PayoutStatus += "(Note BarCode And Redeem Manually Via Site Manager)\n";
+                }
+                else
+                    PayoutStatus += "Complete\r\n";
+
+                PayoutStatus += "BARCODE: " + barcode;
+                
+                Entries.Add("Partial Collect", new Pair<int, int>(StartPrintPartCollectValue / 100, StartPrintPartCollectValue % 100));
+                Entries.Add("Credits", new Pair<int, int>((int)RSTicketFaceValue, (int)RSTicketFaceValue));
+                Entries.Add("Bank", new Pair<int, int>((int)StartPrintBankValue / 100, (int)StartPrintBankValue % 100));
+                
+                RaisePropertyChangedEvent("PayoutDate");
+                RaisePropertyChangedEvent("Entries");
             }
             catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine(e.Message);
             }
         }
-
+        
         void DoLoadLog()
         {
             var liveChecksum = 0;
             var finalChecksum = 0;
-            var wagwan = new List<int>();
-
-            if (BoLib.getLastPayoutType() == (int)CollectType.Hopper) 
+            var initialValues = new List<int>();
+            
+            if (payout > ticket)
             {
                 _payoutFile = Properties.Resources.payout;
-                HopperCollectPayout(ref wagwan, ref liveChecksum, ref finalChecksum);
+                HopperCollectPayout(ref initialValues, ref liveChecksum, ref finalChecksum);
             }
             else
             {
                 var ticketNumber = new List<int>();
                 _payoutFile = Properties.Resources.payout_ticket;
-                TicketCollectPayout(ref wagwan, ref ticketNumber, ref liveChecksum, ref finalChecksum);
+                TicketCollectPayout(ref initialValues, ref ticketNumber, ref liveChecksum, ref finalChecksum);
             }
 
             ShowListView = true;

@@ -37,6 +37,8 @@ namespace PDTUtils.MVVM.ViewModels
 	class UserSoftwareUpdate : BaseViewModel
 	{
         bool _updateSuccess = false;
+        bool _containsZipFiles = false;
+        /*int _updateViaZip = 0;*/
 		string _rollbackIni; 
 		string _updateIni;
         
@@ -65,10 +67,15 @@ namespace PDTUtils.MVVM.ViewModels
         public ICommand Rollback { get; set; }
         public ICommand Cancel { get; set; }
         public ICommand Reboot { get; set; }
-
+        
         public UserSoftwareUpdate(string name)
             : base(name)
         {
+            /*if (File.Exists(@"E:\update.ini"))
+                _updateViaZip = NativeWinApi.GetPrivateProfileInt("UpdateType", "ForceZipUpdate", 0, @"E:\update.ini");
+            else
+                _updateViaZip = 0;*/
+            
             FilesToUpdate = new ObservableCollection<FileImpl>();
 
             HasUpdateStarted = false;
@@ -80,7 +87,7 @@ namespace PDTUtils.MVVM.ViewModels
             Cancel      = new DelegateCommand(o => DoCancelUpdate());
             Reboot      = new DelegateCommand(o => DoSaveReboot());
         }
-
+        
         public void DoRollBack()
 		{
             LogText += "Performing RollBack.\r\n----------------------------\r\n";
@@ -112,10 +119,10 @@ namespace PDTUtils.MVVM.ViewModels
 
                     quit[0] = ReadIniSection(out foldersSection, "Folders");
                     quit[1] = ReadIniSection(out filesSection, "Files");
-          
+                    
                     BoLib.clearFileAction();
-          
-                    if (quit[0] || quit[1])
+
+                    if (quit[0] && quit[1])
                         return;
                     
                     LogText = String.Format("Finding Files. {0} Total Files.\r\n", filesSection.Length);
@@ -126,12 +133,14 @@ namespace PDTUtils.MVVM.ViewModels
                         var ret = GetImagePathString(str);
                         FilesToUpdate.Add(new FileImpl(str, ret, true));
                         FileCount++;
+                        if (str.EndsWith(".zip") || str.EndsWith(".ZIP"))
+                            _containsZipFiles = true;
                         RaisePropertyChangedEvent("UpdateFiles");
                     }
                     
                     LogText += String.Format("Finding Folders. {0} Total Folders.\r\n", foldersSection.Length);
                     RaisePropertyChangedEvent("LogText");
-
+                    
                     foreach (var str in foldersSection)
                     {
                         var ret = GetImagePathString(str);
@@ -159,7 +168,7 @@ namespace PDTUtils.MVVM.ViewModels
             LogText = "USB Update Not Found.\r\nPlease connect USB device and try again.\r\n";
             RaisePropertyChangedEvent("LogText");
         }
-        
+
         public void DoSoftwareUpdate()
         {
             if (FilesToUpdate.Count > 0)
@@ -167,7 +176,7 @@ namespace PDTUtils.MVVM.ViewModels
                 FilesToUpdate.Clear();
                 FileCount = 0;
             }
-            
+
             if (CanChangeToUsbDrive())
             {
                 // we can look for update.ini
@@ -188,24 +197,29 @@ namespace PDTUtils.MVVM.ViewModels
                     quit[1] = ReadIniSection(out filesSection, "Files");
 
                     BoLib.clearFileAction();
-                    
-                    if (quit[0] || quit[1])
+
+                    if (quit[0] && quit[1])
                         return;
 
-                    foreach (var str in filesSection)
+                    if (foldersSection != null)
                     {
-                        var ret = GetImagePathString(str);
-                        FilesToUpdate.Add(new FileImpl(str, ret, true));
-                        if (DoCopyFile(str))
-                            FileCount++;
+                        foreach (var str in foldersSection)
+                        {
+                            var ret = GetImagePathString(str);
+                            FilesToUpdate.Add(new FileImpl(str, ret, false));
+                            DoCopyDirectory(str, 0);
+                        }
                     }
 
-                    foreach (var str in foldersSection)
+                    if (filesSection != null)
                     {
-                        var ret = GetImagePathString(str);
-                        FilesToUpdate.Add(new FileImpl(str, ret, false));
-                        //new Microsoft.VisualBasic.Devices.Computer().FileSystem.CopyDirectory(@"e:\1111", @"d:\1111_VB", true);
-                        DoCopyDirectory(str, 0);
+                        foreach (var str in filesSection)
+                        {
+                            var ret = GetImagePathString(str);
+                            FilesToUpdate.Add(new FileImpl(str, ret, true));
+                            if (DoCopyFile(str))
+                                FileCount++;
+                        }
                     }
                     
                     // Move old files back.
@@ -213,15 +227,12 @@ namespace PDTUtils.MVVM.ViewModels
                     // That copy works nicely. Odd that there isnt a C# version.
                     // Move old files back.
                     _updateSuccess = (_filesNotCopied.Count > 0) ? false : true;
-
-                    /*if (_filesNotCopied.Count>0)
-                        _u
-                        _updateSuccess = true;*/
-                    HasUpdateFinished = true;
                     
+                    HasUpdateFinished = true;
+
                     RaisePropertyChangedEvent("HasUpdateFinished");
                     RaisePropertyChangedEvent("UpdateFiles");
-                    
+
                     CleanUp();
                     AutomaticSave();
 
@@ -266,7 +277,7 @@ namespace PDTUtils.MVVM.ViewModels
 				return true;
             return false;
 		}
-		
+        
         private static string GetImagePathString(string str)
 		{
 			var conv = new CustomImagePathConverter();
@@ -291,7 +302,7 @@ namespace PDTUtils.MVVM.ViewModels
 			Marshal.FreeCoTaskMem(retStringPtr);
 			return true;
 		}
-
+        
         bool CanChangeToUsbDrive()
         {
             var allDrives = DriveInfo.GetDrives();
@@ -391,8 +402,8 @@ namespace PDTUtils.MVVM.ViewModels
 		{
 			var sourceFolder = _updateDrive + path;
 			var destinationFolder = @"d:\" + path;//no path?
-			var renameFolder = destinationFolder + @"_old";
-
+            var renameFolder = destinationFolder + @"_old";
+            
             if (!Directory.Exists(destinationFolder))
             {
                 try
@@ -401,7 +412,7 @@ namespace PDTUtils.MVVM.ViewModels
                     foreach (var dirPath in Directory.GetDirectories(sourceFolder, "*",
                         SearchOption.AllDirectories))
                         Directory.CreateDirectory(dirPath.Replace(sourceFolder, destinationFolder));
-
+                    
                     //Copy all the files & Replaces any files with the same name
                     foreach (var newPath in Directory.GetFiles(sourceFolder, "*.*",
                         SearchOption.AllDirectories))
@@ -475,7 +486,7 @@ namespace PDTUtils.MVVM.ViewModels
             
 			return true;
 		}
-
+        
 		void GetAndCopyAllFiles(DirectoryInfo srcInfo, string destinationFolder)
 		{
 			try 
@@ -504,7 +515,7 @@ namespace PDTUtils.MVVM.ViewModels
                 }
             }
         }
-
+        
         public void DoCancelUpdate()
 		{
             HasUpdateStarted = false;
@@ -533,7 +544,7 @@ namespace PDTUtils.MVVM.ViewModels
 				return;
 			BoLib.clearFileAction();
 		}
-        
+
         void AutomaticSave()
         {
             if (_updateSuccess)
@@ -541,6 +552,9 @@ namespace PDTUtils.MVVM.ViewModels
                 LogText = "Update Completed.\r\n\r\nTo Restart Machine.\r\n\r\nPlease turn the Refill Key and remove USB device.";
                 RaisePropertyChangedEvent("LogText");
                 PDTUtils.Logic.GlobalConfig.RebootRequired = true;
+                string rebootCode = !_containsZipFiles ? "2" : "5";
+                NativeWinApi.WritePrivateProfileString("Reboot", "State", rebootCode, Properties.Resources.boot_ini);
+                _containsZipFiles = false;
             }
             else
             {

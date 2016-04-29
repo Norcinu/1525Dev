@@ -15,3 +15,4 @@ extern "C" DllExport unsigned long useStakeInMeter(int meter);
 extern "C" DllExport char *GetUniquePcbID(char TYPE);
 extern "C" DllExport void setFileAction();
 extern "C" DllExport void clearFileAction();
+extern "C" DllExport void doReadTicketFile();

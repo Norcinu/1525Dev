@@ -82,6 +82,15 @@ namespace PDTUtils.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to D:\machine\GAME_DATA\boot.ini.
+        /// </summary>
+        internal static string boot_ini {
+            get {
+                return ResourceManager.GetString("boot_ini", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to D:\machine\GAME_DATA\CashlessLib.log.
         /// </summary>
         internal static string cashless_log {

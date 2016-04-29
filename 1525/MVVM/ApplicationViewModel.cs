@@ -173,12 +173,10 @@ namespace PDTUtils.MVVM
             if (_hasSmartCard)
                 _currentPageIndex = 0;
 
-            //Pages.Add(new DefaultViewModel("Main"));
             Pages.Add(new CashierViewModel("Cashier"));
             Pages.Add(new CollectorViewModel("Collector"));
             Pages.Add(new EngineerViewModel("Engineer"));
             Pages.Add(new AdminViewModel("Admin"));
-            //Pages.Add(new ManufacturerViewModel("Manufacturer"));
             Manufacturer.Add(new ManufacturerViewModel("Manufacturer"));
 
             foreach (var p in Pages)
@@ -311,9 +309,12 @@ namespace PDTUtils.MVVM
             {
                 if (scStatus >= status && scStatus != 7)
                 {
+                    
                     CurrentPage.States.Running = false;
                     CurrentPage = newPage;
                     CurrentPage.States.Running = true;
+                    CurrentPage.Refresh();
+                    //if (CurrentPage.Name.Equals("Cashier"))
                 }
                 else if (status != 1 && scStatus <= 7)
                 {
@@ -330,6 +331,7 @@ namespace PDTUtils.MVVM
                     CurrentPage.States.Running = false;
                     CurrentPage = newPage;
                     CurrentPage.States.Running = true;
+                    CurrentPage.Refresh();
                 }
                 else
                 {
@@ -351,7 +353,7 @@ namespace PDTUtils.MVVM
                 wd.ShowDialog();
                 return;
             }
-
+            
             switch (newPage.Name)
             {
                 case "Cashier":
@@ -386,10 +388,10 @@ namespace PDTUtils.MVVM
             _dateTimer.Stop();
             _doorStateTimer.Stop();
             _checkYourPrivilege.Stop();
-
+            
             foreach (var p in Pages)
                 p.Cleanup();
-
+            
             foreach (var m in Manufacturer)
                 m.Cleanup();
 

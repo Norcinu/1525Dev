@@ -17,7 +17,7 @@ namespace PDTUtils.MVVM.ViewModels
             Names.Add("Door Switch");
         }
     }
-
+    
     class Advantage : ButtonConfig
     {
         public Advantage()
@@ -46,7 +46,7 @@ namespace PDTUtils.MVVM.ViewModels
             Names.Add("Start (FRONT)");
         }
     }
-
+    
     class ButtonTestViewModel : BaseViewModel
     {
         #region Private Members
@@ -56,8 +56,12 @@ namespace PDTUtils.MVVM.ViewModels
         readonly byte[] _buttonMasks = new byte[8] { 0x80, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02, 0x01 };
         readonly byte[] _lampMasks = new byte[8] { 128, 64, 32, 16, 8, 4, 2, 1 };
 
+        int _currentButton;
+        int _timerCounter;
+
         uint _keyStartState;
         uint _doorStartState;
+        uint _previousStatus;
 
         string _bannerMessage;
         string _cabinetType;
@@ -66,10 +70,7 @@ namespace PDTUtils.MVVM.ViewModels
         string _buttonResultError;
         Timer _testTimer;
         Brush _bannerBack;
-        Brush _bannerForeground;
-
-        int _currentButton;
-        int _timerCounter;
+        Brush _bannerForeground;      
 
         ButtonConfig _buttons;
 
@@ -172,6 +173,7 @@ namespace PDTUtils.MVVM.ViewModels
             _bannerMessage = "Press Start to Continue";
             _cabinetType = BoLib.getCabinetType() != 5 ? "FortuneHunterXtra" : "ADVANTAGE"; //TODO !!! Expand this out for future cabs
             _testTimer = new Timer(1000);
+            _previousStatus = BoLib.getSwitchStatus(2, 0);
 
             CurrentButton = "";
             ButtonResultSuccess = "";
@@ -195,6 +197,7 @@ namespace PDTUtils.MVVM.ViewModels
 
         void _testTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
+            bool doSpecialButtons = true;
             bool someoneSomewhere = false;
             if (_currentButton < _buttons.Names.Count)
             {
@@ -204,22 +207,74 @@ namespace PDTUtils.MVVM.ViewModels
                     status = BoLib.getSwitchStatus(2, _specialMasks[_currentButton]);
                     if (!_firstPass)
                     {
-                        CurrentButton = "Turn Refill Back";
-                        _firstPass = true;
+                        if (status != _previousStatus)
+                        {
+                            _previousStatus = status;
+                            CurrentButton = "Turn Refill Back";
+                            _firstPass = true;
+                        }
+                        else
+                        {
+                            if (_timerCounter == 0)
+                            {
+                                _currentButton++;
+                                ButtonResultError += "Refill Key\n";
+                                CurrentButton = "Hold Door Switch";
+                            }
+                        }
                     }
                     else
                     {
-                        _currentButton++;
-                        CurrentButton = "Hold Door Switch";
-                        _firstPass = false;
-                        someoneSomewhere = true;
+                        if (status != _previousStatus)
+                        {
+                            _currentButton++;
+                            CurrentButton = "Hold Door Switch";
+                            _firstPass = false;
+                            someoneSomewhere = true;
+                            ButtonResultSuccess += "Refill Key\n";
+                        }
+                        else
+                        {
+                            if (_timerCounter == 0)
+                            {
+                                _currentButton++;
+                                ButtonResultError += "Refill Key\n";
+                                CurrentButton = "Hold Door Switch";
+                            }
+                        }
                     }
                 }
                 else if (_currentButton == 1) // door
                 {
-                    someoneSomewhere = true;
-                    _currentButton++;
-                    CurrentButton = _buttons.Names[_currentButton];
+                    status = BoLib.getSwitchStatus(2, _specialMasks[_currentButton]);
+                    if (!_firstPass)
+                    {
+                        if (status != _previousStatus)
+                        {
+                            someoneSomewhere = true;
+                            CurrentButton = "Release Door Switch";
+                            _previousStatus = status;
+                            _firstPass = true;
+                        }
+                    }
+                    else
+                    {
+                        if (status != _previousStatus)
+                        {
+                            _currentButton++;
+                            CurrentButton = _buttons.Names[_currentButton];
+                            ButtonResultSuccess += "Door Switch\n";
+                        }
+                        else
+                        {
+                            if (_timerCounter == 0)
+                            {
+                                _currentButton++;
+                                CurrentButton = _buttons.Names[_currentButton];
+                                ButtonResultError += "Door Switch\n";
+                            }
+                        }
+                    }
                 }
                 else // button deck
                 {
@@ -267,7 +322,7 @@ namespace PDTUtils.MVVM.ViewModels
         {
             if (_testTimer == null)
                 _testTimer = new Timer() { Enabled = false, Interval = 5000 };
-            
+
             _testTimer.Enabled = true;
             BannerMessage = "Counter " + _timerCounter;
             ButtonResultSuccess = "";

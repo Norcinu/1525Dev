@@ -409,12 +409,22 @@ namespace PDTUtils.MVVM.ViewModels
         {
             get { return new DelegateCommand(o => DoHandPay()); }
         }
-
+        
         void DoHandPay()
         {
             var oldCaption = _caption;
             var oldMsg = _message;
-
+            
+            if (BoLib.getUtilDoorAccess())
+            {
+                _caption = "WARNING";
+                _message = "PLEASE CLOSE THE DOOR TO CONTINUE";
+                ShowMessageBox.Execute(null);
+                _caption = oldCaption;
+                _message = oldMsg;
+                return;
+            }
+            
             if (BoLib.inDemoSession())
             {
                 _caption = "WARNING";

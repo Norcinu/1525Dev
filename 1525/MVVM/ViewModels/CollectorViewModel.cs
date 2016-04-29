@@ -39,7 +39,7 @@ namespace PDTUtils.MVVM.ViewModels
             }
         }
         public ICommand TabSelectionChanged { get; set; }
-
+        
         public CollectorViewModel(string name)
             : base(name)
         {
@@ -62,6 +62,13 @@ namespace PDTUtils.MVVM.ViewModels
                 p.Cleanup();
         }
 
+        public override void Refresh()
+        {
+            base.Refresh();
+            foreach (var p in Pages)
+                p.Refresh();
+        }
+        
         void DoTabSelectionChanged(object o)
         {
             if (o == null)

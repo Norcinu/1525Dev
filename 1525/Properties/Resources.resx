@@ -282,4 +282,7 @@
   <data name="tito_host_file" xml:space="preserve">
     <value>D:\1525\hosts\tito_hosts.xml</value>
   </data>
+  <data name="boot_ini" xml:space="preserve">
+    <value>D:\machine\GAME_DATA\boot.ini</value>
+  </data>
 </root>

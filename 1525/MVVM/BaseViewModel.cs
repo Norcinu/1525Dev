@@ -54,5 +54,10 @@ namespace PDTUtils.MVVM
         {
             
         }
+
+        public virtual void Refresh()
+        {
+
+        }
     }
 }

@@ -6,3 +6,4 @@ DLLEXPORT unsigned int  getTitoProcessInState(void);
 DLLEXPORT unsigned int  getTitoHost(void);
 DLLEXPORT unsigned int  getTitoTicketPresented(void);
 DLLEXPORT void			setTitoState(int state);
+DLLEXPORT void			clearPrinterStatus(void);

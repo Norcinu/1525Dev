@@ -704,7 +704,9 @@ namespace PDTUtils.Native
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void clearCashMatchCredits();
 
-        
+        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void doReadTicketFile();
+
         /************************************************************************/
         /* General methods                                                      */
         /************************************************************************/
@@ -815,6 +817,9 @@ namespace PDTUtils.Native
 
         [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern void setTitoState(int state);
+
+        [DllImport(DLL_NAME, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void clearPrinterStatus();
 
         /************************************************************************/
         /* Cash Match + Demo methods                                            */
